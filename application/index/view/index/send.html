@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+
+
+<script src='https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js'></script>
+<script>
+// 连接服务端
+var socket = io('http://c.com:9191');
+// 触发服务端的chat message事件
+socket.emit('senmsg', '这个是消息内容...');
+// 服务端通过emit('chat message from server', $msg)触发客户端的chat message from server事件
+socket.on('senmsg from server', function(msg){
+console.log('senmsg:' + msg + ' from server');
+});
+</script>
+
+
+</html>

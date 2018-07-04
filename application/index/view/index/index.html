@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css"/>
+		<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__LAYUI__/layui.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="layui-container">
+			<div class="layui-row">
+				<div id="message" class="layui-col-sm6">
+					32132
+					
+					
+				</div>
+				<div class="layui-col-sm6">
+<form class="layui-form" action="" lay-filter="example">
+  <div class="layui-form-item">
+    <label class="layui-form-label">输入框</label>
+    <div class="layui-input-block">
+      <input name="username" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" type="text">
+    </div>
+  </div>
+ 
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">文本域</label>
+    <div class="layui-input-block">
+      <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>
+    </div>
+  </div>
+ 
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+    </div>
+  </div>
+</form>			
+
+<p id="online_box"></p>
+				</div>
+			</div>
+		</div>
+	</body>
+
+
+<script src='https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js'></script>
+<script>
+var uid = Date.parse(new Date());
+// 连接服务端
+var socket = io('http://c.com:2021');
+// 触发服务端的chat message事件
+
+socket.on('connect', function(){
+	socket.emit('login', uid);
+});	
+
+socket.emit('senmsg', '这个是消息内容...');
+// 服务端通过emit('chat message from server', $msg)触发客户端的chat message from server事件
+socket.on('senmsg from server', function(msg){
+	document.getElementById('message').innerHTML=msg;
+});
+
+ socket.on('online_box', function(online_stat){
+        $('#online_box').html(online_stat);
+    });
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+  //监听提交
+  form.on('submit(demo1)', function(data){
+	//alert(data.field.username);
+	socket.emit('senmsg', data.field);
+	return false;
+  });
+ 
+  
+  
+});
+</script>
+
+</html>
