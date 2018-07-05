@@ -3,10 +3,34 @@ namespace app\index\controller;
 use think\Controller;
 class Index extends Controller
 {
+	 protected function initialize()
+    {
+    	$this->uid=session('uid');
+    }
+	
     public function index()
     {
+    	$this->assign('uid',session('uid'));
+        if(empty($this->uid)){
+        	$this->redirect('index/login');
+        }
 		
 		return $this->fetch();
+    }
+    public function login()
+    {
+    	if($this->request->post()){
+    		$post=$this->request->post();
+    		if(isset($post['username'])){
+    			session('uid',$post['username']);
+    			$this->redirect('index/index');
+    		}
+    	}else{
+    		return $this->fetch();
+    	}
+		
+		
+		
     }
 
   	public function send(){

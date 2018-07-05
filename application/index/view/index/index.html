@@ -10,36 +10,37 @@
 	<body>
 		<div class="layui-container">
 			<div class="layui-row">
-				<div id="message" class="layui-col-sm6">
-					32132
-					
+				<div   class="layui-col-sm8">
+					<div id="message" style="margin: 10px 0;padding: 10px; overflow-y:auto ;box-shadow: 0 2px 4px #ccc;display: block;height: 400px;">
+						
+					</div>
+				</div>
+				<div class="layui-col-sm4">
+					<div id="userlist" style="margin: 10px 0;padding: 10px; overflow-y:auto ;box-shadow: 0 2px 4px #ccc;display: block;height: 400px;">
+						
+					</div>
 					
 				</div>
-				<div class="layui-col-sm6">
-<form class="layui-form" action="" lay-filter="example">
-  <div class="layui-form-item">
-    <label class="layui-form-label">输入框</label>
-    <div class="layui-input-block">
-      <input name="username" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" type="text">
-    </div>
-  </div>
- 
-  <div class="layui-form-item layui-form-text">
-    <label class="layui-form-label">文本域</label>
-    <div class="layui-input-block">
-      <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>
-    </div>
-  </div>
- 
-  <div class="layui-form-item">
-    <div class="layui-input-block">
-      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-    </div>
-  </div>
-</form>			
+				<div class="layui-col-sm12">
+					<form class="layui-form" action="" lay-filter="example">
+					  <div class="layui-form-item">
+					      <input name="username" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" type="text" value="{$uid}">
 
-<p id="online_box"></p>
+					  </div>
+					 
+					  <div class="layui-form-item layui-form-text">
+					      <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>					    
+					  </div>
+					 
+					  <div class="layui-form-item">
+					    <div class="layui-input-block">
+					      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+					    </div>
+					  </div>
+					</form>			
+					<center id="online_box"></center>
 				</div>
+				
 			</div>
 		</div>
 	</body>
@@ -47,21 +48,51 @@
 
 <script src='https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js'></script>
 <script>
-var uid = Date.parse(new Date());
+function timestampToTime(timestamp) {
+        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '-';
+        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        D = date.getDate() + ' ';
+        h = date.getHours() + ':';
+        m = date.getMinutes() + ':';
+        s = date.getSeconds();
+        return Y+M+D+h+m+s;
+    }	
+	
+var uid = "{$uid}";
 // 连接服务端
 var socket = io('http://c.com:2021');
 // 触发服务端的chat message事件
-
 socket.on('connect', function(){
 	socket.emit('login', uid);
 });	
 
-socket.emit('senmsg', '这个是消息内容...');
+
 // 服务端通过emit('chat message from server', $msg)触发客户端的chat message from server事件
 socket.on('senmsg from server', function(msg){
-	document.getElementById('message').innerHTML=msg;
-});
+	var olddata= document.getElementById('message').innerHTML;
+	var arr=eval("("+msg+")");
+	if(arr.username==uid){
+		$html="<p style='text-align:right; color:#999;padding:5px'>"+timestampToTime(arr.time)+"&nbsp;&nbsp;&nbsp;&nbsp;"+arr.username+"</p><p style='text-align:right;color:#333;padding:5px'>"+arr.desc+"</p>";				
+	}else{
+		$html="<p style='color:#999;padding:5px'>"+arr.username+"&nbsp;&nbsp;&nbsp;&nbsp;"+timestampToTime(arr.time)+"</p><p style='color:#333;padding:5px'>"+arr.desc+"</p>";		
+	}
+	document.getElementById('message').innerHTML=olddata+$html;
+	//滚动条定位在底部
+	var div = document.getElementById('message'); 
+	div.scrollTop = div.scrollHeight; 
 
+});
+ socket.on('user', function(list){
+ 	var userlist=eval("("+list+")");
+ 	var html='';
+ 	$.each(userlist,function(index,item){
+ 		html +="<p style='padding:5px'>"+index+"</p>";
+ 	});
+        $('#userlist').html(html);
+    });
+
+//用户在线数量
  socket.on('online_box', function(online_stat){
         $('#online_box').html(online_stat);
     });
@@ -71,9 +102,15 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   ,layedit = layui.layedit
   ,laydate = layui.laydate;
   //监听提交
+  layedit.build('demo');
   form.on('submit(demo1)', function(data){
 	//alert(data.field.username);
-	socket.emit('senmsg', data.field);
+	
+	var arr=data.field, time={'time':Date.parse(new Date())/1000};
+	 var temp =  $.extend(data.field, time); 
+	
+	
+	socket.emit('senmsg', temp);
 	return false;
   });
  

@@ -36,6 +36,7 @@ class Sendmsg
 		        // 将这个连接加入到uid分组，方便针对uid推送数据
 		        $socket->join($uid);
 		        $socket->uid = $uid;
+		         $socket->emit('user',json_encode($uidConnectionMap));
 		        // 更新这个socket对应页面的在线数据
 		        $socket->emit('online_box', "当前<b>{$last_online_count}</b>人在线，共打开<b>{$last_online_page_count}</b>个页面");
 		    });					
@@ -76,7 +77,11 @@ class Sendmsg
 		    Timer::add(1, function()use($io){
         global $uidConnectionMap, $last_online_count, $last_online_page_count;
         $online_count_now = count($uidConnectionMap);
+        if($online_count_now>1){
         $online_page_count_now = array_sum($uidConnectionMap);
+        }else{
+        $online_page_count_now=1;
+        }
         // 只有在客户端在线数变化了才广播，减少不必要的客户端通讯
         if($last_online_count != $online_count_now || $last_online_page_count != $online_page_count_now)
         {
