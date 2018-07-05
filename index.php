@@ -13,9 +13,7 @@
 namespace think;
 
 // 加载基础文件
-define('SITEURL','http://c.com/');
 define('APP_PATH', __DIR__ . '/application/');
-define('VENDOR_PATH', __DIR__ . '/vendor/');
 require __DIR__ . './thinkphp/base.php';
 
 // 支持事先使用静态方法设置Request对象和Config对象

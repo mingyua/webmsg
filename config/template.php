@@ -33,9 +33,9 @@ return [
     // 标签库标签结束标记
     'taglib_end'   => '}',
     'tpl_replace_string'=> [
-        '__LAYUI__'     => SITEURL.'public/layui',
-        '__JS__'     => SITEURL.'public/js',
-        '__CSS__'    => SITEURL.'public/css',
+        '__LAYUI__'     => '/public/layui',
+        '__JS__'     => '/public/js',
+        '__CSS__'    => '/public/css',
 
     ],
 ];
