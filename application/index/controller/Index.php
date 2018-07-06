@@ -1,16 +1,21 @@
 <?php
 namespace app\index\controller;
 use think\Controller;
+use think\helper\Time;
 class Index extends Controller
 {
 	 protected function initialize()
     {
     	$this->uid=session('uid');
+//		$this->view->filter(function($content){
+//      	return str_replace("\r\n",'',$content);
+//      });    	
+    	
     }
 	
     public function index()
     {
-    	$this->assign('uid',session('uid'));
+   	$this->assign('uid',session('uid'));
         if(empty($this->uid)){
         	$this->redirect('index/login');
         }

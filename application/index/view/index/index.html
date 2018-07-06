@@ -4,12 +4,14 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/style.css"/>
+
 		<script src="__JS__/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="__LAYUI__/layui.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
 		<div class="layui-container">
-			<div class="layui-row">
+			<div id="Smohan_FaceBox" class="layui-row">
 				<div   class="layui-col-sm8">
 					<div id="message" style="margin: 10px 0;padding: 10px; overflow-y:auto ;box-shadow: 0 2px 4px #ccc;display: block;height: 400px;">
 						
@@ -23,21 +25,23 @@
 				</div>
 				<div class="layui-col-sm12">
 					<form class="layui-form" action="" lay-filter="example">
-					  <div class="layui-form-item">
+					  <div class="layui-form-item layui-hide">
 					      <input name="username" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" type="text" value="{$uid}">
-
 					  </div>
 					 
 					  <div class="layui-form-item layui-form-text">
-					      <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>					    
+					      <textarea id="content" placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>					    
 					  </div>
-					 
 					  <div class="layui-form-item">
-					    <div class="layui-input-block">
-					      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-					    </div>
+					  	<div class="layui-col-sm10">
+					  		<div id="emoji" class="layui-icon layui-icon-face-smile-b c-999  f-30"></div>
+					  	</div>
+					  	<div class="layui-col-sm2 t-r">
+					  		<button id="send" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+					  	</div>
+					  	
 					  </div>
-					</form>			
+					</form>						
 					<center id="online_box"></center>
 				</div>
 				
@@ -45,9 +49,19 @@
 		</div>
 	</body>
 
-
+<script src="__JS__/jquery.emoji.js" type="text/javascript" charset="utf-8"></script>
 <script src='https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js'></script>
 <script>
+//表情格式替换
+function replace_em(str){
+	str = str.replace(/\</g,'&lt;');
+	str = str.replace(/\>/g,'&gt;');
+	str = str.replace(/\n/g,'<br/>');
+	str = str.replace(/\[qq_([0-9]*)\]/g,"<img src='__IMAGES__/face/emoji1/$1.gif' style='max-width:200px;max-height:200px' />");
+	str = str.replace(/\[em_([0-9]*)\]/g,"<img src='__IMAGES__/face/emoji2/$1.png'  style='max-width:200px;max-height:200px'/>");
+	str = str.replace(/\[other_([0-9]*)\]/g,"<img src='__IMAGES__/face/emoji/$1.png' style='max-width:200px;max-height:200px'/>");
+	return str;		
+}
 function timestampToTime(timestamp) {
         var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
         Y = date.getFullYear() + '-';
@@ -102,14 +116,42 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   ,layedit = layui.layedit
   ,laydate = layui.laydate;
   //监听提交
-  layedit.build('demo');
+
+	$("#emoji").emoji({content_el:"#content",
+		list:[
+			{
+				name:"QQ表情",
+				code:"qq_",
+				path:"__IMAGES__/face/emoji1/",
+				suffix:".gif",
+				max_number:132
+			},
+			{
+				name:"emoji",
+				code:"em_",
+				path:"__IMAGES__/face/emoji2/",
+				suffix:".png",
+				max_number:65
+				}
+			,
+				{
+					name:"其他",
+					code:"other_",
+					path:"__IMAGES__/face/emoji/",
+					suffix:".png",
+					max_number:45
+					}
+			]
+		});
+
+
   form.on('submit(demo1)', function(data){
-	//alert(data.field.username);
 	
 	var arr=data.field, time={'time':Date.parse(new Date())/1000};
-	 var temp =  $.extend(data.field, time); 
-	
-	
+	var desc={'desc':replace_em(arr.desc)};
+	var user={'username':arr.username};
+	var temp =  $.extend(user, desc); 	
+	 temp =  $.extend(temp, time);
 	socket.emit('senmsg', temp);
 	return false;
   });
