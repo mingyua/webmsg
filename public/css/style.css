@@ -16,6 +16,8 @@
 	border: 1px solid #ccc;
 	z-index: 9998;
 	background: #fff;
+	max-height: 300px;
+	overflow: auto;
 	border-radius: 5px;
 }
 
@@ -59,21 +61,21 @@ em.tip2 {
 }
 
 .emoji-box>ul.emoji-ul {
-	width: calc(100% - 10);
-	margin: 10px;
+	width: 100%;
+	
 	display: block;
-	clear: both;
+	clear: both;	
 }
 
 .emoji-box>ul.emoji-ul>li.emoji-li {
-	border: 1px solid #fff;
+	border: 1px solid #ccc;
 	list-style: none;
 	float: left;
 	padding: 2px;
-	height: 24px;
-	margin-bottom: 5px;
+
 }
 
 .emoji-box>ul.emoji-ul>li.emoji-li:HOVER {
-	border: 1px solid blue;
+	border: 1px solid #FF5722;
+	
 }

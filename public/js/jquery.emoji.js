@@ -6,12 +6,14 @@
 				name: "QQ表情",
 				code: "qq_",
 				path: "../images/face/emoji/",
+				maxwidth: "24px",
 				suffix: ".gif",
 				max_number: 25
 			}, {
 				name: "emoji表情",
 				code: "em_",
 				path: "../images/face/emoji2/",
+				maxwidth: "24px",
 				suffix: ".png",
 				max_number: 22
 			}]
@@ -33,7 +35,7 @@
 					$("ul.emoji-ul").hide();
 					$("#" + forid).show();
 					$(".emoji-box>.emoji-btn-box>span").css("color", "#ccc");
-					$(this).css("color", "blue");
+					$(this).css("color", "#006666");
 					return false;
 				});
 				$(this).parent().find(".emoji-li").click(function() {
@@ -43,7 +45,7 @@
 					return false;
 				});
 				$("ul.emoji-ul").hide();
-				$(".emoji-box>.emoji-btn-box>span").first().css("color", "blue")
+				$(".emoji-box>.emoji-btn-box>span").first().css("color", "#006666")
 				$("#" + list[0].code + "emoji").show();
 				var offset = $(this).position();
 				$(".emoji-box").css("top", offset.top + $(this).height());
@@ -85,8 +87,10 @@
 		
 		var el = "";
 		for(var i = 1; i <= obj.max_number; i++) {
-			el = el + "<li class='emoji-li' alt='[" + obj.code + i + "]'><img src='" + obj.path + i + obj.suffix + "' style='max-width:24px;'/></li>";
+			el = el + "<li class='emoji-li' alt='[" + obj.code + i + "]'><img src='" + obj.path + i + obj.suffix + "' style='width:"+obj.maxwidth+";height:"+obj.maxwidth+";'/></li>";
 		}
 		return "<ul class='emoji-ul' id='" + obj.code + "emoji'>" + el + "</ul>";
 	}
+	
+	
 })(jQuery);
