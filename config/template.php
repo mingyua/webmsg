@@ -36,6 +36,7 @@ return [
         '__LAYUI__'     => '/public/layui',
         '__JS__'     => '/public/js',
         '__CSS__'    => '/public/css',
+        '__IMAGES__'    => '/public/images',
 
     ],
 ];
