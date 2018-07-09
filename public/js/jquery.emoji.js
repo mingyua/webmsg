@@ -48,12 +48,13 @@
 				$(".emoji-box>.emoji-btn-box>span").first().css("color", "#006666")
 				$("#" + list[0].code + "emoji").show();
 				var offset = $(this).position();
-				$(".emoji-box").css("top", offset.top + $(this).height());
-				$(".emoji-box").css("left", offset.left);
-				$(this).parent().find("em.tip").css("top", offset.top + $(this).height() - 20)
-				$(this).parent().find("em.tip").css("left", offset.left + 10)
-				$(this).parent().find("em.tip2").css("top", offset.top + $(this).height() - 19)
-				$(this).parent().find("em.tip2").css("left", offset.left + 10)
+								
+				$(".emoji-box").css("bottom", offset.top + $(this).height());
+				$(".emoji-box").css("left",  offset.right );
+				$(this).parent().find("em.tip").css("bottom", offset.top + $(this).height() + 20)
+				$(this).parent().find("em.tip").css("left", offset.right + 10)
+				$(this).parent().find("em.tip2").css("bottom", offset.top + $(this).height() + 19)
+				$(this).parent().find("em.tip2").css("left", offset.right + 10)
 			} else {
 				$(".emoji-box").hide();
 				$("em.tip").hide();

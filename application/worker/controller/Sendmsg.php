@@ -55,9 +55,10 @@ class Sendmsg
 		    });
 			
 		  // 定义chat message事件回调函数		  
-			  $socket->on('senmsg', function($msg)use($io){
+			  $socket->on('senmsg', function($msg)use($io,$socket){
 			  	
 			    // 触发所有客户端定义的chat message from server事件
+			    $socket->broadcast->emit('tip', '你有新消息，请注意查收！');
 			    $io->emit('senmsg from server', json_encode($msg));
 			  });
 		});
@@ -75,20 +76,20 @@ class Sendmsg
 		    };
 		    $inner_http_worker->listen();
 		    Timer::add(1, function()use($io){
-        global $uidConnectionMap, $last_online_count, $last_online_page_count;
-        $online_count_now = count($uidConnectionMap);
-        if($online_count_now>1){
-        $online_page_count_now = array_sum($uidConnectionMap);
-        }else{
-        $online_page_count_now=1;
-        }
-        // 只有在客户端在线数变化了才广播，减少不必要的客户端通讯
-        if($last_online_count != $online_count_now || $last_online_page_count != $online_page_count_now)
-        {
-            $io->emit('online_box', "当前<b>{$online_count_now}</b>人在线，共打开<b>{$online_page_count_now}</b>个页面");
-            $last_online_count = $online_count_now;
-            $last_online_page_count = $online_page_count_now;
-        }
+	        global $uidConnectionMap, $last_online_count, $last_online_page_count;
+	        $online_count_now = count($uidConnectionMap);
+	        if($online_count_now>1){
+	        $online_page_count_now = array_sum($uidConnectionMap);
+	        }else{
+	        $online_page_count_now=1;
+	        }
+	        // 只有在客户端在线数变化了才广播，减少不必要的客户端通讯
+	        if($last_online_count != $online_count_now || $last_online_page_count != $online_page_count_now)
+	        {
+	            $io->emit('online_box', "当前<b>{$online_count_now}</b>人在线，共打开<b>{$online_page_count_now}</b>个页面");
+	            $last_online_count = $online_count_now;
+	            $last_online_page_count = $online_page_count_now;
+	        }
 		    });
 
 		});

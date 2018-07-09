@@ -8,17 +8,18 @@
 .c-999 a:hover,a.c-999:hover{color:#999}
 .pull-left{float: left;}
 .pull-right{float: right;}
-#emoji{height: 44px;padding-left: 8px;}
+#emoji{height: 44px;padding-left: 8px;position: relative;}
 .emoji-box {
 	overflow: hidden;
-	width: 80%;
+	width: 400px;
 	position: absolute;
 	border: 1px solid #ccc;
 	z-index: 9998;
 	background: #fff;
 	max-height: 300px;
 	overflow: auto;
-	border-radius: 5px;
+	border-radius: 5px;	
+	right: 0;
 }
 
 em.tip {
@@ -41,6 +42,7 @@ em.tip2 {
 	border-color: transparent transparent #fff transparent;
 	position: absolute;
 	z-index: 99999;
+	
 }
 
 .emoji-box>.emoji-btn-box {
@@ -61,8 +63,7 @@ em.tip2 {
 }
 
 .emoji-box>ul.emoji-ul {
-	width: 100%;
-	
+	width: 100%;	
 	display: block;
 	clear: both;	
 }
@@ -79,3 +80,82 @@ em.tip2 {
 	border: 1px solid #FF5722;
 	
 }
+
+
+.talkbox{margin: 10px 0;padding: 10px; overflow-x:hidden ;overflow-y:auto ;box-shadow: 0 2px 4px #ccc;display: block;height: 400px;background: url(../images/bg.png) center top no-repeat;background-size: 100% 100%;}
+.talktitle{clear:both;display:block; color:#999;}
+.talkcontent{clear:both;display:block; color:#333;padding:5px;position: relative; }
+.rightimg{padding-right: 60px;display: block;}
+.leftimg{padding-left: 60px;display: block;}
+.avatar{border-radius: 50%;width: 40px;height: 40px;position: absolute;}
+.left-10{left:0px}
+.right-10{right: 0px;}
+
+.talkright{
+	clear: both;
+	display:inline-block;
+	padding:10px;
+    border-radius: 4px;
+    position: relative;
+	background:#FFF;
+	text-align: left;
+	float: right;
+	word-break: break-all;word-wrap: break-word;
+	margin-bottom:10px;
+    
+}
+.talkright:after{
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-color: #ccc transparent transparent;
+    border-width: 8px;
+    top: 10px;
+    right:-16px;
+	transform: rotate(-90deg);
+}
+.talkright:before{
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-color: white transparent transparent;
+    border-width: 8px;
+    top: 10px;
+    right:-16px;
+    z-index: 9;
+	transform: rotate(-90deg);
+}
+.talkleft{
+	clear: both;
+	display:inline-block;
+	padding:10px;
+    border-radius: 4px;
+    position: relative;
+	background:#FFF;
+    text-align: left;
+    float: left;
+    word-break: break-all;word-wrap: break-word;
+    margin-bottom:10px;
+}
+.talkleft:after{
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-color: white transparent transparent;
+    border-width: 8px;
+    top: 10px;
+    left:-16px;
+	transform: rotate(-270deg);
+}
+.talkleft:before{
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-color: #E8E8E8 transparent transparent;
+    border-width: 8px;
+    top: 10px;
+    left:-16px;
+    z-index: 9;
+	transform: rotate(-270deg);
+}
+
