@@ -30,18 +30,14 @@
 					  </div>
 					 
 					  <div class="layui-form-item layui-form-text">
-						<div class="layui-inline">					     
-					      <div class="layui-input-inline"  style="width: 240px;">
-					        <input id="content" lay-verify="required" placeholder="请输入内容"  name="desc" class="layui-input" type="tel">
-					      </div>
+						<div class="pull-left" style="width:calc(100% - 120px) ;">					     					      
+					        <input id="content" lay-verify="required" placeholder="请输入内容"  name="desc" class="layui-input" type="tel">					     
 					    </div>					  	
-						<div class="layui-inline pull-right">					     
-					      <div class="layui-input-inline">
-					        <button id="send" class="layui-btn" lay-submit="" lay-filter="demo1">发送</button>
-					      </div>
+						<div class="pull-right">					     					      
+					        <button id="send" class="layui-btn" lay-submit="" lay-filter="demo1">发送</button>					     
 					    </div>					  	
-						<div class="layui-inline  pull-right">					     
-						     <div id="emoji" class="layui-icon layui-icon-face-smile-b c-999  f-30"></div>
+						<div class="pull-right">					     
+						     <div id="emoji" class="layui-icon layui-icon-face-smile-b c-999  f-30 mt-2 mr-10"></div>
 					    </div>					  	
 					  </div>
 					</form>						
@@ -175,7 +171,12 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 
 
   form.on('submit(demo1)', function(data){
-	
+	$(".emoji-box").hide();
+	$("em.tip").hide();
+	$("em.tip2").hide();
+	$(".emoji-box").remove();
+	$("em.tip").remove();
+	$("em.tip2").remove();
 	var arr=data.field, time={'time':Date.parse(new Date())/1000};
 	var desc={'desc':replace_em(arr.desc)};
 	var user={'username':arr.username};

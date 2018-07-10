@@ -28,7 +28,7 @@
 				for(var i = 0; i < list.length; i++) {
 					emojilist = emojilist + createEmojiList(list[i]);
 				}
-				var total = "<div class='emoji-box'>" + btnlist + emojilist + "</div><em class='tip'></em><em class='tip2'></em>";
+				var total = "<div class='emoji-box'>" + btnlist + emojilist + "<div class=' layui-clear'>&nbsp;</div></div><em class='tip'></em><em class='tip2'></em>";
 				$(this).parent().append(total);
 				$(this).parent().find(".emoji-btn-box span").click(function() {
 					var forid = $(this).attr("for");
@@ -48,13 +48,14 @@
 				$(".emoji-box>.emoji-btn-box>span").first().css("color", "#006666")
 				$("#" + list[0].code + "emoji").show();
 				var offset = $(this).position();
-								
-				$(".emoji-box").css("bottom", offset.top + $(this).height());
-				$(".emoji-box").css("left",  offset.right );
-				$(this).parent().find("em.tip").css("bottom", offset.top + $(this).height() + 20)
-				$(this).parent().find("em.tip").css("left", offset.right + 10)
-				$(this).parent().find("em.tip2").css("bottom", offset.top + $(this).height() + 19)
-				$(this).parent().find("em.tip2").css("left", offset.right + 10)
+				//alert(JSON.stringify(offset));		
+				$(".emoji-box").css("width",$(window).width() - 20);
+				$(".emoji-box").css("bottom", 50 + $(this).height());
+				$(".emoji-box").css("left", 0 );
+				$(this).parent().find("em.tip").css("bottom", offset.top + $(this).height() + 30)
+				$(this).parent().find("em.tip").css("right", 80)
+				$(this).parent().find("em.tip2").css("bottom", offset.top + $(this).height() + 31)
+				$(this).parent().find("em.tip2").css("right",  80)
 			} else {
 				$(".emoji-box").hide();
 				$("em.tip").hide();
