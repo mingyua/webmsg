@@ -58,7 +58,7 @@ function replace_em(str){
 	str = str.replace(/\>/g,'&gt;');
 	str = str.replace(/\n/g,'<br/>');
 	str = str.replace(/\[qq_([0-9]*)\]/g,"<img src='__IMAGES__/face/emoji1/$1.gif' style='max-width:200px;max-height:200px' />");
-	str = str.replace(/\[em_([0-9]*)\]/g,"<img src='__IMAGES__/face/emoji2/$1.png'  style='max-width:200px;max-height:200px'/>");
+	str = str.replace(/\[em_([0-9]*)\]/g,"<img src='__IMAGES__/face/emoji2/$1.gif'  style='max-width:200px;max-height:200px'/>");
 	str = str.replace(/\[other_([0-9]*)\]/g,"<img src='__IMAGES__/face/emoji/$1.gif' style='max-width:200px;max-height:200px'/>");
 	return str;		
 }
@@ -154,8 +154,8 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 				code:"em_",
 				path:"__IMAGES__/face/emoji2/",
 				maxwidth:"24px",
-				suffix:".png",
-				max_number:65
+				suffix:".gif",
+				max_number:99
 				}
 			,
 				{

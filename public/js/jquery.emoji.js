@@ -14,7 +14,7 @@
 				code: "em_",
 				path: "../images/face/emoji2/",
 				maxwidth: "24px",
-				suffix: ".png",
+				suffix: ".gif",
 				max_number: 22
 			}]
 		};
@@ -89,7 +89,7 @@
 		
 		var el = "";
 		for(var i = 1; i <= obj.max_number; i++) {
-			el = el + "<li class='emoji-li' alt='[" + obj.code + i + "]'><img src='" + obj.path + i + obj.suffix + "' style='width:"+obj.maxwidth+";height:"+obj.maxwidth+";'/></li>";
+			el = el + "<li class='emoji-li' alt='[" + obj.code + i + "]'><img src='" + obj.path + i + obj.suffix + "' '/></li>";
 		}
 		return "<ul class='emoji-ul' id='" + obj.code + "emoji'>" + el + "</ul>";
 	}
