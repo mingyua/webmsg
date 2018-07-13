@@ -1,4 +1,4 @@
-html,body{background: #F2F2F2;}
+html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 .t-l{text-align: left;}
 .t-c{text-align: center;}
 .t-r{text-align: right;}
@@ -27,12 +27,12 @@ html,body{background: #F2F2F2;}
 .lay-left{display:inline-block; width: 200px;height: 100% !important;position: fixed;left: 0;top: 0;background: #3A3D49;color: #FFF;}
 .lay-left .laylogo{line-height: 50px;background: #009F95;text-align: center;}
 .lay-left a{cursor: pointer;}
-.lay-right{display:inline-block;width: calc(100% - 200px);height: 100% !important;position: fixed;right: 0;top: 0;margin-bottom: 55px;}
-.lay-header{position: fixed; background: #FFFFFF;width: 100%;height: 50px;line-break: 50px;box-shadow: 0 1px 2px #E8E8E8;z-index: 99999;}
+.lay-right{display:inline-block;width: calc(100% - 200px);height:100%;position: fixed;right: 0;top: 0;overflow-y: hidden;padding: 0;}
+.lay-header{position: fixed; background: #FFFFFF;width: 100%;height: 50px;line-height: 50px;box-shadow: 0 1px 2px #E8E8E8;z-index: 99999;}
 .lay-header ul{width: auto;padding-left:20px ;}
 .lay-header ul li{width: auto;float: left;line-height: 50px;padding: 0 15px;}
 .lay-header ul li:hover{background: #F2F2F2;}
-#lay-body{display: block;width: calc(100% - 15px); margin:50px 0px 15px 15px;padding: 15px 15px 0 0; position: relative;z-index: 1;overflow-y: auto;height: 100% !important;}
+#lay-body{display: block;width: 100%; margin:50px 0 15px 0;padding: 15px 0; position: relative;z-index: 1;overflow-x: hidden;height: calc(100% - 60px) !important;}
 .lay-body{display: block;width:100%;height: auto;background: #FFFFFF;box-shadow: 0 1px 2px #E8E8E8;}
 .lay-breadcrumb{position: relative; display: block;clear: both; height: 48px;background: #FFF;line-height: 48px;box-shadow: 0 2px 4px #E8E8E8;padding-left: 20px;top:50px}
 .lay-breadcrumb a,.lay-breadcrumb span{padding: 0 5px;color: #999;}
@@ -46,3 +46,5 @@ html,body{background: #F2F2F2;}
 #fastico ul li{padding: 10px 0;}
 #fastico i{font-size:30px ;display: block;padding: 20px 0;}
 #fastico i:hover{background: #E8E8E8;}
+
+.layui-layer-adminRight{display: none;position: absolute;z-index: 999999; float: right;right:0px; top:50px!important;bottom:0;border-radius:0;overflow:auto;background: #FFF; box-shadow: 0 2px 4px #ccc; width: 260px;height: calc(100% - 50px) !important;}

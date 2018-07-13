@@ -1,3 +1,4 @@
+<div class="layui-fluid">
 
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md8">
@@ -103,7 +104,7 @@
           <div class="layui-card">
             <div class="layui-card-header">数据概览</div>
             <div class="layui-card-body">
-              
+              <div id="datainfo"></div>
              
             </div>
           </div>
@@ -113,16 +114,22 @@
     </div>
     
     <div class="layui-col-md4">
-    	1213
+    		<div class="layui-card">
+    			<div class="layui-card-header">版本信息</div>
+    			<div class="layui-card-body">
+    				
+    				
+    			</div>
+    			
+    		</div>
     </div>
 
   </div>
 <div class="layui-clear" style="height: 60px;">&nbsp;</div>
+</div>
 <script>
-	layui.use(['element', 'layer','carousel'], function() {
-		var element = layui.element,
-			layer = layui.layer,
-			carousel = layui.carousel,
+layui.use(['carousel'], function() {
+		var carousel = layui.carousel,
 			winw = $(window).width(); //导航的hover效果、二级菜单等功能，需要依赖element模块	  
    carousel.render({
     elem: '#layadmin-carousel'
@@ -131,5 +138,11 @@
     ,arrow: 'none' //始终显示箭头
     ,autoplay:false
   });
-   });
+
+     
+  
+  
+});
+  
+   
 </script>
