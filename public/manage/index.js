@@ -1,9 +1,8 @@
-layui.define(['element', 'layer', 'form'], function(e) {
+layui.define(['element', 'layer', 'form','upload'], function(e) {
 	var a = layui.layer,
-		
+		$ = layui.jquery,
 		form = layui.form,
-		
-
+		upload = layui.upload,
 		element = layui.element,
 		w = $(window).width();
 	//console.log(i.base);
@@ -50,6 +49,36 @@ layui.define(['element', 'layer', 'form'], function(e) {
 		}
 	});
 
+	form.on('submit(submit)',function(data){
+		var _this=$(this),url=$(this).attr('data-url');
+		$.ajax({
+			type:'',
+			url:url,
+			data:data.field,
+			beforeSend: function () {			        
+			   _this.attr({ disabled: "disabled" }).text('正在提交数据...');
+			},success:function(res){
+				if(res.status==1){
+					layer.msg(res.msg,{icon:res.icons,time:2000},function(item){
+						if((res.url).length>0){
+							window.location.href=res.url;
+						}
+					});
+				}else{
+					layer.msg(res.msg,{icon:res.icons});					
+				}
+				
+			},complete: function () {
+		       _this.removeAttr("disabled").text('确认提交');
+		    },error:function(){
+				layer.msg('网络错误，请重试！',{icon:5});	
+			}
+		});
+		//layer.msg(JSON.stringify(url));
+	});
+
+
+
 	$('#menuicon').click(function(elem) {
 		var a = $(this),
 			h = $(".lay-left").is(":hidden"),
@@ -76,7 +105,7 @@ layui.define(['element', 'layer', 'form'], function(e) {
 	});
 	
 	$('#webinfo').click(function(){
-		$('.layui-layer-adminRight').toggle(50);
+		$('.layui-layer-adminRight').toggle("fast");
 	});
 	//输出test接口
 	e('index', obj);

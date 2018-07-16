@@ -15,20 +15,14 @@
 				<h2 class="laylogo">mingyu</h2>
 				<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="menulist" style="margin-right: 10px;">
 				  <li class="layui-nav-item layui-nav-itemed">
-				    <a href="javascript:;"><i class="layui-icon layui-icon-home mr-10"></i> 主页</a>
-				    <dl class="layui-nav-child">
-				      <dd><a data-url="{:URL('index/a')}">选项一</a></dd>
-				      <dd><a data-url="{:URL('index/create')}">选项二</a></dd>
-				      <dd><a data-url="c.html">选项三</a></dd>
-				      <dd><a data-url="d.html">跳转项</a></dd>
-				    </dl>
+				    <a data-url="{:URL('index/center')}"><i class="layui-icon layui-icon-console mr-10"></i>控制台</a>
 				  </li>
 				  <li class="layui-nav-item">
-				    <a href="javascript:;">解决方案</a>
+				    <a href="javascript:;"><i class="layui-icon layui-icon-set mr-10"></i>设置</a>
 				    <dl class="layui-nav-child">
-				      <dd><a href="">移动模块</a></dd>
-				      <dd><a href="">后台模版</a></dd>
-				      <dd><a href="">电商平台</a></dd>
+				      <dd><a data-url="{:URL('set/index')}">系统设置</a></dd>
+				      <dd><a data-url="{:URL('index/create')}">我的设置</a></dd>
+				      <dd><a data-url="{:URL('set/index')}">table</a></dd>
 				    </dl>
 				  </li>
 				  <li class="layui-nav-item"><a href="">云市场</a></li>
