@@ -6,7 +6,12 @@
         <div class="layui-card-body" pad15="">
           
           <div class="layui-form" wid100="" lay-filter="">
-				{$list|fieldhtml}
+						{$list|fieldhtml}
+					  <div class="layui-form-item">
+					    <div class="layui-input-block">
+					      <a class="layui-btn" lay-submit="" lay-filter="submit" data-url="{:URL('set/index')}">确认提交</a>
+					    </div>
+					  </div>						
           </div>
           
         </div>
@@ -27,10 +32,11 @@
 		      layer.load(0);
 		    }
 		    ,done: function(res, index, upload){
-		      var item = this.item;
+		      var item = this.item;		      
 		      item.html('<img src="__ROOT__'+res.data+'" height="100px">');
-		     layer.closeAll();
-		      console.log(item); //获取当前触发上传的元素，layui 2.1.0 新增
+		      item.next('input').next('input').val(res.data);
+		      layer.closeAll();
+		      console.log(item.next('input').next('input')); //获取当前触发上传的元素，layui 2.1.0 新增
 		    }
 		 });
 		

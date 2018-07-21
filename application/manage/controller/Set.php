@@ -14,9 +14,28 @@ class Set extends Controller
      */
     public function index()
     {
-    	$list=model('Config')->where('id','gt',0)->select();
-    	$this->assign('list',$list);
-        return view();
+    	if($this->request->post()){
+    		$post=$this->request->post();
+    		$list=[];
+    		$i=0;
+    		foreach($post as $k=>$v){
+    			$list[$i]['key']=$k;
+    			$list[$i]['value']=$v;
+    			$i++;
+    		}
+    		$res=model('Config')->isUpdate(true)->saveAll($list);
+    		if(false===$res){
+    			$back=['msg'=>'修改失败！','status'=>2,'icon'=>2,'url'=>''];
+    		}else{
+    			$back=['msg'=>'修改成功！','status'=>1,'icon'=>6,'url'=>''];
+    		}
+    		return $back;
+    	}else{
+	    	$list=model('Config')->where('id','gt',0)->select();
+	    	$this->assign('list',$list);
+	        return view();
+	    		
+    	}
         //
     }
 
@@ -84,5 +103,9 @@ class Set extends Controller
     public function delete($id)
     {
         //
+    }
+    public function table()
+    {
+        return view();
     }
 }

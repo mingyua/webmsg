@@ -5,7 +5,7 @@ namespace app\manage\controller;
 use think\Controller;
 use think\Request;
 
-class index extends Controller
+class Article extends Controller
 {
     /**
      * 显示资源列表
@@ -14,21 +14,12 @@ class index extends Controller
      */
     public function index()
     {
-    	
-    	$map[] = ['status','=',1];
-        $menu=db('menu')->where($map)->order('sort ASC')->select();
-        $list=getchildren($menu,'0');
-        $this->assign('menulist',$list);  
-        return $this->fetch();
-    }
-    public function center()
-    {      
-    	$this->assign('title','我是测试');  
-        return view();
-    }
-    public function a()
-    {      
-    	$this->assign('title','我是测试');  
+    	$map[]=['temp','neq',1];
+    	$arr=db('cate')->where($map)->select();
+    	$id=getchildrenId($arr,input('cid'));
+    	///dump($id);
+    	$this->assign('cid',input('cid'));
+    	$this->assign('pid',input('pid'));
         return view();
     }
 
@@ -37,9 +28,15 @@ class index extends Controller
      *
      * @return \think\Response
      */
-    public function create()
+    public function articlelist($cid)
     {
-        return view();
+    	
+    	$map[]=['temp','neq',1];
+    	$arr=db('cate')->where($map)->select();
+    	$id=getchildrenId($arr,$cid);
+        $list=db('article')->whereIn('cateid',$id)->select();        
+        $articlelist=['code'=>0,'msg'=>'','count'=>count($list),'data'=>$list];
+        echo json_encode($articlelist);        
     }
 
     /**
@@ -70,9 +67,9 @@ class index extends Controller
      * @param  int  $id
      * @return \think\Response
      */
-    public function edit($id)
+    public function add($cid)
     {
-        //
+       return view();
     }
 
     /**

@@ -50,8 +50,10 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 .layui-layer-adminRight{display: none;position: absolute;z-index: 999999; float: right;right:0px; top:50px!important;bottom:0;border-radius:0;overflow:auto;background: #FFF; box-shadow: 0 2px 4px #ccc; width: 260px;height: calc(100% - 50px) !important;}
 
 .layui-layer-diy .layui-layer-title{background:#3A3D49;color:#FFFFFF;padding: 5px 0 5px 20px;}
-.layui-layer-diy a.layui-layer-ico.layui-layer-close.layui-layer-close1{color: #FFF;}
+.layui-layer-diy .layui-layer-ico{background: url(./images/icon.png);}
+.layui-layer-diy .layui-layer-setwin .layui-layer-close1{background-position: 0px -40px;}
 .layui-table-page{text-align: center;}
 
 
-.uploadbg{height: 100px;max-width: 400px;overflow: hidden;display: inline-block;float: left;background: url(./images/upload.png) center center no-repeat;vertical-align: middle;line-height: 100px;}
+.uploadbg{height: 100px;max-width: 400px;min-width:100px;overflow: hidden;display: inline-block;float: left;background: url(./images/upload.png) center center no-repeat;vertical-align: middle;line-height: 100px;margin-right: 30px;}
+

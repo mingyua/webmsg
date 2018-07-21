@@ -14,19 +14,18 @@
 		<div class="lay-left">
 				<h2 class="laylogo">mingyu</h2>
 				<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="menulist" style="margin-right: 10px;">
-				  <li class="layui-nav-item layui-nav-itemed">
-				    <a data-url="{:URL('index/center')}"><i class="layui-icon layui-icon-console mr-10"></i>控制台</a>
-				  </li>
+					{volist name="menulist" id="v"}
 				  <li class="layui-nav-item">
-				    <a href="javascript:;"><i class="layui-icon layui-icon-set mr-10"></i>设置</a>
-				    <dl class="layui-nav-child">
-				      <dd><a data-url="{:URL('set/index')}">系统设置</a></dd>
-				      <dd><a data-url="{:URL('index/create')}">我的设置</a></dd>
-				      <dd><a data-url="{:URL('set/index')}">table</a></dd>
-				    </dl>
+				    <a data-url="{$v.url}"><i class="layui-icon {$v.icon} mr-10"></i>{$v.name}</a>
+				    {notempty name="v.children"}
+				    	<dl class="layui-nav-child">
+				    	{volist name="v.children" id="k"}
+				    	<dd><a data-url="{$k.url}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$k.name}</a></dd>
+				    	{/volist}
+				    	</dl>
+				    {/notempty}
 				  </li>
-				  <li class="layui-nav-item"><a href="">云市场</a></li>
-				  <li class="layui-nav-item"><a href="">社区</a></li>
+				  {/volist}
 				</ul>
 		</div>
 		<div class="lay-right">
@@ -65,15 +64,12 @@
 		  centerurl:"{:URL('index/center')}"
 		}).extend({ 
 		  index: 'index',
-		  nicescroll: 'lib/nicescroll',		 
-		});
-  	
+		  nicescroll: 'nicescroll',	
+		});  	
   </script>
   
 <script>layui.use(['index','nicescroll'], function() {
-	var index = layui.index,		
-		winw = $(window).width(),
-		centerurl = layui.cache.centerurl;
+	var index = layui.index,centerurl = layui.cache.centerurl;
 		index.reloadurl(centerurl);
 		index.screenw();
 	 $("#lay-body").niceScroll({
