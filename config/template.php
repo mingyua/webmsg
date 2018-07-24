@@ -33,6 +33,7 @@ return [
     // 标签库标签结束标记
     'taglib_end'   => '}',
     'tpl_replace_string'=> [
+    	'__SITEURL__'=>'http://c.com/',
         '__ROOT__'     => '/',
         '__LAYUI__'     => '/public/layui',
         '__JS__'     => '/public/js',
