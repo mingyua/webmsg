@@ -56,6 +56,8 @@ function menuTree($arr,$pid=0,$level=0,$html="&nbsp;&nbsp;&nbsp;&nbsp;"){
 			}else{
 				$v['catename']=$flg."└".$v['name'];
 			}
+			$v['level']=$level;
+			
 			$Tree[]=$v;
 			menuTree($arr,$v['id'],$level+1,$html);
 		
@@ -103,6 +105,14 @@ function getchildrenId($arr,$id){
 	
 	return $res;
 	
+}
+
+/*
+ * 字符重复次数
+ */
+function strrpt($str,$count){
+	$data=str_repeat($str,$count);
+	return $data;
 }
 
 

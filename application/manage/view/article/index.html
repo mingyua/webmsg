@@ -10,6 +10,9 @@
 								
 								<select name="cateid">
 									<option value="">请选择分类</option>
+									{volist name="cate" id="v"}
+									<option value="{$v.id}">{:strrpt('└',$v.level)}{$v.name}</option>
+									{/volist}
 								</select>									
 								
 							</div>

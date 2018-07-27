@@ -16,8 +16,11 @@ class Article extends Controller
     {
     	$map[]=['temp','neq',1];
     	$arr=db('cate')->where($map)->select();
-    	$id=getchildrenId($arr,input('cid'));
-    	///dump($id);
+    	//$id=getchildrenId($arr,input('cid'));
+    	
+    	$cate=menuTree($arr,'0');
+    	//dump($cate);
+    	$this->assign('cate',$cate);
     	$this->assign('cid',input('cid'));
     	$this->assign('pid',input('pid'));
         return view();
