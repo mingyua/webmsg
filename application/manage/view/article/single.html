@@ -1,0 +1,17 @@
+
+<div class="layui-fluid">
+	<div id="singlepage" class="layui-row layui-col-space15">
+		{volist name="singlelist" id="v"}
+		<div class="layui-col-md2 ">
+			<div class="boxshadow  pb-10">
+				<a lay-href="{:URL('article/add',array('cid'=>$v.id))}" class="t-c">
+					<p class="imgbox"><img src="__ROOT__{$v.cateart.thumb}"/></p>
+					<p class="title">{$v.name}</p>
+				</a>
+			</div>			
+		</div>
+		{/volist}
+	</div>
+	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
+</div>
+

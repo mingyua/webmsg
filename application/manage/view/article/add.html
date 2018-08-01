@@ -5,31 +5,36 @@
 			<div class="layui-card">
 				<div class="layui-card-body">
 					<div class="layui-form">
-						<div class="layui-form-item">
+						{neq name='$info.cate.temp|default=0' value='1'}
+						<div class="layui-form-item ">
 							<label class="layui-form-label">栏目选择</label>
 							<div class="layui-input-block">
-								<select name="cateid">
+								<select name="cateid" lay-verify="required">									
 									<option value="">请选择</option>
+									{volist name="cate" id="v"}
+									<option value="{$v.id}" {eq name="$info.cateid|default='0'" value="$v.id"}selected{/eq}>{:strrpt('└',$v.level)}{$v.name}</option>
+									{/volist}
 								</select>
 							</div>
 						</div>
+						{/neq}
 						<div class="layui-form-item">
 							<label class="layui-form-label">标题</label>
 							<div class="layui-input-block">
-								<input name="title"  autocomplete="off" placeholder="请输入标题" class="layui-input" type="text">
+								<input name="title"  autocomplete="off" placeholder="请输入标题" class="layui-input" type="text" value="{$info.title|default=''}">
 							</div>
 						</div>
 						<div class="layui-form-item">
 							<label class="layui-form-label">关键字</label>
 							<div class="layui-input-block">
-								<input name="username"  placeholder="请输入" autocomplete="off" class="layui-input" type="text">
+								<input name="keywords"  placeholder="请输入关键字" autocomplete="off" class="layui-input" type="text" value="{$info.keywords|default=''}">
 							</div>
 						</div>
 
 						<div class="layui-form-item">
 							<label class="layui-form-label">描述</label>
 							<div class="layui-input-block">
-								<textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+								<textarea name="desc" placeholder="请输入描述" class="layui-textarea">{$info.desc|default=''}</textarea>
 							</div>
 						</div>
 						<div class="layui-form-item">
@@ -37,7 +42,13 @@
 									<div class="layui-upload ">										
 										<blockquote class="layui-elem-quote layui-quote-nm layui-clear" style="margin-top: 10px;">												
 											<img src="__MANAGE__/images/upload.png" id="test2" class="pull-left"/>
-											<div class="pull-left  gridly" id="demo2"></div>
+											<div class="pull-left  gridly" id="demo2">
+												{notempty name="$thumblist"}
+												{volist name="thumblist" id="v"}
+												<div class="brick  small" dataimg="{$v.thumb|default=''}" style="background: url(__ROOT__{$v.thumb|default=''}) center center no-repeat;background-size: 100px 98px;"><a class="delete layui-icon layui-icon-delete" href="#"></a></div>												
+												{/volist}
+												{/notempty}
+											</div>
 										</blockquote>
 									</div>
 									<div id="script"></div>
@@ -47,33 +58,41 @@
 						<div class="layui-form-item layui-form-text">
 							<label class="layui-form-label">内容</label>
 							<div class="layui-input-block">
-								<textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+
+								<textarea id="contents" name="content" placeholder="请输入内容" class="">{$info.content|default=''}</textarea>
 							</div>
 						</div>
 						
 						<div class="layui-form-item">
 							<label class="layui-form-label">排序</label>
 							<div class="layui-input-block">
-								<input name="sort" autocomplete="off" placeholder="排序" class="layui-input" type="text">
+								<input name="sort" autocomplete="off" placeholder="排序" class="layui-input" type="text" value="{$info.sort|default='0'}">
 							</div>
 						</div>
 						<div class="layui-form-item">
 							<label class="layui-form-label">时间</label>
 							<div class="layui-input-block">
-								<input name="date" id="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" type="text">
+								<input name="addtime" id="date" placeholder="" autocomplete="off" class="layui-input" type="text" value="{if $info!='' }{$info.addtime}{else /}{:toDate('')}{/if}" >
 							</div>
 						</div>
  
 						<div class="layui-form-item">
 							<label class="layui-form-label">状态</label>
 							<div class="layui-input-block">
-								<input name="status" value="1" title="显示" checked="" type="radio">
-								<input name="status" value="0" title="不显示" type="radio">
+								<input name="status" value="1" title="显示" {eq name="$info.status|default='1'" value="1"}checked{/eq} type="radio">
+								<input name="status" value="0" title="不显示" {eq name="$info.status|default='1'" value="0"}checked{/eq} type="radio">
 							</div>
 						</div>
 						<div class="layui-form-item">
 							<div class="layui-input-block">
-								<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+								{notempty name="$info"}
+								<input type="hidden" name="id" id="id" value="{$info.id}" />
+								<input type="hidden" name="temp" id="temp" value="{$info.cate.temp}" />
+								{else /}
+								<input type="hidden" name="temp" id="temp" value="2" />
+								{/notempty}
+								<a class="layui-btn" onclick="javascript:history.go(-1)">返回上页</a>
+								<button class="layui-btn"  data-url="{:URL('article/add')}" lay-submit="" lay-filter="article">立即提交</button>
 							</div>
 						</div>
 					</div>
@@ -83,9 +102,19 @@
 	</div>
 	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
 </div>
-
-<script src="__MANAGE__/admin.js" type="text/javascript" charset="utf-8"></script>
-<script src="__MANAGE__/jquery.gridly.js" type="text/javascript"></script><script src="__MANAGE__/sample.js" type="text/javascript"></script>
+{load href="__MANAGE__/admin.js"}
+{load href="__MANAGE__/jquery.gridly.js"}
+{load href="__MANAGE__/sample.js"}
+<script type="text/javascript">
+	var EDITERURL='__MANAGE__/ueditor/';
+</script>
+{load href="__MANAGE__/ueditor/ueditor.config.js"}
+{load href="__MANAGE__/ueditor/ueditor.all.min.js"}
+{load href="__MANAGE__/ueditor/lang/zh-cn/zh-cn.js"}
+<script type="text/javascript">	
+	UEDITOR_CONFIG.UEDITOR_HOME_URL = EDITERURL;
+	 var ue = UE.getEditor('contents');
+</script>
 <script>
 	layui.use(['table', 'form','upload','laydate'], function() {
 		var table = layui.table,
@@ -95,8 +124,6 @@
   laydate.render({
     elem: '#date',
     type:'datetime',
-    value: new Date(),
-    isInitValue:true    
   });		
  //多图片上传
   upload.render({
@@ -112,7 +139,7 @@
     ,done: function(res){
     	var imgurl=(res.data).replace('\\','/');
         $('#demo2').append('<div class="brick  small" dataimg="'+imgurl+'" style="background: url(__ROOT__'+imgurl+'\) center center no-repeat;background-size: 100px 98px;"><a class="delete layui-icon layui-icon-delete" href="#"></a></div>')     	
-    	
+    	$('.brick').click();
 	
 //layer.alert(JSON.stringify(res));
     }
@@ -121,16 +148,7 @@
 	function delimg(){
 		alert('111');
 	}
-	//提交数据
-	form.on('submit(submit1)',function(data){
-		
-		var ids = $("#demo2").children(".brick").map(function(){
-                    return $(this).attr('sort')+"':'"+$(this).attr('dataimg');
-                }).get().join(",");	                
-               var newarr={imglist:ids}; 
-               var postdata=$.extend(data.field, newarr);
-		layer.alert(JSON.stringify(postdata));
-	});
+
 		
 });
 </script>

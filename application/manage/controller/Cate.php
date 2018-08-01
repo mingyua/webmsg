@@ -4,7 +4,7 @@ namespace app\manage\controller;
 
 use think\Controller;
 use think\Request;
-
+use app\manage\model\Cate as Cates;
 class Cate extends Controller
 {
     /**
@@ -14,6 +14,9 @@ class Cate extends Controller
      */
     public function index()
     {
+    	
+     	$cate= Cates::with('template')->select();  
+    		//dump($cate);
     	
         return view();
         //
@@ -48,10 +51,15 @@ class Cate extends Controller
     		}else{
     			$info='';
     		}
+    		 
+    		//模板列表
+    		$templist=db('template')->select(); 
     		    		
+    		
 	        $menu=db('cate')->where('status',1)->select();
 	        $list=menuTree($menu,'0','0','└');
 
+	    	$this->assign('templist',$templist);
 	    	$this->assign('pid',$list);
 	    	$this->assign('info',$info);
     		
@@ -97,16 +105,12 @@ class Cate extends Controller
      */
     public function catelist()
     {
-        $menu=db('cate')->select();
+    	
+
+        $menu=Cates::with('template')->select();
         $list=menuTree($menu,'0');
         foreach($list as $k=>$v){
-        	if($v['pid']==0){
-        		$list[$k]['jumpurl']=url('article/index',array('cid'=>$v['id'],'pid'=>$v['pid']));
-        	}else if($v['temp']==2){
-        		$list[$k]['jumpurl']=url('article/index',array('cid'=>$v['id'],'pid'=>$v['pid']));
-        	}else{
-        		$list[$k]['jumpurl']=url('article/add',array('cid'=>$v['id'],'pid'=>$v['pid']));
-        	}
+        	$list[$k]['tempname']=$v['template']['name'];
         }
         $menulist=['code'=>0,'msg'=>'','count'=>100,'data'=>$list];
         echo json_encode($menulist);

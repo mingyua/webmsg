@@ -22,6 +22,11 @@
   <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="显示|不显示" data-id="{{d.id}}" data-url="{:URL('cate/status')}" lay-filter="status" {{ d.status == 1 ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="barDemo">
+	{{#  if(d.template.type === 1){ }}
+    	<a class="layui-btn layui-btn-xs" lay-href="{:URL('article/add')}?cid={{d.id}}&type={{d.template.type }}">查看</a>
+	{{#  }else{  }}
+    	<a class="layui-btn layui-btn-xs" lay-href="{:URL('article/index')}?cid={{d.id}}&type={{d.template.type }}">查看</a>	
+	{{# } }}	
 	<a class="layui-btn layui-btn-xs" data-url="{:URL('cate/add')}" data-title="编辑" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('cate/delete')}" lay-event="del">删除</a>
 </script>
@@ -49,9 +54,6 @@ layui.use(['table'], function() {
 					}, {
 						field: 'catename',
 						title: '导航名称',
-						event: 'jumpurl'
-
-						
 					}, {
 						field: 'entitle',
 						title: '英文名称',
@@ -61,7 +63,7 @@ layui.use(['table'], function() {
 						title: '链接地址',
 						sort: true
 					}, {
-						field: 'temp',
+						field: 'tempname',
 						title: '模板',
 						width: 120
 					},{field:'status', title:'状态', width:95, templet: '#switchTpl', unresize: true}

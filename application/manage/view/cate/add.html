@@ -61,7 +61,12 @@
 				<div class="layui-form-item">
 				    <label class="layui-form-label">模板</label>
 				    <div class="layui-input-block">
-				      <input name="temp" value="{$info.temp|default=''}" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" type="text">
+				    	<select name="temp" lay-filter="buildquickurl">
+				    		{volist name="templist" id="v"}
+				    		<option value="{$v.id}" {eq name="$info.temp|default=1" value="$v.type"}selected{/eq}>{$v.name}</option>
+				    		{/volist}
+				    	</select>
+
 				    </div>
 				</div>	
 				<div class="layui-form-item">

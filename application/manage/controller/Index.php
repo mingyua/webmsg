@@ -23,6 +23,21 @@ class index extends Controller
     }
     public function center()
     {      
+    	
+    	$quick=db('shortcut')->where('status',1)->order('sort ASC')->select();
+    	$qlist=[];$i=1;
+    	foreach($quick as $k=>$v){
+    		if ($i%8==0){
+    			$qlist[0][]=$v;
+    		}else{
+    			$qlist[1][]=$v;
+    		} 
+    		$i++;
+    	}
+    	
+    	
+    	//dump($qlist);
+    	$this->assign('qlist',$qlist);  
     	$this->assign('title','我是测试');  
         return view();
     }

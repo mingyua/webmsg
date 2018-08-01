@@ -18,7 +18,7 @@
 							</div>
 							<div class="layui-inline"><input type="text" name="keywords" id="keywords" class="layui-input" placeholder="请输入标题" value="" /> </div>
 							<div class="layui-inline"><button class="layui-btn"><i class="layui-icon layui-icon-search"></i></button></div>
-							<div class="layui-inline"> <button class="layui-btn" data-type="add" data-title="添加文章" dataw="600px" datah="700px" data-url="{:URL('article/add')}" ><i class="layui-icon layui-icon-add-circle"></i>添加文章</button> </div>
+							<div class="layui-inline"> <button class="layui-btn"  lay-href="{:URL('article/add')}" ><i class="layui-icon layui-icon-add-circle"></i>添加文章</button> </div>
 						</div>
 					</div>
 				</div>
@@ -33,10 +33,10 @@
   <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="显示|不显示" data-id="{{d.id}}" data-url="{:URL('cate/status')}" lay-filter="status" {{ d.status == 1 ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="barDemo">
-	<a class="layui-btn layui-btn-xs" data-url="{:URL('article/add')}" data-title="编辑" lay-event="edit">编辑</a>
+	<a class="layui-btn layui-btn-xs" lay-href="{:URL('article/add')}?id={{d.id}}" data-title="编辑" >编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('article/delete')}" lay-event="del">删除</a>
 </script>
-<script src="__MANAGE__/admin.js" type="text/javascript" charset="utf-8"></script>
+{load href="__MANAGE__/admin.js"}
 <script>
 	
 layui.use(['table','form'], function() {

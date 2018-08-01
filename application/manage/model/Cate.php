@@ -9,5 +9,19 @@ class Cate extends Model
     protected $createTime = 'addtime';
 	protected $updateTime = 'addtime';
 
+    public function template()
+    {
+        return $this->belongsTo('Template','temp');
+    }    
+    public function article()
+    {
+        return $this->belongsTo('Article','id');
+    }
+    public function cateart()
+    {
+        return $this->belongsTo('Article','id','cateid');
+    }
+    
+    
 }
 ?>

@@ -114,5 +114,67 @@ function strrpt($str,$count){
 	$data=str_repeat($str,$count);
 	return $data;
 }
+/*
+*日期转化  
+* $type 1:转化为时间类型，2转化为时间戳
+* $time 时间或时间戳
+* $format 时间格式
+*/
+function toDate($type=1,$time='',$format='Y-m-d H:i:s'){
+	
+	if($type==1){
+		return date($format,$time);
+	}else if($type==2){
+		return strtotime($time);
+	}else{
+		return date($format,time());
+	}
+}
+/*
+ *字符串转数组 
+ * 
+ * 
+ */
+function toArr($text,$tag=','){
+	$arr=explode($tag,$text);
+	return $arr;
+}
+/*
+ *数组排序 
+ * $arr 要排序的数组
+ * $keys 以什么字段排序
+ * $type 排序方式默认升序
+ */
+function array_sort($arr,$keys,$type='asc'){ 
+	 $keysvalue = $new_array = array();
+	 foreach ($arr as $k=>$v){
+	  $keysvalue[$k] = $v[$keys];
+	 }
+	 if($type == 'asc'){
+	  asort($keysvalue);
+	 }else{
+	  arsort($keysvalue);
+	 }
+	 reset($keysvalue);
+	 foreach ($keysvalue as $k=>$v){
+	  $new_array[$k] = $arr[$k];
+	 }
+	 return $new_array; 
+}
+
+/*
+ * 向数组中添加元素
+ * 
+ * 
+ */
+function addarr($arr,$field='id',$val=1){
+
+	foreach($arr as $k=>$v){
+		$arr[$k][$field]=$val;
+
+	}
+	return $arr;
+}
+
 
 

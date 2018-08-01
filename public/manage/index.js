@@ -87,7 +87,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 	element.on('nav(menulist)', function(elem) {
 		var url = elem.attr('data-url'),
 			title = elem.text().replace(/(^\s*)|(\s*$)/g, ''),
-			f = elem.parents('li').find('a:first').text();
+			f = elem.parents('li').find('a:first').text(),refurl=$('#refurl').val(url);
 			
 		if(url) {
 			$('#stepnav').removeClass('layui-hide').html('<a href="{:URL(\'index/index\')}">主页</a><span lay-separator="">/</span><a>' + f + '</a><span lay-separator="">/</span><a><cite>' + title + '</cite></a>');
@@ -136,7 +136,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 		  	var ajaxurl=$(this).attr('data-url'),id=$(this).attr('data-id'),st=1;
 		  	if(obj.elem.checked == false){st=0;}
 		  	$.post(ajaxurl,{id:id,status:obj.elem.checked});
-		  });		
+		  });	
 	//提交数据
 	form.on('submit(submit)',function(data){
 		var _this=$(this),url=$(this).attr('data-url');
@@ -171,6 +171,45 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 		});
 		//layer.msg(JSON.stringify(url));
 	});
+	
+	//文章提交数据
+	form.on('submit(article)',function(data){
+		
+		var ids = $("#demo2").children(".brick").map(function(){
+                    return $(this).attr('sort')+"':'"+$(this).attr('dataimg');
+                }).get().join(",");	                
+       var newarr={imglist:ids,content:ue.getContent()},ajaxurl=$(this).attr('data-url'); 
+       var postdata=$.extend(data.field, newarr);
+
+       $.ajax({
+       	type:"post",
+       	url:ajaxurl,
+       	data:postdata,
+       	success:function(res){
+       		console.log(res);
+			if(res.status==1){
+				layer.msg(res.msg,{icon:res.icon,time:2000},function(item){
+					if((res.url).length>0){
+						fun.jumpurl(res.url,res.name);
+					}					
+				});
+			}else{
+				layer.msg(res.msg,{icon:res.icon});					
+			}					
+
+       	},error:function(obj){
+       		layer.msg('网络错误，请重试！',{icon:0});	
+       	}
+     });       		
+	});	
+	
+	
+	$('body').on("click", "*[lay-href]",function(){
+		var e = $(this),
+			i = e.attr("lay-href"),t = e.text(),refurl=$('#refurl').val(i);;
+			
+			fun.jumpurl(i,t);	
+	});
 	$('#menuicon').click(function(elem) {
 		var a = $(this),
 			h = $(".lay-left").is(":hidden"),
@@ -189,8 +228,14 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 		//console.log($(".lay-left").is(":hidden"));	 	  	
 	});
 	$('#reload').click(function(res) {
-		layer.load(3, {time: 10 * 1000});
-		fun.reloadurl(layui.cache.centerurl);
+		layer.load(3, {time: 3 * 1000});	
+		var url=$('#refurl').val();
+		if(url.length>0){
+			fun.urltip(url);
+		}else{
+			a.closeAll();
+		}
+		
 	});
 	
 	$('#webinfo').click(function(){
