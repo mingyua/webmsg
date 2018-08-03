@@ -6,6 +6,7 @@ use think\Controller;
 use think\Request;
 use app\manage\model\Article as Art;
 use app\manage\model\Cate;
+
 class Article extends Controller
 {
     /**
@@ -15,6 +16,7 @@ class Article extends Controller
      */
     public function index()
     {
+ 	
     	$map[]=['temp','neq',1];
     	$arr=db('cate')->where($map)->select();   	
     	$cate=menuTree($arr,'0');
@@ -29,17 +31,41 @@ class Article extends Controller
      *
      * @return \think\Response
      */
-    public function articlelist($cid)
+    public function articlelist($key,$page,$limit)
     {
     	
+    	$fristlimit=($page-1)*$limit;
     	$map[]=['temp','neq',1];
     	$arr=db('cate')->where($map)->select();
-    	$id=getchildrenId($arr,$cid);
-        $list=Art::with(['cate'=>function($query){ $query->field('id,pid,name'); }])->whereIn('cateid',$id)->select();
+    	
+    	
+    	$input=array_filter($key,function($item){
+    		 return $item !== '';
+    	});
+    	$where[]=['id','neq',0];
+    	foreach($input as $k=>$v){
+    		
+    		if($k=='addtime'){
+    			$time=toArr($v,' - ');
+    			$where[]=[$k,'between',[$time[0],$time[1]]];
+    		}else if($k=='title'){
+    			$where[]=[$k,'like','%'.$v.'%'];
+    		}else if($k=='cid'){
+    			$id=getchildrenId($arr,$v);
+    			$where[]=['cateid','IN',$id];
+    		}else{
+    			$where[]=[$k,'eq',$v];
+    		}
+    	}
+    	
+    	//dump($where);
+    	//$where[]=[''];
+    	$count=Art::field('*')->count();
+        $list=Art::with(['cate'=>function($query){ $query->field('id,pid,name'); }])->where($where)->order('addtime desc')->limit($fristlimit,$limit)->select();
         foreach($list as $k=>$v){
         	$list[$k]['catename']=$v['cate']['name'];
         }        
-        $articlelist=['code'=>0,'msg'=>'','count'=>count($list),'data'=>$list];
+        $articlelist=['code'=>0,'msg'=>'','count'=>$count,'data'=>$list];
         echo json_encode($articlelist);        
     }
 

@@ -4,8 +4,10 @@ namespace app\manage\controller;
 
 use think\Controller;
 use think\Request;
-
-class index extends Auth
+use Iplocation\IpLocation;
+use mac\GetMacAddr;
+use app\manage\model\Log as Logs;
+class Log extends Controller
 {
     /**
      * 显示资源列表
@@ -14,37 +16,21 @@ class index extends Auth
      */
     public function index()
     {
-    	
-    	
-    	$map[] = ['status','=',1];
-        $menu=db('menu')->where($map)->order('sort ASC')->select();
-        $list=getchildren($menu,'0');
-        $this->assign('menulist',$list);  
-        return $this->fetch();
-    }
-    public function center()
-    {      
-    	
-    	$quick=db('shortcut')->where('status',1)->order('sort ASC')->select();
-    	$qlist=[];$i=1;
-    	foreach($quick as $k=>$v){
-    		if ($i%8==0){
-    			$qlist[0][]=$v;
-    		}else{
-    			$qlist[1][]=$v;
-    		} 
-    		$i++;
-    	}
-    	
-    	
-    	//dump($qlist);
-    	$this->assign('qlist',$qlist);  
-    	$this->assign('title','我是测试');  
-        return view();
-    }
-    public function a()
-    {      
-    	$this->assign('title','我是测试');  
+    	$mac= new GetMacAddr();
+    	$macc=$mac->GetMacAddr(PHP_OS);
+		$Ip = new IpLocation(); // 实例化类
+		$location = $Ip->getlocation('118.178.84.58');  
+		
+		$data['uid']='1';
+		$data['kinds']='1';
+		$data['tag']='1';
+		$data['mac']=$macc;
+		$data['ip']=$location['ip'];
+		$data['address']=$location['country'];
+		$data['network']=$location['area'];
+        
+//      $log=new Logs;
+//      $log->save($data);
         return view();
     }
 
@@ -53,9 +39,9 @@ class index extends Auth
      *
      * @return \think\Response
      */
-    public function create()
+    public function visitor()
     {
-        return view();
+       return view();
     }
 
     /**
@@ -64,9 +50,16 @@ class index extends Auth
      * @param  \think\Request  $request
      * @return \think\Response
      */
-    public function save(Request $request)
-    {
-        //
+    public function loglist($page,$limit)
+    { 
+    	$fristlimit=($page-1)*$limit;
+    	
+    	
+    	$count=Logs::field('*')->count();   
+        $list=Logs::field('*')->limit($fristlimit,$limit)->select();
+        $menulist=['code'=>0,'msg'=>'','count'=>$count,'data'=>$list];
+        echo json_encode($menulist);
+        
     }
 
     /**

@@ -176,5 +176,21 @@ function addarr($arr,$field='id',$val=1){
 	return $arr;
 }
 
-
+function forWindows(){ 
+		$data=[]; 
+        @exec("ipconfig /all", $data);  
+        if ( $data )  
+               return $data;  
+        else{  
+               $ipconfig = $_SERVER["WINDIR"]."\system32\ipconfig.exe"; 
+                        
+               if ( is_file($ipconfig) )  
+                  @exec($ipconfig." /all", $data);                          
+               else  
+                  @exec($_SERVER["WINDIR"]."\system\ipconfig.exe /all", $data);
+                          
+                     
+               return $data;  
+        }  
+}  
 

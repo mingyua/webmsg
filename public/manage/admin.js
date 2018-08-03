@@ -1,6 +1,23 @@
 layui.define('index',function(e){ 
   var $=layui.$, table=layui.table,layer=layui.layer,form=layui.table,head=layui.index;
    var myobj = {
+    reload: function(){
+      var demoReload = $('#keywords'),cateid=$('#cateid'),daterange=$('#daterange'),st=$('#status');
+      table.reload('tablist', {
+        page: {
+          curr: 1 //重新从第 1 页开始
+        }
+        ,where: {  
+        	key:{
+          	cid:cateid.val(),
+            title: demoReload.val(),
+            addtime:daterange.val(),
+            status:st.val()
+           }
+        }
+      });
+    },  	
+   	
    		getCheckData: function(){ //获取选中数据
 	      var checkStatus = table.checkStatus('tablist')
 	      ,data = checkStatus.data,ajaxurl=$(this).attr('data-url');

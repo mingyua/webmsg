@@ -112,7 +112,7 @@ class Cate extends Controller
         foreach($list as $k=>$v){
         	$list[$k]['tempname']=$v['template']['name'];
         }
-        $menulist=['code'=>0,'msg'=>'','count'=>100,'data'=>$list];
+        $menulist=['code'=>0,'msg'=>'','count'=>count($list),'data'=>$list];
         echo json_encode($menulist);
         
     }

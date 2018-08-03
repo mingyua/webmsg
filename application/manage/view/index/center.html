@@ -5,6 +5,25 @@
       <div class="layui-row layui-col-space15">
         <div class="layui-col-md6">
           <div class="layui-card">
+            <div class="layui-card-header bd-b">登录信息</div>
+            <div class="layui-card-body layui-clear">
+								<div class="layui-col-md4"><img src="__MANAGE__/images/upload.png"/></div>
+								<div class="layui-col-md8">
+									<ul class="userinfo">
+										<li>登录用户:{$Think.session.htusername} </li>
+										<li>上次登录:</li>
+										<li>上次登录IP:</li>
+										<li>登录地址:</li>
+										<li><a href="{:URL('login/loginout')}" class="layui-btn layui-bg-orange">退出登录</a></li>
+
+									</ul>
+								</div>
+             
+            </div>
+          </div>
+        </div>
+        <div class="layui-col-md6">
+          <div class="layui-card">
             <div class="layui-card-header bd-b">快捷方式</div>
             <div class="layui-card-body">
 								<div class="layui-carousel" id="layadmin-carousel">
@@ -27,15 +46,6 @@
 								  </div>
 								</div> 
 								<div class="layui-clear"></div>
-            </div>
-          </div>
-        </div>
-        <div class="layui-col-md6">
-          <div class="layui-card">
-            <div class="layui-card-header bd-b">待办事项</div>
-            <div class="layui-card-body">
-
-             
             </div>
           </div>
         </div>

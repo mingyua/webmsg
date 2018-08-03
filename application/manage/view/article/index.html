@@ -6,18 +6,24 @@
 					<button  class="layui-btn layui-btn-danger" data-type="getCheckData" data-url="{:URL('article/alldel')}"  title="删除选中"><i class="layui-icon layui-icon-delete"></i></button>
 					<div class="layui-form pull-right">
 						<div class="layui-form-item">							
-							<div class="layui-inline">
-								
-								<select name="cateid">
+							<div class="layui-inline">								
+								<select id="cateid" name="cateid">
 									<option value="">请选择分类</option>
 									{volist name="cate" id="v"}
 									<option value="{$v.id}">{:strrpt('└',$v.level)}{$v.name}</option>
 									{/volist}
-								</select>									
-								
+								</select>																	
 							</div>
+							<div class="layui-inline">								
+								<select id="status" name="status">
+									<option value="">请选择状态</option>
+									<option value="1">显示</option>
+									<option value="0">不显示</option>
+								</select>																	
+							</div>
+							<div class="layui-inline" style="width: 200px;"><input type="text" id="daterange" name="addtime" class="layui-input" placeholder="开始 到 结束" value="" /> </div>
 							<div class="layui-inline"><input type="text" name="keywords" id="keywords" class="layui-input" placeholder="请输入标题" value="" /> </div>
-							<div class="layui-inline"><button class="layui-btn"><i class="layui-icon layui-icon-search"></i></button></div>
+							<div class="layui-inline"><button class="layui-btn" data-type="reload"><i class="layui-icon layui-icon-search"></i></button></div>
 							<div class="layui-inline"> <button class="layui-btn"  lay-href="{:URL('article/add')}" ><i class="layui-icon layui-icon-add-circle"></i>添加文章</button> </div>
 						</div>
 					</div>
@@ -39,13 +45,13 @@
 {load href="__MANAGE__/admin.js"}
 <script>
 	
-layui.use(['table','form'], function() {
-		var table=layui.table,form=layui.form,pid="{$pid}",cid="{$cid}";
+layui.use(['table','form','laydate'], function() {
+		var table=layui.table,form=layui.form,laydate=layui.laydate,cid="{$cid}";
 		form.render();
 		table.render({
 			elem: '#tabledata',
 			url: "{:URL('article/articlelist')}" //数据接口
-			,where:{pid:pid,cid:cid}
+			,where:{key:{cid:cid}}
 			,page: true //开启分页
 			,id:'tablist'
 			,cols: [
@@ -64,7 +70,12 @@ layui.use(['table','form'], function() {
 						title: '文章标题'
 					},{
 						field: 'catename',
-						title: '分类'
+						title: '分类',
+						width: 120
+					},{
+						field: 'addtime',
+						title: '添加时间',
+						width: 200
 					}, {field:'status', title:'状态', width:95, templet: '#switchTpl', unresize: true}
 					,{
 						fixed: 'right',
@@ -76,7 +87,10 @@ layui.use(['table','form'], function() {
 			]
 		});
 		
+laydate.render({
+    elem: '#daterange'
+    ,range: true
+});		
 		
-		
-	});
+});
 </script>

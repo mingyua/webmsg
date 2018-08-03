@@ -22,7 +22,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 			});
 		},
 		jumpurl:function(url,title){
-			$('#stepnav').removeClass('layui-hide').html('<a href="{:URL(\'index/index\')}">主页</a><span lay-separator="">/</span><a><cite>' + title + '</cite></a>');			
+			$('#stepnav').removeClass('layui-hide').html('<a href="/manage/index/index"><i class="layui-icon layui-icon-home"></i>主页</a><span lay-separator="">/</span><a><cite>' + title + '</cite></a>');			
 			this.urltip(url);
 			
 		},
@@ -90,7 +90,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 			f = elem.parents('li').find('a:first').text(),refurl=$('#refurl').val(url);
 			
 		if(url) {
-			$('#stepnav').removeClass('layui-hide').html('<a href="{:URL(\'index/index\')}">主页</a><span lay-separator="">/</span><a>' + f + '</a><span lay-separator="">/</span><a><cite>' + title + '</cite></a>');
+			$('#stepnav').removeClass('layui-hide').html('<a href="/manage/index/index"><i class="layui-icon layui-icon-home"></i>主页</a><span lay-separator="">/</span><a>' + f + '</a><span lay-separator="">/</span><a><cite>' + title + '</cite></a>');
 			fun.urltip(url);
 			fun.screenw();
 		}
@@ -206,7 +206,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 	
 	$('body').on("click", "*[lay-href]",function(){
 		var e = $(this),
-			i = e.attr("lay-href"),t = e.text(),refurl=$('#refurl').val(i);;
+			i = e.attr("lay-href"),t = e.text(),refurl=$('#refurl').val(i);
 			
 			fun.jumpurl(i,t);	
 	});

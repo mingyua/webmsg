@@ -12,7 +12,7 @@
 <body>
 	<div class="lay-main">
 		<div class="lay-left">
-				<h2 class="laylogo">mingyu</h2>
+				<h2 class="laylogo"><a href="{:URL('index/index')}" class="c-white">mingyu</a></h2>
 				<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="menulist" style="margin-right: 10px;">
 					{volist name="menulist" id="v"}
 				  <li class="layui-nav-item">
@@ -61,8 +61,6 @@
 	{load href="__JS__/jquery.min.js"}
   <script>
 		layui.config({
-			open: '<%',
-		  close: '%>',
 		  base: '__MANAGE__/',
 		  centerurl:"{:URL('index/center')}"
 		}).extend({ 
