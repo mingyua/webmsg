@@ -36,6 +36,37 @@ layui.define('index',function(e){
 	      }
 	      
 		},	
+   		backupdata: function(){ //获取选中数据
+	      var checkStatus = table.checkStatus('tablist')
+	      ,data = checkStatus.data,ajaxurl=$(this).attr('data-url');
+	      
+	      
+	      if(data.length<=0){
+	      	 layer.alert('至少选择一条数据！',{btn:'',title:'提示',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'});
+	      }else{
+		      	head.ajaxsend(ajaxurl,{name:data},'');		        
+		        layer.closeAll();
+	      }
+	      
+		},	
+		imports:function(){
+			var url=$(this).attr('data-url');
+				layer.open({
+					title:'请选择还原文件',
+					type:2,
+					closeBtn:1,
+					offset: '50px',
+					btn:'确认还原',
+					shade: 0.1,
+					area: ['800px', '600px'],
+					skin: 'layui-layer-diy',
+				  content: url,
+				  btn1:function(){
+				  	alert('1111');
+				  }
+				})
+			
+		},
 		add:function(){
 			var url=$(this).attr('data-url'),AW=$(this).attr('dataw'),AH=$(this).attr('datah'),Atitle=$(this).attr('data-title');
 				layer.open({

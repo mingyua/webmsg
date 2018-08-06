@@ -40,9 +40,10 @@ class Login extends Controller
 						$data['address']=$location['country'];
 						$data['network']=$location['area'];	        
 				        $log=new Logs;
-				        $log->save($data);
+				        $log->isUpdate(false)->save($data);
 			        
-						db('user')->update(['uptime'=>time()]);
+						db('user')->where('id','eq',$user['id'])->update(['uptime'=>time()]);
+						session('htuserid',$user['id']);
 						session('htusername',$user['username']);
 						session('htpwd',$user['userpwd']);
 						session('htuptime',$user['uptime']);

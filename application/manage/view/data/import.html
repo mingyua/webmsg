@@ -1,11 +1,36 @@
+{load href="__LAYUI__/css/layui.css"}
 <div class="layui-fluid">
 	<div class="layui-row">
 		<div class="layui-col-xs12">
 			<div class="layui-card">
-				<div class="layui-card-body">
-					
+				<div class="layui-card-body layui-form">
+					<table class="layui-table" >
+						<thead>
+							<tr>
+								<th>备份文件名</th>
+								<th>文件大小</th>
+								<th>备份时间</th>
+								<th>选择</th>
+							</tr>
+							{volist name="list" id="v"}
+							<tr>
+								<td>{$v.name}</td>
+								<td>{$v.size}</td>
+								<td>{$v.time}</td>
+								<td class="layui-form-item"><input type="radio" name="reback" id="reback" value="{$v.name}" /></td>
+							</tr>
+							{/volist}
+						</thead>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+{load href="__LAYUI__/layui.js"}
+<script>
+	layui.use(['table','form'],function(){
+		var table=layui.table,form=layui.form;
+		table.render();
+	});
+</script>

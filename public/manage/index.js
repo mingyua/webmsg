@@ -117,13 +117,17 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 		    if(obj.event === 'detail'){
 		      layer.msg('ID：'+ data.id + ' 的查看操作');
 		    } else if(obj.event === 'del'){
-		      var ajaxurl=$(this).attr('data-url'),msg=$(this).attr('data-msg');
-		      
+		      var ajaxurl=$(this).attr('data-url'),msg=$(this).attr('data-msg');		      
 		      layer.confirm(msg,{title:'删除提醒',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'}, function(index){
 		      	fun.ajaxsend(ajaxurl,{id:data.id},obj);		        
 		        layer.closeAll();
 		      });
-		    } else if(obj.event === 'edit'){
+		    }else if(obj.event === 'ajax'){
+		    	var ajaxurl=$(this).attr('data-url'),title=$(this).attr('data-title');
+		    	fun.ajaxsend(ajaxurl,data,'');	
+		    	layer.closeAll();
+		    }
+		    else if(obj.event === 'edit'){
 		    	var ajaxurl=$(this).attr('data-url')+"?id="+data.id,title=$(this).attr('data-title');
 		      	fun.popu(ajaxurl,title,'600px','700px');
 		    }else if(obj.event === 'jumpurl'){		    	

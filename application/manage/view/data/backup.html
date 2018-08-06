@@ -1,0 +1,72 @@
+<div class="layui-fluid">
+	<div class="layui-row">
+		<div class="layui-col-xs12">
+			<div class="layui-card">
+				<div id="demoTable" class="layui-card-header pt-10"> 
+					<button  class="layui-btn" data-type="backupdata" data-url="{:URL('data/beifen')}"  title="备份数据">备份数据</button>
+					<button  class="layui-btn" data-type="imports" data-url="{:URL('data/import')}"  title="备份数据">还原数据</button>
+					<div class="layui-form pull-right">
+						<div class="layui-form-item">	
+							<div class="layui-inline"> <button class="layui-btn" data-type="add" data-title="添加导航" dataw="600px" datah="700px" data-url="{:URL('cate/add')}" ><i class="layui-icon layui-icon-add-circle"></i>添加导航</button> </div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-card-body">
+					<table class="layui-hide" id="tabledata" lay-filter="list"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" data-url="{:URL('data/repair')}" data-title="编辑" lay-event="ajax">修复</a>		
+	<a class="layui-btn layui-btn-xs" data-url="{:URL('data/optimize')}" data-title="编辑" lay-event="ajax">优化</a>
+	<a class="layui-btn layui-btn-xs" data-url="{:URL('data/beifen')}" data-title="编辑" lay-event="ajax">备份</a>
+</script>
+<script src="__MANAGE__/admin.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	
+layui.use(['table'], function() {
+		var table=layui.table;
+		table.render({
+			elem: '#tabledata',
+			url: "{:URL('data/backlist')}" //数据接口
+			,page: false //开启分页
+			,id:'tablist'
+			,cols: [
+				[ //表头
+					{
+						checkbox: true,
+						fixed: true,
+						fixed: 'left'
+					}, {
+						field: 'name',
+						title: '数据表'
+					}, {
+						field: 'engine',
+						title: '数据类型',
+						width: 120
+					}, {
+						field: 'data_length',
+						title: '数据大小',
+						width: 120,
+						sort: true
+					},{
+						field: 'rows',
+						title: '数据条数',
+						width: 120,
+						sort: true
+					},{
+						fixed: 'right',
+						width: 178,
+						align: 'center',
+						toolbar: '#barDemo'
+					}
+				]
+			]
+		});
+		
+		
+		
+	});
+</script>

@@ -176,21 +176,32 @@ function addarr($arr,$field='id',$val=1){
 	return $arr;
 }
 
-function forWindows(){ 
-		$data=[]; 
-        @exec("ipconfig /all", $data);  
-        if ( $data )  
-               return $data;  
-        else{  
-               $ipconfig = $_SERVER["WINDIR"]."\system32\ipconfig.exe"; 
-                        
-               if ( is_file($ipconfig) )  
-                  @exec($ipconfig." /all", $data);                          
-               else  
-                  @exec($_SERVER["WINDIR"]."\system\ipconfig.exe /all", $data);
-                          
-                     
-               return $data;  
-        }  
+/*
+ * 保留小数位数
+ * $num 要保留的的数字
+ * $len 保留位数
+ * $type 保留类型    四舍五入  round 不补0  number_format 补0 ceil向上取事整   floor向下取整
+ */
+function savenum($num,$len=2,$type='round'){ 
+	if($type=='ceil' || $type=='floor'){
+		return $type($num);
+	}else{
+		return $type($num,$len);
+	}		
 }  
+/*
+ * MB <=> KB <=> B 单位换算
+ * $bit 字节
+ * $len 保留位数
+ * $type 保留类型    四舍五入  round 不补0  number_format 补0 ceil向上取事整   floor向下取整
+ */
+function unit($bit,$unit='KB'){
+	
+	$str=round($bit/1024,2);
+	if($str>=1024){
+		$unit='MB';
+		$str=round($str/1024,2);
+	}
+	return $str." ".$unit;
+}	
 

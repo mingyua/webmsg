@@ -11,9 +11,7 @@
 								<div class="layui-col-md8">
 									<ul class="userinfo">
 										<li>登录用户:{$Think.session.htusername} </li>
-										<li>上次登录:</li>
-										<li>上次登录IP:</li>
-										<li>登录地址:</li>
+										<li>登录时间:{$Think.session.htuptime|toDate}</li>
 										<li><a href="{:URL('login/loginout')}" class="layui-btn layui-bg-orange">退出登录</a></li>
 
 									</ul>

@@ -25,6 +25,8 @@ class index extends Auth
     public function center()
     {      
     	
+
+    	
     	$quick=db('shortcut')->where('status',1)->order('sort ASC')->select();
     	$qlist=[];$i=1;
     	foreach($quick as $k=>$v){
