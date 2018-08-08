@@ -56,7 +56,7 @@ class Log extends Controller
     	
     	
     	$count=Logs::field('*')->count();   
-        $list=Logs::field('*')->limit($fristlimit,$limit)->select();
+        $list=Logs::field('*')->limit($fristlimit,$limit)->order('addtime DESC')->select();
         $menulist=['code'=>0,'msg'=>'','count'=>$count,'data'=>$list];
         echo json_encode($menulist);
         

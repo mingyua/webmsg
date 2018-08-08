@@ -4,7 +4,7 @@
 		<div class="layui-col-xs12">
 			<div class="layui-card">
 				<div class="layui-card-body layui-form">
-					<table class="layui-table" >
+					<table id="tabdata" class="layui-table" >
 						<thead>
 							<tr>
 								<th>备份文件名</th>
@@ -14,23 +14,49 @@
 							</tr>
 							{volist name="list" id="v"}
 							<tr>
-								<td>{$v.name}</td>
+								<td id="named">{$v.name}</td>
 								<td>{$v.size}</td>
-								<td>{$v.time}</td>
-								<td class="layui-form-item"><input type="radio" name="reback" id="reback" value="{$v.name}" /></td>
+								<td>{$v.times}</td>
+								<td class="layui-form-item"><input type="radio" name="reback" title="{$v.name}" id="reback" value="{$v.time}" /></td>
 							</tr>
 							{/volist}
 						</thead>
 					</table>
+					<div class="layui-col-xs12">
+						<button class="layui-btn" lay-submit="" lay-filter="submit" data-url="{:URL('data/imports')}">确认还原</button>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+{load href="__JS__/jquery.min.js"}
 {load href="__LAYUI__/layui.js"}
+
+{load href="__MANAGE__/admin.js"}
 <script>
 	layui.use(['table','form'],function(){
 		var table=layui.table,form=layui.form;
-		table.render();
+		table.render();form.render();
+		form.on('submit(submit)',function(data){
+			var url = $(this).attr('data-url');
+			//alert(url);
+			$.ajax({
+				type:"post",
+				url:url,
+				data:data.field,
+				beforeSend: function () {
+				 // layer.load(3, {time: 10 * 1000});
+				},
+				success:function(res){
+					layer.alert(JSON.stringify(res));
+				},error:function(msg){
+					layer.msg('网络错误，请重试！',{icon:5});						
+				}
+			});
+
+//layer.alert(JSON.stringify(data.field));
+		});
+		
 	});
 </script>

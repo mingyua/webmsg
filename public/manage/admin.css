@@ -41,7 +41,7 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 .lay-breadcrumb{position: relative; display: block;clear: both; height: 48px;background: #FFF;line-height: 48px;box-shadow: 0 2px 4px #E8E8E8;padding-left: 20px;top:50px}
 .lay-breadcrumb a,.lay-breadcrumb span{padding: 0 5px;color: #999;}
 
-
+.layui-carousel > [carousel-item] > *{background: #FFF;}
 #layadmin-carousel .layui-carousel-ind{position: absolute;right: 10px;float: right;text-align: right;top: -40px;background: none;}
 #layadmin-carousel .layui-carousel-ind ul{background: none;}
 #layadmin-carousel .layui-carousel-ind ul li{background: #E2E2E2;}
