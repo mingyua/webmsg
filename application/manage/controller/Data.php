@@ -92,25 +92,23 @@ class Data extends Controller
 
     public function backup()
     {
-      $db= new Backup();
-      $data=$db->dataList();
+
+      $data=$this->db->dataList();
       $this->assign('list',$data);
       return view();
     }
    //备份文件列表
    public function importlist()
    {
-        $db= new Backup();
-      	$this->assign('list',$db->fileList());
+      	$this->assign('list',$this->db->fileList());
       return view();
         
       
    }
    public function import($time = 0, $part = null, $start = null)
    {
-       $db= new Backup();
        if(is_numeric($time) && is_null($part) && is_null($start)){
-           $list  = $db->getFile('timeverif',$time);
+           $list  = $this->db->getFile('timeverif',$time);
            if(is_array($list)){
                session::set('backup_list', $list);
                $this->success('初始化完成！', '', array('part' => 1, 'start' => 0));
@@ -121,7 +119,7 @@ class Data extends Controller
 
                $list=session::get('backup_list');
                
-               $start= $db->setFile($list)->import($start);
+               $start= $this->db->setFile($list)->import($start);
               
                if( false===$start){
                      $this->error('还原数据出错！');
@@ -158,8 +156,8 @@ class Data extends Controller
     * 删除备份文件
     */
    public function del($id = 0){
-       $db= new Backup();
-       if($db->delFile($id)){
+
+       if($this->db->delFile($id)){
            //addlog($id);//写入日志
            $arr=array('msg'=>'备份文件删除成功!','result'=>1);
            
@@ -174,11 +172,11 @@ class Data extends Controller
    //备份表
    public function export()
    {
-       $db= new Backup();
+
        if($this->request->post()){
            $input=input('post.');
           //dump($input);die();
-           $fileinfo  =$db->getFile();
+           $fileinfo  =$this->db->getFile();
            //检查是否有正在执行的任务
            $lock = "{$fileinfo['filepath']}backup.lock";
            if(is_file($lock)){
@@ -197,7 +195,7 @@ class Data extends Controller
            //缓存要备份的表
            session::set('backup_tables', $input['tables']);
            //创建备份文件
-           if(false !== $db->Backup_Init()){
+           if(false !== $this->db->Backup_Init()){
                $this->success('初始化成功！','',['tab'=>['id' => 0, 'start' => 0]]);
            }else{
                $this->error('初始化失败，备份文件创建失败！');
@@ -208,7 +206,7 @@ class Data extends Controller
 
            $id=input('id');
            $start=input('start');
-           $start= $db->setFile($file)->backup($tables[$id], $start);
+           $start= $this->db->setFile($file)->backup($tables[$id], $start);
            if(false === $start){
                $this->error('备份出错！');
            }else if(0 === $start){
@@ -225,7 +223,7 @@ class Data extends Controller
                }
            }
        }else{
-           $this->error('参数错误！');
+           $this->error('请选择要备份的数据表！');
        }
 
 
@@ -234,27 +232,26 @@ class Data extends Controller
    //修复表
    public function repair($tables= null)
    {
-       $db= new Backup();
-       if($db->repair($tables)){
+
+       if($this->db->repair($tables)){
            
-           $arr=array('msg'=>'数据表修复完成！');
+           $arr=['msg'=>'数据表修复完成！'];
        }else{
           
-           $arr=array('msg'=>'数据表修复出错请重试！');
+           $arr=['msg'=>'数据表修复出错请重试！'];
        }
-        return json($arr);
+        return $arr;
    }
    //优化表
    public function optimize($tables= null)
    {
-        $db= new Backup();
-         if($db->optimize($tables)){
-         	$arr=array('msg'=>'数据表优化完成！');
+         if($this->db->optimize($tables)){
+         	$arr=['msg'=>'数据表优化完成！'];
           
          }else{
-         	$arr=array('msg'=>'数据表优化出错请重试！');
+         	$arr=['msg'=>'数据表优化出错请重试！'];
           
          }
-          return json($arr);
+          return $arr;
    }
 }

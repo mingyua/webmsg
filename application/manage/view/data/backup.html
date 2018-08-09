@@ -1,70 +1,86 @@
-<div class="admin-main fadeInUp animated">
-	<div class="layui-field-box">
-		<div>
-			<blockquote class="layui-elem-quote">
-			<div class="layui-btn-group">
-				<button id="export" data-url="{:URL('data/export')}" data-title="立即备份" class="layui-btn">立即备份</button>
-				<button data-url="{:URL('data/optimize')}" data-title="优化数据表" class="layui-btn databack">优化数据表</button>
-				<button data-url="{:URL('data/repair')}" data-title="修复数据表" class="layui-btn databack">修复数据表</button>				
+<div class="layui-fluid">
+	<div class="layui-row">
+		<div class="layui-col-md12 layui-form">
+			<div class="layui-card">
+				<div class="layui-card-header pt-10"> <button id="export" data-url="{:URL('data/export')}" data-title="立即备份" class="layui-btn">立即备份</button> <button data-url="{:URL('data/optimize')}" data-title="优化数据表" class="layui-btn databack">优化数据表</button> <button data-url="{:URL('data/repair')}" data-title="修复数据表" class="layui-btn databack">修复数据表</button>
+					<a lay-href="{:URL('data/importlist')}" data-title="还原数据库" class="layui-btn layui-btn-danger pull-right">还原数据库</a>
+				</div>
+				<div class="layui-card-body">
+					<form id="export-form" method="post" action="{:url('data/export')}">
+						<table class="layui-table">
+							<colgroup>
+								<col width="40">
+								<col width="150">
+								<col width="150">
+								<col width="150">
+								<col width="200">
+								<col width="200"> </colgroup>
+							<thead>
+								<tr>
+									<th> <input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
+									<th>表名</th>
+									<th>数据量</th>
+									<th>数据大小</th>
+									<th>创建时间</th>
+									<th>备份状态</th>
+								</tr>
+							</thead>
+							<tbody> {volist name='list' id='table'}
+								<tr>
+									<td><input type="checkbox" name="tables[]" lay-skin="primary" lay-filter="itemChoose" value="{$table.name}"></td>
+									<td>{$table.name}</td>
+									<td>{$table.rows}</td>
+									<td>{$table.data_length|unit}</td>
+									<td>{$table.create_time}</td>
+									<td class="info">备份未开始</td>
+								</tr> {/volist} </tbody>
+						</table>
+					</form>
+				</div>
 			</div>
-			<a lay-href="{:URL('data/importlist')}" data-title="还原数据库" class="layui-btn layui-btn-danger fr">还原数据库</a>
-			</blockquote>
-			<form id="export-form" method="post" action="{:url('data/export')}">
-				<table class="layui-table" lay-even="" lay-skin="row" lay-size="sm">
-
-					<colgroup>
-						<col width="50">
-						<col width="150">
-						<col width="150">
-						<col width="150">
-						<col width="200">
-						<col width="200">
-						<col width="100">
-					</colgroup>
-					<thead>
-						<tr>
-							<th width="48"><input lay-skin="primary" checked="chedked" type="checkbox" value=""></th>
-							<th>表名</th>
-							<th>数据量</th>
-							<th>数据大小</th>
-							<th>创建时间</th>
-							<th>备份状态</th>
-							<th>操作</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						{volist name='list' id='table'}
-						<tr>
-							<td>
-								<input class="ids" checked="chedked" type="checkbox" name="tables[]" value="{$table.name}">
-							</td>
-							<td>{$table.name}</td>
-							<td>{$table.rows}</td>
-							<td>{$table.data_length|unit}</td>
-							<td>{$table.create_time}</td>
-							<td class="info">备份未开始</td>
-							<td>
-								<a href="javascript:;" class="layui-btn layui-btn-xs optimiz" tables="{$table.name}">优化表</a>&nbsp;
-								<a href="javascript:;" class="layui-btn layui-btn-xs repair" tables="{$table.name}">修复表</a>
-							</td>
-						</tr>
-						{/volist}
-					</tbody>
-
-				</table>
-			</form>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
-//备份表方法
-$("#export").click(function() {
-	$(this).html("正在发送备份请求...");
-	$.post(
-		$("#export-form").attr("action"),
-		$("#export-form").serialize(),
-		function(data) {
+	layui.use(['form', 'layer'], function() {
+		var form = layui.form,
+			layer = layui.layer;
+		form.render();
+		form.on('checkbox(allChoose)', function(data) {
+			var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+			child.each(function(index, item) {
+				item.checked = data.elem.checked;
+			});
+			form.render('checkbox');
+		});
+		form.on('checkbox(itemChoose)', function(data) {
+			var sib = $(data.elem).parents('table').find('tbody input[type="checkbox"]:checked').length;
+			var total = $(data.elem).parents('table').find('tbody input[type="checkbox"]').length;
+			if(sib == total) {
+				$(data.elem).parents('table').find('thead input[type="checkbox"]').prop("checked", true);
+				form.render();
+			} else {
+				$(data.elem).parents('table').find('thead input[type="checkbox"]').prop("checked", false);
+				form.render();
+			}
+		});
+		$('body').on('click', '.databack', function() {
+			var url = $(this).attr('data-url');
+			$.ajax({
+				url: url,
+				data: $('form').serialize(),
+				success: function(res) {
+					layer.msg(res.msg, {
+						icon: 1
+					});
+				}
+			})
+		});
+	});
+	//备份表方法
+	$("#export").click(function() {
+		$(this).html("正在发送备份请求...");
+		$.post($("#export-form").attr("action"), $("#export-form").serialize(), function(data) {
 			if(data.code == 1) {
 				$("#export").html("开始备份，请不要关闭本页面！");
 				backup(data.data.tab);
@@ -78,38 +94,31 @@ $("#export").click(function() {
 				});
 				$("#export").html("立即备份");
 			}
-
 		}, "json");
-	return false;
-});	
-
-//递归备份表
-function backup(tab, status) {
-	status && showmsg(tab.id, "开始备份...(0%)");
-	$.get($("#export-form").attr("action"), tab, function(data) {
-		// console.log(data)
-		if(data.code == 1) {
-			showmsg(tab, data.msg);
-
-			if(!$.isPlainObject(data.data.tab)) {
-				$("#export").html("备份完成");
-				window.onbeforeunload = function() {
-					return null
+		return false;
+	});
+	//递归备份表
+	function backup(tab, status) {
+		status && showmsg(tab.id, "开始备份...(0%)");
+		$.get($("#export-form").attr("action"), tab, function(data) {
+			// console.log(data)
+			if(data.code == 1) {
+				showmsg(tab, data.msg);
+				if(!$.isPlainObject(data.data.tab)) {
+					$("#export").html("备份完成");
+					window.onbeforeunload = function() {
+						return null
+					}
+					return;
 				}
-				return;
+				backup(data.data.tab, tab.id != data.data.tab.id);
+			} else {
+				$("#export").html("立即备份");
 			}
-
-			backup(data.data.tab, tab.id != data.data.tab.id);
-		} else {
-			$("#export").html("立即备份");
-		}
-	}, "json");
-
-}
-//修改备份状态
-function showmsg(tab, msg) {
-	$("table tbody tr").eq(tab.id).find(".info").html(msg)
-}
-
-
+		}, "json");
+	}
+	//修改备份状态
+	function showmsg(tab, msg) {
+		$("table tbody tr").eq(tab.id).find(".info").html(msg)
+	}
 </script>

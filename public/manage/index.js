@@ -206,7 +206,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
        	}
      });       		
 	});	
-	
+
 	
 	$('body').on("click", "*[lay-href]",function(){
 		var e = $(this),

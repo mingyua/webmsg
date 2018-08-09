@@ -37,7 +37,7 @@
 			  
 			  <hr class="layui-bg-gray">
 			  <div class="layui-form-item" style="padding:10px 20px;">
-			  	<button class="layui-btn layui-btn-fluid" lay-submit lay-filter='submit'>登录</button>
+			  	<button id="sub" class="layui-btn layui-btn-fluid" lay-submit lay-filter='submit'>登录</button>
 			  </div>
 			</div>
 			<p class="footer">Powered by MingYu © 2018</p>
@@ -49,6 +49,11 @@
   
 <script>layui.use(['layer','form'], function() {
 	var layer = layui.layer,form = layui.form;
+		$(document).keyup(function(event){
+		  if(event.keyCode ==13){
+		    $('#sub').click();
+		  }
+		});	
 
         $(function(){
             //得到焦点

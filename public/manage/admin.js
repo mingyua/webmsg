@@ -106,7 +106,6 @@ layui.define('index',function(e){
 		 var type = $(this).data('type');
     myobj[type] ? myobj[type].call(this) : '';
 	});
-
   //输出test接口
   e('admin', myobj);
 });    

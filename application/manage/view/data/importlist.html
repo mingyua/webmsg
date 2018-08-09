@@ -1,9 +1,7 @@
 <div class="admin-main fadeInUp animated">
 	<div class="layui-field-box">
 		<div>
-			<blockquote class="layui-elem-quote">
-				<button class="layui-btn">备份管理</button>
-			</blockquote>
+			<blockquote class="layui-elem-quote"> <button class="layui-btn">备份管理</button> </blockquote>
 			<div class="layui-form" style="margin:20px 0;">
 				<table class="layui-table" lay-even="" lay-skin="row" lay-size="sm">
 					<colgroup>
@@ -13,8 +11,7 @@
 						<col width="150">
 						<col width="200">
 						<col width="200">
-						<col width="100">
-					</colgroup>
+						<col width="100"> </colgroup>
 					<thead>
 						<tr>
 							<th>备份名称</th>
@@ -26,8 +23,7 @@
 							<th>操作</th>
 						</tr>
 					</thead>
-					<tbody>
-						{foreach name='list' item='data'}
+					<tbody> {foreach name='list' item='data'}
 						<tr>
 							<td>{$data.time|toDate='Ymd-His'}</td>
 							<td>{$data.part}</td>
@@ -39,48 +35,34 @@
 								<a class="layui-btn layui-btn-xs db-import" href="{:url('data/import',['time'=>$data['time']])}">还原</a>&nbsp;
 								<a class="layui-btn layui-btn-xs deleteitem" data-url="{:URL('data/del')}" id="{$data.time}">删除</a>
 							</td>
-						</tr>
-						{/foreach}
-					</tbody>
+						</tr> {/foreach} </tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 </div>
-
-
 <script>
 	layui.use(['layer'], function() {
 		window.$ = layui.$;
 		var layer = layui.layer;
-
 		$(".db-import").click(function() {
 			var self = this,
 				status = ".";
-
 			$(this).parent().prevAll('.status').html("").html('等待还原');
-
 			$.get(self.href, success, "json");
 			window.onbeforeunload = function() {
-				return "正在还原数据库，请不要关闭！"
+				return "正在还原数据库，请不要关闭！";
 			}
 			return false;
 
 			function success(data) {
-
 				if(data.code == 1) {
-
 					$(self).parent().prev().text(data.msg);
-
 					if(data.data.part) {
 						$.get(self.href, {
-								"part": data.data.part,
-								"start": data.data.start
-							},
-							success,
-							"json"
-						);
-
+							"part": data.data.part,
+							"start": data.data.start
+						}, success, "json");
 					} else {
 						layer.alert(data.msg);
 						//window.onbeforeunload = function(){ return null; }
@@ -89,6 +71,32 @@
 					layer.alert(data.msg);
 				}
 			}
+		});
+		$('body').on('click', '.deleteitem', function() {
+			var dd = $(this);
+			var url = $(this).attr('data-url');
+			var id = $(this).attr('id');
+			layer.confirm('您确定要删除吗？', {
+				title: '删除提醒',
+				skin: 'layui-layer-diy',
+				closeBtn: 1,
+				offset: '200px'
+			}, function(index) {
+				$.ajax({
+					url: url,
+					data: {
+						id: id
+					},
+					success: function(res) {
+						layer.msg(res.msg, {
+							icon: res.result
+						});
+						if(res.result === 1) {
+							dd.parents("tr").remove();
+						}
+					}
+				})
+			})
 		});
 	});
 </script>
