@@ -110,4 +110,5 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 .userinfo li{line-height: 30px;}
 .userinfo i{color:#999;margin: 5px;}
 
+#layuiclick .layui-btn{background: none;}
 

@@ -152,7 +152,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 			beforeSend: function () {
 			   _this.attr({ disabled: "disabled" }).text('正在提交数据...');
 			},success:function(res){
-				//layer.alert(JSON.stringify(res));exit;
+				//layer.alert(JSON.stringify(data.field));exit;
 				if(res.status==1){
 					layer.msg(res.msg,{icon:res.icon,time:2000},function(item){
 						if((res.url).length>0){

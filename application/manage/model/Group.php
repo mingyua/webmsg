@@ -9,15 +9,17 @@
 // +----------------------------------------------------------------------+
 namespace app\manage\model;
 use think\Model;
-class Template extends Model
+class Group extends Model
 {
     
-    protected $name = 'template';// 设置当前模型对应的数据表名称
+    protected $name = 'group';// 设置当前模型对应的数据表名称
     protected $pk = 'id';// 设置主键
-
-    public function cate()
+    protected $createTime = 'addtime';
+	protected $updateTime = 'uptime';
+    public function user()
     {
-        return $this->belongsTo('Cate','id');
-    }
+        return $this->belongsTo('User','id');
+    }    
+
 }
 ?>

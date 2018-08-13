@@ -35,42 +35,7 @@ layui.define('index',function(e){
 	      	
 	      }
 	      
-		},	
-   		backupdata: function(){ //获取选中数据
-	      var checkStatus = table.checkStatus('tablist')
-	      ,data = checkStatus.data,ajaxurl=$(this).attr('data-url'),_this=$(this);
-	      
-	      
-	      if(data.length<=0){
-	      	 layer.alert('至少选择一条数据！',{btn:'',title:'提示',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'});
-	      }else{
-	      	_this.html("正在发送备份请求...");
-	      	
-					$.post(ajaxurl,data,function(item) {
-						if(data.code == 1) {
-							_this.html("开始备份，请不要关闭本页面！");
-							backup(data.data.tab);
-							window.onbeforeunload = function() {
-								return "正在备份数据库，请不要关闭！"
-							}
-						} else {
-							layer.tips(data.msg, "#export", {
-								tips: [1, '#3595CC'],
-								time: 4000
-							});
-							_this.html("备份数据");
-						}
-						
-							//layer.alert(JSON.stringify(item));
-				
-						});
-					return false;	      	
-	      	
-		      	//head.ajaxsend(ajaxurl,{name:data},'');		        
-		        layer.closeAll();
-	      }
-	      
-		},	
+		},
 		imports:function(){
 			var url=$(this).attr('data-url');
 				layer.open({

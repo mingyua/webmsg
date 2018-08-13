@@ -1,4 +1,12 @@
 <?php
+// +----------------------------------------------------------------------+
+// | PHP version 5                                                        |
+// +----------------------------------------------------------------------+
+// | Copyright (c) 2018-2020 The MingYu                                   |
+// +----------------------------------------------------------------------+
+// | Authors: Original Author <285412937@qq.com>                          |
+// |          MingYu <285412937@qq.com>                                   |
+// +----------------------------------------------------------------------+
 namespace app\manage\controller;
 use think\Controller;
 use think\Db;
@@ -42,6 +50,21 @@ class Upload extends Controller
 	        }
 	    }    	
    	
+    }
+    public function avatar()
+    {
+    	$post=$this->request->post('thumb');
+    	
+    	$url = explode(',',$post);
+		$pathname='./public/uploads/avatar/'.time().".gif"; 				
+		$info = file_put_contents($pathname, base64_decode($url[1]));
+        if($info){
+        	return ['msg'=>'上传成功！','status'=>1,'data'=>$pathname];
+        }else{
+            return ['msg'=>'上传失败','status'=>2];          
+        }
+
+
     }
         
 }
