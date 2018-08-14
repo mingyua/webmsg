@@ -11,6 +11,7 @@ namespace app\manage\controller;
 
 use think\Controller;
 use think\Request;
+use think\Db;
 
 class Menu extends Controller
 {
@@ -21,11 +22,7 @@ class Menu extends Controller
      */
     public function index()
     {
-    	
-	    	
 
-       
-    	
         return view();
         //
     }
@@ -38,17 +35,26 @@ class Menu extends Controller
     public function add()
     {
     	if($this->request->post()){
-    		
+    		$arr=db('menu')->field('id,pid')->select();  
     		$post=$this->request->post();
     		if(isset($post['id'])){
     			$isupdate=true;
+    			$post['childrenid']=implode(',',getchildrenId($arr,$post['id']));
     		}else{
     			$isupdate=false;
     		}
     		$res=model('Menu')->isUpdate($isupdate)->allowField(true)->save($post);
     		if(false===$res){
     			$back=['msg'=>'操作失败！','status'=>2,'icon'=>2,'url'=>''];
-    		}else{
+    		}else{    			 
+    			if(isset($post['id'])){
+    				$ids=$post['id'];   				
+    				$children=addchildren($arr,$ids);
+    			}else{
+    				$ids=Db::name('menu')->max('id');
+    				$children=addchildren($arr,$ids);
+    			}
+				$mres=Db::name('menu')->update(['childrenid' => $children['childrenid'],'id'=>$children['fid']]);    			
     			$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>''];
     		}
     		return $back;

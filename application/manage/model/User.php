@@ -16,7 +16,7 @@ class User extends Model
     protected $pk = 'id';// 设置主键
     protected $createTime = 'addtime';
 	protected $updateTime = 'uptime';
-
+    protected $insert = ['kinds' => 1];  
     public function group()
     {
         return $this->belongsTo('Group','groupid');

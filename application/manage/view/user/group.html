@@ -12,6 +12,7 @@
 </div>
 <script type="text/html" id="switchTpl"> <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="启用|禁用" data-id="{{d.id}}" data-url="{:URL('user/groupstatus')}" lay-filter="status" {{ d.status==1 ? 'checked' : '' }}> </script>
 <script type="text/html" id="barDemo">
+	<a class="layui-btn layui-btn-xs" lay-href="{:URL('user/auth')}?id={{d.id}}" data-title="权限分配">权限分配</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('user/delete',array('table'=>'group'))}" lay-event="del">删除</a>
 </script> {load href="__MANAGE__/admin.js"}
 <script>

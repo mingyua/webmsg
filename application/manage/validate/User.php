@@ -13,9 +13,10 @@ class User extends Validate
      * @var array
      */	
 	protected $rule = [
-       'name'  => 'require|max:25',
-        'age'   => 'number|between:1,120',
-        'email' => 'email',    	
+       'username'  => 'require|unique:user',
+       'userpwd'   => 'requireWith:account',
+
+
 	];
     
     /**
@@ -25,6 +26,12 @@ class User extends Validate
      * @var array
      */	
     protected $message = [
-    	'name.require' => '名称必须',
+    	'username.require' => '用户名必须填写',
+    	'username.unique' => '用户名已经存在',
     ];
+    
+    protected $scene = [
+         //'edit'  =>  ['username','userpwd'],
+    ];
+        
 }

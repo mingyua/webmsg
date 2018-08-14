@@ -1,38 +1,44 @@
 {load href="__CSS__/cropper.min.css"} {load href="__CSS__/ImgCropping.css"}
 <div id="demoTable" class="layui-fluid">
 	<div class="layui-row">
-		<div class="layui-col-md12 layui-form">
+		<div  class="layui-col-md12 layui-form">
 			<div class="layui-card">
 				<div class="layui-card-body layui-clear">
 					<div class="layui-col-md6">
 						<div class="layui-form-item"> <label class="layui-form-label">所属分组</label>
 							<div class="layui-input-block">
 								<select name="groupid"> {volist name="glist" id="v"}
-									<option value="{$v.id}">{$v.name}</option> {/volist} </select>
+									<option value="{$v.id}" {eq name="$info.group.id|default=''" value="$v.id"}selected{/eq}>{$v.name}</option> {/volist} </select>
 							</div>
 						</div>
 						<div class="layui-form-item"> <label class="layui-form-label">用户名</label>
-							<div class="layui-input-block"> <input name="username" lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input" type="text"> </div>
+							<div class="layui-input-block"> <input name="username" lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input" type="text" value="{$info.username|default=''}"> </div>
 						</div>
 						<div class="layui-form-item"> <label class="layui-form-label">密码</label>
-							<div class="layui-input-block"> <input name="userpwd" lay-verify="pass" autocomplete="off" placeholder="密码长度为6-12位" class="layui-input" type="text"> </div>
+							<div class="layui-input-block"> <input name="userpwd" {empty name="$info"}lay-verify="pass"{/empty} autocomplete="off" placeholder="密码长度为6-12位" class="layui-input" type="text" > </div>
 						</div>
 						<div class="layui-form-item"> <label class="layui-form-label">确认密码</label>
 							<div class="layui-input-block"> <input lay-verify="repass" autocomplete="off" placeholder="密码长度为6-12位" class="layui-input" type="text"> </div>
 						</div>
 						<div class="layui-form-item"> <label class="layui-form-label">电话</label>
-							<div class="layui-input-block"> <input name="phone" lay-verify="phone" autocomplete="off" placeholder="请输入手机号码" class="layui-input" type="text"> </div>
+							<div class="layui-input-block"> <input name="phone" lay-verify="phone" autocomplete="off" placeholder="请输入手机号码" class="layui-input" type="text" value="{$info.phone|default=''}"> </div>
 						</div>
 						<div class="layui-form-item"> <label class="layui-form-label">状态</label>
-							<div class="layui-input-block"> <input name="status" value="1" title="启用" checked="" type="radio"> <input name="status" value="0" title="禁用" type="radio"> </div>
+							<div class="layui-input-block"> <input name="status" value="1" title="启用" {eq name="$info.status|default='1'" value="1"} checked {/eq} type="radio"> <input name="status" value="0" {eq name="$info.status|default='1'" value="0"} checked {/eq} title="禁用" type="radio"> </div>
 						</div>
 						<div class="layui-form-item"> <label class="layui-form-label"></label>
-							<div class="layui-input-block"> <input type="text" name="thumb" id="thumb" value="" /> <button class="layui-btn" lay-submit lay-filter="submit" data-url="{:URL('user/adduser')}">提交</button> </div>
+							<div class="layui-input-block">
+								{notempty name="$info"}
+								<input type="hidden" name="id" id="id" value="{$info.id}" /> 
+								{/notempty}
+								<input type="hidden" name="thumb" id="thumb" value="{$info.thumb|default=''}" /> 
+								
+								<button class="layui-btn" lay-submit lay-filter="submit" data-url="{:URL('user/adduser')}">提交</button> </div>
 						</div>
 					</div>
 					<div class="layui-col-md6">
 						<div class="layui-form-item">
-							<div class="layui-input-block t-c "> <img id="finalImg" src="__MANAGE__/images/upload.png" width="100" /><br><br> <button id="replaceImg" class="layui-btn">更换头像</button>
+							<div class="layui-input-block t-c "> <img id="finalImg" src="{if $info==''}__MANAGE__/images/upload.png{elseif $info->thumb =='' /}__MANAGE__/images/upload.png {else /}__ROOT__{$info.thumb}{/if}" width="100" /><br><br> <button id="replaceImg" class="layui-btn">更换头像</button>
 								<div style="display: none;margin-top: 10px;" class="tailoring-container">
 									<div class="black-cloth" onclick="closeTailor(this)"></div>
 									<div class="tailoring-content">

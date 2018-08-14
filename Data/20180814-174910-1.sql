@@ -6,7 +6,7 @@
 -- Database : 
 -- 
 -- Part : #1
--- Date : 2018-08-13 17:54:21
+-- Date : 2018-08-14 17:49:10
 -- -----------------------------
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -6275,7 +6275,7 @@ CREATE TABLE `wb_group` (
   `addtime` int(11) DEFAULT NULL COMMENT '添加时间',
   `uptime` int(11) DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- -----------------------------
 -- Records of `wb_group`
@@ -6333,6 +6333,7 @@ INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD
 INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1534122419', '1534122419');
 INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1534138764', '1534138764');
 INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1534154017', '1534154017');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1534210334', '1534210334');
 
 -- -----------------------------
 -- Table structure for `wb_menu`
@@ -6344,28 +6345,30 @@ CREATE TABLE `wb_menu` (
   `name` varchar(255) DEFAULT NULL COMMENT '菜单名称',
   `url` varchar(255) DEFAULT NULL COMMENT '菜单url地址',
   `icon` varchar(255) DEFAULT NULL COMMENT '图标',
+  `childrenid` varchar(255) DEFAULT NULL COMMENT '子ID',
   `status` int(11) DEFAULT NULL COMMENT '状态：1显示;0不显示',
   `sort` int(11) DEFAULT NULL COMMENT '排序 正序',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 -- -----------------------------
 -- Records of `wb_menu`
 -- -----------------------------
-INSERT INTO `wb_menu` VALUES ('1', '0', '控制台', 'index/center', 'layui-icon-console', '1', '1');
-INSERT INTO `wb_menu` VALUES ('16', '0', '设置', '', 'layui-icon-set', '1', '2');
-INSERT INTO `wb_menu` VALUES ('17', '16', '系统设置', 'set/index', '', '1', '1');
-INSERT INTO `wb_menu` VALUES ('18', '16', '菜单设置', 'menu/index', '', '1', '2');
-INSERT INTO `wb_menu` VALUES ('19', '0', '日记管理', '', 'layui-icon-form', '1', '3');
-INSERT INTO `wb_menu` VALUES ('20', '19', '系统日记', 'log/index', '', '1', '1');
-INSERT INTO `wb_menu` VALUES ('21', '16', '栏目管理', 'cate/index', '', '1', '3');
-INSERT INTO `wb_menu` VALUES ('23', '0', '数据管理', '', 'layui-icon-upload-drag', '1', '5');
-INSERT INTO `wb_menu` VALUES ('24', '23', '数据导入', 'data/index', '', '1', '2');
-INSERT INTO `wb_menu` VALUES ('26', '23', '数据备份', 'data/backup', '', '1', '1');
-INSERT INTO `wb_menu` VALUES ('25', '19', '访客日记', 'log/visitor', '', '1', '0');
-INSERT INTO `wb_menu` VALUES ('27', '0', '用户管理', '', 'layui-icon-user', '1', '4');
-INSERT INTO `wb_menu` VALUES ('28', '27', '系统管理员', 'user/index', '', '1', '1');
-INSERT INTO `wb_menu` VALUES ('29', '27', '用户组', 'user/group', '', '1', '2');
+INSERT INTO `wb_menu` VALUES ('1', '0', '控制台', 'index/center', 'layui-icon-console', '', '1', '1');
+INSERT INTO `wb_menu` VALUES ('16', '0', '设置', '', 'layui-icon-set', '16,17,18,21', '1', '3');
+INSERT INTO `wb_menu` VALUES ('17', '16', '系统设置', 'set/index', '', '', '1', '2');
+INSERT INTO `wb_menu` VALUES ('18', '16', '菜单设置', 'menu/index', '', '18', '1', '2');
+INSERT INTO `wb_menu` VALUES ('19', '0', '日记管理', '', 'layui-icon-form', '', '1', '3');
+INSERT INTO `wb_menu` VALUES ('20', '19', '系统日记', 'log/index', '', '', '1', '1');
+INSERT INTO `wb_menu` VALUES ('21', '16', '栏目管理', 'cate/index', '', '21', '1', '2');
+INSERT INTO `wb_menu` VALUES ('23', '0', '数据管理', '', 'layui-icon-upload-drag', '', '1', '5');
+INSERT INTO `wb_menu` VALUES ('24', '23', '数据导入', 'data/index', '', '', '1', '2');
+INSERT INTO `wb_menu` VALUES ('26', '23', '数据备份', 'data/backup', '', '', '1', '1');
+INSERT INTO `wb_menu` VALUES ('25', '19', '访客日记', 'log/visitor', '', '', '1', '0');
+INSERT INTO `wb_menu` VALUES ('27', '0', '用户管理', '', 'layui-icon-user', '27,28,29,30', '1', '4');
+INSERT INTO `wb_menu` VALUES ('28', '27', '系统管理员', 'user/index', '', '', '1', '1');
+INSERT INTO `wb_menu` VALUES ('29', '27', '用户组', 'user/group', '', '29,30', '1', '2');
+INSERT INTO `wb_menu` VALUES ('30', '29', '权限分配', 'user/auth', '', '', '0', '3');
 
 -- -----------------------------
 -- Table structure for `wb_shortcut`
@@ -6441,19 +6444,10 @@ CREATE TABLE `wb_user` (
   `addtime` int(11) DEFAULT NULL,
   `uptime` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- -----------------------------
 -- Records of `wb_user`
 -- -----------------------------
-INSERT INTO `wb_user` VALUES ('1', '1', '1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '', '', '1', '1533519038', '1534154017');
-INSERT INTO `wb_user` VALUES ('3', '', '1', 'mingyu', '123456', '', '18798075208', '1', '1534152368', '1534152368');
-INSERT INTO `wb_user` VALUES ('4', '', '1', 'username', '123456', './public/uploads/avatar/1534152716.gif', '18798075208', '1', '1534152717', '1534152717');
-INSERT INTO `wb_user` VALUES ('5', '', '1', 'administrator', '14e1b600b1fd579f47433b88e8d85291', '', '18798075208', '1', '1534153012', '1534153012');
-INSERT INTO `wb_user` VALUES ('6', '', '1', '345234', '14e1b600b1fd579f47433b88e8d85291', '', '18798075208', '1', '1534153131', '1534153131');
-INSERT INTO `wb_user` VALUES ('7', '', '2', '32323', '14e1b600b1fd579f47433b88e8d85291', '', '18798075208', '1', '1534153232', '1534153232');
-INSERT INTO `wb_user` VALUES ('8', '', '1', '123456', '14e1b600b1fd579f47433b88e8d85291', '', '18798075208', '1', '1534153252', '1534153252');
-INSERT INTO `wb_user` VALUES ('9', '', '1', '5456', '14e1b600b1fd579f47433b88e8d85291', '', '18798075208', '1', '1534153286', '1534153286');
-INSERT INTO `wb_user` VALUES ('10', '', '1', '23423123', '14e1b600b1fd579f47433b88e8d85291', '', '18798075208', '1', '1534153320', '1534153320');
-INSERT INTO `wb_user` VALUES ('11', '', '1', '65465', '14e1b600b1fd579f47433b88e8d85291', '1', '18798075208', '1', '1534153339', '1534153339');
-INSERT INTO `wb_user` VALUES ('12', '', '1', '4546', '123456', '', '18798075208', '1', '1534153412', '1534153412');
+INSERT INTO `wb_user` VALUES ('1', '1', '1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', './public/uploads/avatar/1534215311.gif', '18798075208', '1', '1533519038', '1534215314');
+INSERT INTO `wb_user` VALUES ('3', '1', '1', 'mingyu', '123456', '', '18798075208', '1', '1534152368', '1534152368');

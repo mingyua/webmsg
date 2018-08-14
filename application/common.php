@@ -38,7 +38,6 @@ function fieldhtml($arr){
 	 echo $html;
 	
 }
-
 /*
  * menuTree 菜单无限分类树形结构
  * $pid  父级ID
@@ -57,17 +56,17 @@ function menuTree($arr,$pid=0,$level=0,$html="&nbsp;&nbsp;&nbsp;&nbsp;"){
 				$v['catename']=$flg."└".$v['name'];
 			}
 			$v['level']=$level;
+			$v['_html']=$flg;
 			
 			$Tree[]=$v;
 			menuTree($arr,$v['id'],$level+1,$html);
 		
 		}	
 	}
-	return $Tree;
-	
+	return $Tree;	
 }
 
-/**
+/*
  * menuTree 菜单无限分类层级结构
  * $pid  父级ID
  * $level  层级关系
@@ -89,9 +88,9 @@ function getchildren($arr,$pid=0,$level=0){
 }
 
 /**
- * menuTree 菜单无限分类层级结构
- * $pid  父级ID
- * $level  层级关系
+ * getchildrenId 获取儿孙id
+ * $arr  所有数组
+ * $id  对你ID
  */
 function getchildrenId($arr,$id){
 	static $Tree='';
@@ -101,12 +100,40 @@ function getchildrenId($arr,$id){
 			getchildrenId($arr,$v['id']);				
 		}		
 	}
-	$res=explode(',',$Tree.$id);
-	
-	return $res;
-	
+	$res=array_unique(explode(',',$Tree.$id));
+	sort($res);
+	return $res;	
 }
-
+/**
+ * getchildrenId 获取父id
+ * $arr  所有数组
+ * $id  对你ID
+ */
+function getparentid($arr,$id){
+	static $Tree='';
+	foreach($arr as $k=>$v){
+		if($v['id']==$id){	
+			if($v['pid']==0){
+				$Tree=$v['id'];
+			}									
+			getparentid($arr,$v['pid']);				
+		}		
+	}
+	return $Tree;	
+}
+/**
+ * addchildren 组装分类子id
+ * $arr  所有数组
+ * $id  对像ID
+ */
+function addchildren($arr,$id){
+	
+		$pid=getparentid($arr,$id);
+		
+    	$children=getchildrenId($arr,$pid);    	
+    	$sort=implode(',',$children);    			
+	return ['fid'=>$pid,'childrenid'=>$sort];	
+}
 /*
  * 字符重复次数
  */

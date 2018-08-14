@@ -41,17 +41,41 @@ class User extends Controller
     {
     	if($this->request->post()){
     		$post=$this->request->post();
-    		$user=model('User')->allowField(true)->save($post);
-    		if(false===$user){
-    			$back=['msg'=>'添加失败','status'=>0,'icon'=>0,'url'=>''];
+    		
+			 $validate = new \app\manage\validate\User;
+
+	        if (!$validate->check($post)) {
+	        	return $back=['msg'=>$validate->getError(),'status'=>0,'icon'=>0,'url'=>''];die();	            
+	        }
+	        if($post['userpwd']==''){
+				unset($post['userpwd']);
     		}else{
-	    		$back=['msg'=>'添加成功','status'=>1,'icon'=>1,'url'=>''];    			
+	    		$post['userpwd']=md5($post['userpwd']);     			
+    		}	
+    		if(isset($post['id'])){
+    			$user=model('User')->allowField(true)->save($post,['id'=>$post['id']]);
+    		} else{
+    			$user=model('User')->allowField(true)->save($post);
+    		}  		
+    		
+    		if(false===$user){
+    			$back=['msg'=>'操作失败','status'=>0,'icon'=>0,'url'=>''];
+    		}else{
+	    		$back=['msg'=>'操作成功','status'=>1,'icon'=>1,'url'=>''];    			
     		}
     		return $back;
     	}else{ 
-    		echo md5(md5('123456'));
+    		$input=input();
+    		if(isset($input['id'])){
+    			$map[]=['id','eq',$input['id']];
+    			$info=model('User')->where($map)->with('group')->find();
+    		}else{
+    			$info='';
+    		}
+    		//dump($info);
     		$glist=db('group')->select();
     		$this->assign('glist',$glist);
+    		$this->assign('info',$info);
     		return view();
     	}
         
@@ -109,6 +133,29 @@ class User extends Controller
    		}
        return $back;
     }
-
+    public function alldel($data)
+    {
+    	$id=array_column($data,'id');
+       	$res=db('user')->delete($id);
+       	if(false===$res){
+       		$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
+       	}else{
+       		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url('user/index')];
+       	}
+    	
+       return $back;
+    }
+    public function auth(){
+    	//菜单
+    	$menu=db('menu')->select();
+    	$this->assign('menulist',menuTree($menu));
+    	//分组信息
+    	$map[]=['id','eq',input('id')];
+    	$info=db('group')->where($map)->find();
+    	$group=db('group')->select();
+    	$this->assign('json',json_encode($group));
+    	$this->assign('info',$info);
+    	return view();
+    }
  
 }

@@ -14,6 +14,8 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 .pr-5{padding-right:5px}.pr-10{padding-right:10px}.pr-15{padding-right:15px}.pr-20{padding-right:20px}.pr-25{padding-right:25px}.pr-30{padding-right:30px}
 .pd-0{padding:0px}.pd-5{padding:5px}.pd-10{padding:10px}.pd-15{padding:15px}.pd-20{padding:20px}.pd-25{padding:25px}.pd-30{padding:30px}.pd-40{padding:40px}
 
+.lh30{line-height: 30px;}.lh40{line-height: 40px;}
+
 .bd-b{border-bottom: 1px solid #E8E8E8;}
 
 .c-666,.c-666 a,a.c-666{color:#666}
