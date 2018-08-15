@@ -130,7 +130,7 @@ class User extends Controller
    		if(false===$res){
    			$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
    		}else{
-   		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>'user'];
+   		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url('user/index')];
    		}
        return $back;
     }

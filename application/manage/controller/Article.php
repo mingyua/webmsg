@@ -203,10 +203,19 @@ class Article extends Controller
      * @param  int  $id
      * @return \think\Response
      */
-    public function update(Request $request, $id)
+    public function alldel($data)
     {
-        //
+    	$id=array_column($data,'id');
+       	$res=db('article')->delete($id);
+       	if(false===$res){
+       		$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
+       	}else{
+       		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url('article/index')];
+       	}
+    	
+       return $back;
     }
+
 
     /**
      * 删除指定资源
@@ -216,6 +225,25 @@ class Article extends Controller
      */
     public function delete($id)
     {
-        //
+   		$res=db('article')->delete($id);
+   		if(false===$res){
+   			$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
+   		}else{
+   		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url('article/index')];
+   		}
+       return $back;        
+        
     }
+ 	public function status($id,$status){
+
+       if($status=='true'){
+       	$st=1;
+       }else{
+       	$st=0;
+       }
+       
+       db('article')->where('id',$id)->data(['status'=>$st])->update();
+    }
+    
+    
 }

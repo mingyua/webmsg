@@ -67,7 +67,7 @@ class Menu extends Controller
     		}
     		    		
 	        $menu=db('menu')->where('status',1)->select();
-	        $list=menuTree($menu,'0','0','└');
+	        $list=menuTree($menu,'0','0');
 	    	 	
 	    	$this->assign('pid',$list);
 	    	$this->assign('info',$info);

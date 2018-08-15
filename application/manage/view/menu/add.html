@@ -9,7 +9,7 @@
 				     <select name="pid">
 				     	<option value="0" {eq name="$info.pid|default=0" value="0"}selected{/eq}>顶级栏目</option>
 				     	{volist name="pid" id="v"}
-				     	<option value="{$v.id}" {eq name="$info.pid|default=0" value="$v.id"}selected{/eq}>{$v.catename}</option>
+				     	<option value="{$v.id}" {eq name="$info.pid|default=0" value="$v.id"}selected{/eq}>{$v.catename|raw}</option>
 				     	{/volist}
 				     </select>
 				    </div>
