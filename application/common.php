@@ -38,6 +38,20 @@ function fieldhtml($arr){
 	 echo $html;
 	
 }
+
+function catechannel($arr,$pid=0,$level=0){
+	$Tree=[];
+	foreach($arr as $k=>$v){
+		if($v['pid']==$pid){			
+			$v['level']=$level;
+			$v['children']=catechannel($arr,$v['id'],$level+1);
+			$Tree[]=$v;
+			
+		
+		}	
+	}
+	return $Tree;	
+}
 /*
  * menuTree 菜单无限分类树形结构
  * $pid  父级ID

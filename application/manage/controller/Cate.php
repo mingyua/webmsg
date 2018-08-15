@@ -65,7 +65,7 @@ class Cate extends Controller
     		    		
     		
 	        $menu=db('cate')->where('status',1)->select();
-	        $list=menuTree($menu,'0','0','└');
+	        $list=menuTree($menu,'0','0');
 
 	    	$this->assign('templist',$templist);
 	    	$this->assign('pid',$list);

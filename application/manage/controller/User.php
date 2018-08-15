@@ -12,6 +12,7 @@ namespace app\manage\controller;
 
 use think\Controller;
 use think\Request;
+use think\Db;
 use app\manage\model\User as Users;
 class User extends Controller
 {
@@ -61,7 +62,7 @@ class User extends Controller
     		if(false===$user){
     			$back=['msg'=>'操作失败','status'=>0,'icon'=>0,'url'=>''];
     		}else{
-	    		$back=['msg'=>'操作成功','status'=>1,'icon'=>1,'url'=>''];    			
+	    		$back=['msg'=>'操作成功','status'=>1,'icon'=>1,'url'=>url('user/index')];    			
     		}
     		return $back;
     	}else{ 
@@ -129,7 +130,7 @@ class User extends Controller
    		if(false===$res){
    			$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
    		}else{
-   		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>''];
+   		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>'user'];
    		}
        return $back;
     }
@@ -145,17 +146,41 @@ class User extends Controller
     	
        return $back;
     }
-    public function auth(){
+    public function auth($id){
     	//菜单
-    	$menu=db('menu')->select();
-    	$this->assign('menulist',menuTree($menu));
-    	//分组信息
+    	$menu=model('Menu')->with('auth')->field('id,pid,name,url')->select();
+    	foreach($menu as $k=>$v){
+    		if(isset($v['auth']) && $v['auth']['groupid']==$id){
+				$menu[$k]['checked']='ture';   			
+    		} 
+    		unset($menu[$k]['auth']); 		
+    	}
+    	$this->assign('menulist',json_encode(catechannel($menu)));
     	$map[]=['id','eq',input('id')];
     	$info=db('group')->where($map)->find();
     	$group=db('group')->select();
     	$this->assign('json',json_encode($group));
     	$this->assign('info',$info);
     	return view();
+    }
+    public function authedit($id){
+    	db('auth')->where('groupid','eq',$id)->delete();
+    	$post=$this->request->post('data');
+    	
+    	$data=[];
+    	foreach($post as $k=>$v){
+    		$data[$k]['groupid']=$id;
+    		$data[$k]['menuid']=$v['id'];
+    		$data[$k]['menuurl']=$v['url'];    		
+    	};
+    	
+    	$result=Db::name('auth')->insertAll($data);
+    	if(false===$result){
+       		$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];    		
+    	}else{
+			$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url('user/group')];    		
+    	}
+		return $back;
     }
  
 }

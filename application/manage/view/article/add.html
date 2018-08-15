@@ -12,7 +12,7 @@
 								<select name="cateid" lay-verify="required">									
 									<option value="">请选择</option>
 									{volist name="cate" id="v"}
-									<option value="{$v.id}" {eq name="$info.cateid|default='0'" value="$v.id"}selected{/eq}>{:strrpt('└',$v.level)}{$v.name}</option>
+									<option value="{$v.id}" {eq name="$info.cateid|default='0'" value="$v.id"}selected{/eq}>{$v.catename|raw}</option>
 									{/volist}
 								</select>
 							</div>

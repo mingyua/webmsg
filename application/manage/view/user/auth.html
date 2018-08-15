@@ -1,33 +1,60 @@
+
 <div class="layui-fluid">
 	<div class="layui-row">
 		<div class="layui-col-md12">
 			<div class="layui-card">
 				<div class="layui-card-header pt-10 t-c f-20"> 【{$info.name}】权限 </div>
 				<div class="layui-card-body layui-form">
+							
+					<ul id="demo"></ul>
 					
-					<table class="layui-table" lay-even="" lay-skin="nob" lay-size="md">
-						<thead>
-							<tr>
-								<th class="layui-form-item"><i class="layui-icon layui-icon-triangle-r pr-10 lh40 f-20"></i><input type="checkbox" lay-skin="primary" name="" title="全选" id="" value="" /></th>
-							</tr>
-						</thead>
-						<tbody>
-							{volist name="menulist" id="v"}
-							<tr>
-								<td class="layui-form-item">{$v._html|html_entity_decode}<i class="layui-icon layui-icon-triangle-r pr-10 lh40"></i><input type="checkbox" lay-skin="primary" name="" title="{$v.catename}" id="" value="" /></td>
-							</tr>
-							{/volist}
-						</tbody>
-					</table>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<a id="sendbtn" class="layui-btn">立即提交</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="layui-clear" style="height: 60px;">&nbsp;</div>
 </div>
-<script type="text/javascript">
-	layui.use(['table','form'],function(){
-		var table=layui.table,form=layui.form;
-		form.render();
-	});
+
+<script>
+//Demo
+layui.use(['tree', 'layer','index'], function(){
+  var indfun = layui.index,layer = layui.layer,$=layui.jquery; 
+  
+  var tree=layui.tree({
+    elem: '#demo' //指定元素
+    ,target: '_blank' //是否新选项卡打开（比如节点返回href才有效）
+    ,check: 'checkbox'
+    ,click: function(item){ //点击节点回调
+      console.log(item);
+    }
+    ,nodes: {$menulist|raw}
+  });
+  //alert('23132');
+  $('#sendbtn').click(function () {
+  	$.ajax({
+  		type:"post",
+  		url:"{:URL('user/authedit',array('id'=>$info.id))}",
+  		data:{data:tree.getChecked(false)},
+  		success:function(res){
+			if(res.status==1){
+				layer.msg(res.msg,{icon:res.icon,time:2000},function(item){
+					if((res.url).length>0){
+						indfun.reloadurl(res.url);
+					}
+				});
+			}
+  			
+  			
+  		},error:function(msg){
+  			layer.msg('网络错误');
+  		}
+  	});
+  }); 
+ 
+});
 </script>

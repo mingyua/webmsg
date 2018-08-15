@@ -26,12 +26,12 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 			this.urltip(url);
 			
 		},
-		reloadurl: function(url) {
-			var _this = $('.lay-left').find('.layui-this>a').attr('data-url');			
-			if(_this != undefined) {
-				this.urltip(_this);
-			} else {
+		reloadurl: function(url) {			
+			if(url){
 				this.urltip(url);
+			}else{
+			var _this = $('.lay-left').find('.layui-this>a').attr('data-url');			
+			this.urltip(_this);	
 			}
 		},
 		screenw: function() {
@@ -155,13 +155,12 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 				//layer.alert(JSON.stringify(data.field));exit;
 				if(res.status==1){
 					layer.msg(res.msg,{icon:res.icon,time:2000},function(item){
-						if((res.url).length>0){
-							window.location.href=res.url;
+						if((res.url).length>0){							
+							fun.reloadurl(res.url);
+						}else{
+							parent.$('#reload').click();
+							parent.layer.closeAll();							
 						}
-						parent.$('#reload').click();
-						parent.layer.closeAll();
-						
-						
 					});
 				}else{
 					layer.msg(res.msg,{icon:res.icon});					
