@@ -10,7 +10,7 @@
 								<select id="cateid" name="cateid">
 									<option value="">请选择分类</option>
 									{volist name="cate" id="v"}
-									<option value="{$v.id}">{:strrpt('└',$v.level)}{$v.name}</option>
+									<option value="{$v.id}">{$v.catename|raw}</option>
 									{/volist}
 								</select>																	
 							</div>
@@ -34,6 +34,7 @@
 			</div>
 		</div>
 	</div>
+	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
 </div>
 <script type="text/html" id="switchTpl">
   <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="显示|不显示" data-id="{{d.id}}" data-url="{:URL('cate/status')}" lay-filter="status" {{ d.status == 1 ? 'checked' : '' }}>
