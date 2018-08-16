@@ -5,35 +5,52 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 		table = layui.table,
 		upload = layui.upload,
 		element = layui.element,		
-		w = $(window).width();		
+		w = $(window).width(),
+		mydata,
+		geturl="/manage/index/geturl";
 	var fun = {
-		hello: function(str) {
-			a.msg('Hello ' + (str || 'mymod'));
-		},
-		urltip: function(obj) {
-			console.log(obj);
-			$('#lay-body').load(obj, '', function(res, status) {
-				if(status == 'success') {
-					a.closeAll();
-				} else {
-					$('#lay-body').html("<h2 class='t-c'>出错了！</h2>");
-					a.closeAll();
+		access: function(str) {
+			$.ajax({
+				type:"get",
+				url:geturl,
+				data:{data:str},
+				success:function(res){
+					if(res.status==1){						
+						$('#lay-body').load(str, '', function(res, status) {
+							if(status == 'success') {
+								$('#refurl').val(str);								
+							} else {
+								$('#lay-body').html("<h2 class='t-c'>出错了！</h2>");					
+							}
+							a.closeAll();
+						});
+					}else{
+						a.alert(res.msg,{icon:res.icon,skin:'layui-layer-diy'});
+					}
+					
 				}
 			});
-		},
-		jumpurl:function(url,title){
-			$('#stepnav').removeClass('layui-hide').html('<a href="/manage/index/index"><i class="layui-icon layui-icon-home"></i>主页</a><span lay-separator="">/</span><a><cite>' + title + '</cite></a>');			
-			this.urltip(url);
 			
 		},
-		reloadurl: function(url) {			
-			if(url){
-				this.urltip(url);
-			}else{
-			var _this = $('.lay-left').find('.layui-this>a').attr('data-url');			
-			this.urltip(_this);	
-			}
-		},
+		checkauth: function(url){
+			
+			$.ajax({
+				type:"get",
+				url:geturl,
+				async:false,
+				data:{data:url},
+				success:function(){
+					if(res.status!=1){
+						mydata=0;
+						
+					}else{
+						mydata=1;
+					}
+					
+				}
+			});
+			alert(mydata);
+		},		
 		screenw: function() {
 			if(w < 640) {
 				$('.lay-right').css('width', '100%');
@@ -67,12 +84,11 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 					if(res.status==1){
 						layer.msg(res.msg,{icon:res.icon,time:2000},function(item){
 							if((res.url).length>0){
-								fun.reloadurl(res.url);
+								fun.access(res.url);
 							}
 							if(obj){
 								obj.del();
-							}
-							
+							}							
 						});
 					}else{
 						layer.msg(res.msg,{icon:res.icon});					
@@ -83,18 +99,6 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 			});
 		}
 	};
-	//监听导航点击
-	element.on('nav(menulist)', function(elem) {
-		var url = elem.attr('data-url'),
-			title = elem.text().replace(/(^\s*)|(\s*$)/g, ''),
-			f = elem.parents('li').find('a:first').text(),refurl=$('#refurl').val(url);
-			
-		if(url) {
-			$('#stepnav').removeClass('layui-hide').html('<a href="/manage/index/index"><i class="layui-icon layui-icon-home"></i>主页</a><span lay-separator="">/</span><a>' + f + '</a><span lay-separator="">/</span><a><cite>' + title + '</cite></a>');
-			fun.urltip(url);
-			fun.screenw();
-		}
-	});
 	
 		upload.render({
 		    elem: '.demoMore'
@@ -117,33 +121,38 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 		    if(obj.event === 'detail'){
 		      layer.msg('ID：'+ data.id + ' 的查看操作');
 		    } else if(obj.event === 'del'){
-		      var ajaxurl=$(this).attr('data-url'),msg=$(this).attr('data-msg');		      
-		      layer.confirm(msg,{title:'删除提醒',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'}, function(index){
+		      var ajaxurl=$(this).attr('data-url'),msg=$(this).attr('data-msg');
+		      //alert(fun.checkauth(ajaxurl));
+		      fun.checkauth(ajaxurl);
+		     
+		      layer.confirm(msg,{title:'删除提醒',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'}, function(index){		      	
 		      	fun.ajaxsend(ajaxurl,{id:data.id},obj);		        
 		        layer.closeAll();
 		      });
 		    }else if(obj.event === 'ajax'){
 		    	var ajaxurl=$(this).attr('data-url'),title=$(this).attr('data-title');
+		    	 fun.checkauth(ajaxurl);
 		    	fun.ajaxsend(ajaxurl,data,'');	
 		    	layer.closeAll();
 		    }
 		    else if(obj.event === 'edit'){
 		    	var ajaxurl=$(this).attr('data-url')+"?id="+data.id,title=$(this).attr('data-title');
+		    	fun.checkauth(ajaxurl);
 		      	fun.popu(ajaxurl,title,'600px','700px');
 		    }else if(obj.event === 'jumpurl'){		    	
-				fun.jumpurl(data.jumpurl,data.name);
+				fun.access(data.jumpurl);
 		    }
-
 		  });	
 		//状态修改
 		  form.on('switch(status)', function(obj){
 		  	var ajaxurl=$(this).attr('data-url'),id=$(this).attr('data-id'),st=1;
+		  	fun.checkauth(ajaxurl);
 		  	if(obj.elem.checked == false){st=0;}
 		  	$.post(ajaxurl,{id:id,status:obj.elem.checked});
 		  });	
 	//提交数据
 	form.on('submit(submit)',function(data){
-		var _this=$(this),url=$(this).attr('data-url');
+		var _this=$(this),url=$(this).attr('data-url'),val=_this.html();
 		
 		$.ajax({
 			type:'post',
@@ -156,7 +165,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 				if(res.status==1){
 					layer.msg(res.msg,{icon:res.icon,time:2000},function(item){
 						if((res.url).length>0){							
-							fun.reloadurl(res.url);
+							fun.access(res.url);
 						}else{
 							parent.$('#reload').click();
 							parent.layer.closeAll();							
@@ -167,7 +176,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 				}
 				
 			},complete: function () {
-		       _this.removeAttr("disabled").text('确认提交');
+		       _this.removeAttr("disabled").html(val);
 		    },error:function(){
 				layer.msg('网络错误，请重试！',{icon:5});	
 			}
@@ -193,7 +202,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 			if(res.status==1){
 				layer.msg(res.msg,{icon:res.icon,time:2000},function(item){
 					if((res.url).length>0){
-						fun.jumpurl(res.url,res.name);
+						fun.access(res.url);
 					}					
 				});
 			}else{
@@ -209,9 +218,12 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 	
 	$('body').on("click", "*[lay-href]",function(){
 		var e = $(this),
-			i = e.attr("lay-href"),t = e.text(),refurl=$('#refurl').val(i);
+			i = e.attr("lay-href"),t = e.text();
+			if(i.length>1){				
+				fun.access(i);
+			}
 			
-			fun.jumpurl(i,t);	
+			//fun.jumpurl(i,t);	
 	});
 	$('#menuicon').click(function(elem) {
 		var a = $(this),
@@ -234,7 +246,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 		layer.load(3, {time: 3 * 1000});	
 		var url=$('#refurl').val();
 		if(url.length>0){
-			fun.urltip(url);
+			fun.access(url);
 		}else{
 			a.closeAll();
 		}

@@ -54,6 +54,7 @@ class Login extends Controller
 						session('htuserid',$user['id']);
 						session('htusername',$user['username']);
 						session('htpwd',$user['userpwd']);
+						session('htgid',$user['groupid']);
 						session('htuptime',$user['uptime']);
 						session('htaddtime',$user['addtime']);
 						$back=['msg'=>'登录成功,正在跳转...','status'=>1,'url'=>URL('index/index')];

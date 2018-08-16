@@ -22,8 +22,6 @@ class index extends Auth
      */
     public function index()
     {
-    	
-    	
     	$map[] = ['status','=',1];
         $menu=db('menu')->where($map)->order('sort ASC')->select();
         $list=getchildren($menu,'0');
@@ -32,9 +30,10 @@ class index extends Auth
     }
     public function center()
     {      
-    	
-
-    	
+    	$url="/manage/jind/lsdjflwke.html?id=213213";
+		$url=preg_replace('/(\/manage\/|.html.*)/','',$url);
+		$url=explode('/',$url);
+    	echo $url[0]."/".$url[1];
     	$quick=db('shortcut')->where('status',1)->order('sort ASC')->select();
     	$qlist=[];$i=1;
     	foreach($quick as $k=>$v){
@@ -45,82 +44,33 @@ class index extends Auth
     		} 
     		$i++;
     	}
-    	
-    	
-    	//dump($qlist);
     	$this->assign('qlist',$qlist);  
     	$this->assign('title','我是测试');  
         return view();
     }
-    public function a()
+    public function clearCache()
     {      
-    	$this->assign('title','我是测试');  
-        return view();
-    }
+	    header("Content-type: text/html; charset=utf-8");
+		clearCache('./runtime/');
+		return ['msg'=>'清除缓存成功!','status'=>1,'icon'=>1,'url'=>''];
+	}
 
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
-    {
-        return view();
-    }
-
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
-
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-    }
-
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * 删除指定资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function delete($id)
-    {
-        //
-    }
+	public function geturl(){
+		if(session('htuserid')==1){
+		 return	['msg'=>'有权访问','status'=>1,'icon'=>1];	
+		}
+		$gid=session('htgid');
+		$url=preg_replace('/(\/manage\/|.html)/','',input('data'));
+		$url=explode('/',$url);
+    	$url=$url[0]."/".$url[1];		
+		$map[]=['groupid','eq',$gid];
+		$menu=db('auth')->where($map)->select();
+		$urllist=array_filter(array_column($menu,'menuurl'));		
+		if(in_array($url,$urllist)){
+			$back= ['msg'=>'有权访问','status'=>1,'icon'=>1];	
+		}else{
+			$back= ['msg'=>'您无权访问此页面!','status'=>0,'icon'=>5];	
+		}
+		return $back;
+	}
 }

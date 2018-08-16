@@ -22,23 +22,19 @@ class Cate extends Controller
      */
     public function index()
     {
-    	
-     	$cate= Cates::with('template')->select();  
-    		//dump($cate);
-    	
         return view();
         //
     }
 
     /**
-     * 显示创建资源表单页.
+     * 添加修改资源
      *
-     * @return \think\Response
+     * 
      */
     public function add()
     {
     	if($this->request->post()){
-    		
+    		$arr=db('cate')->field('id,pid')->select();  
     		$post=$this->request->post();
     		if(isset($post['id'])){
     			$isupdate=true;
@@ -49,6 +45,7 @@ class Cate extends Controller
     		if(false===$res){
     			$back=['msg'=>'操作失败！','status'=>2,'icon'=>2,'url'=>''];
     		}else{
+    			model('Cate')->saveAll(allupdata($arr,'childrenid'));	
     			$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>''];
     		}
     		return $back;
@@ -77,36 +74,7 @@ class Cate extends Controller
 
     }
     /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function alldel($data)
-    {
-    	$id=array_column($data,'id');
-       	$res=db('cate')->delete($id);
-       	if(false===$res){
-       		$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
-       	}else{
-       		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url('cate/index')];
-       	}
-    	
-       return $back;
-    }
-
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
-
-    /**
-     * 显示指定的资源
+     * 加载指定资源
      *
      * @param  int  $id
      * @return \think\Response
@@ -143,17 +111,22 @@ class Cate extends Controller
     }
 
     /**
-     * 保存更新的资源
+     * 批量删除.
      *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
+     * @return $data
      */
-    public function update(Request $request, $id)
+    public function alldel($data)
     {
-        //
+    	$id=array_column($data,'id');
+       	$res=db('cate')->delete($id);
+       	if(false===$res){
+       		$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
+       	}else{
+       		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url('cate/index')];
+       	}
+    	
+       return $back;
     }
-
     /**
      * 删除指定资源
      *

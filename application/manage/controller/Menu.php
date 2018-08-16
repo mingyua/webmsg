@@ -39,7 +39,7 @@ class Menu extends Controller
     		$post=$this->request->post();
     		if(isset($post['id'])){
     			$isupdate=true;
-    			$post['childrenid']=implode(',',getchildrenId($arr,$post['id']));
+
     		}else{
     			$isupdate=false;
     		}
@@ -47,14 +47,8 @@ class Menu extends Controller
     		if(false===$res){
     			$back=['msg'=>'操作失败！','status'=>2,'icon'=>2,'url'=>''];
     		}else{    			 
-    			if(isset($post['id'])){
-    				$ids=$post['id'];   				
-    				$children=addchildren($arr,$ids);
-    			}else{
-    				$ids=Db::name('menu')->max('id');
-    				$children=addchildren($arr,$ids);
-    			}
-				$mres=Db::name('menu')->update(['childrenid' => $children['childrenid'],'id'=>$children['fid']]);    			
+				model('Menu')->saveAll(allupdata($arr,'childrenid'));			
+				
     			$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>''];
     		}
     		return $back;
@@ -94,18 +88,6 @@ class Menu extends Controller
     	
        return $back;
     }
-
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
-
     /**
      * 显示指定的资源
      *
@@ -137,19 +119,6 @@ class Menu extends Controller
        
        db('menu')->where('id',$id)->data(['status'=>$st])->update();
     }
-
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     /**
      * 删除指定资源
      *
@@ -168,8 +137,22 @@ class Menu extends Controller
        		}else{
        		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>''];
        		}
-       }
-       
+       }       
      return $back;   
     }
+    
+    public function allupdate(){
+    	$menu=db('menu')->select();
+    	$data=[];
+    	foreach($menu as $k=>$v){
+    		$data[$k]['id']=$v['id'];
+    		$allchild=get_all_child($menu,$v['id']);
+    		$arrid=array_merge($allchild,array($v['id']));
+    		sort($arrid);
+    		$childrenid=implode(',',$arrid);
+    		$data[$k]['childrenid']=$childrenid;
+    	}		
+    	model('Menu')->saveAll($data);
+    }
+    
 }

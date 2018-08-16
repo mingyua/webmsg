@@ -46,8 +46,6 @@ function catechannel($arr,$pid=0,$level=0){
 			$v['level']=$level;
 			$v['children']=catechannel($arr,$v['id'],$level+1);
 			$Tree[]=$v;
-			
-		
 		}	
 	}
 	return $Tree;	
@@ -100,61 +98,34 @@ function getchildren($arr,$pid=0,$level=0){
 	return $Tree;
 	
 }
-
-/**
- * getchildrenId 获取儿孙id
- * $arr  所有数组
- * $id  对你ID
- */
-function getchildrenId($arr,$id){
-	static $Tree='';
-	foreach($arr as $k=>$v){
-		if($v['pid']==$id){	
-			$Tree .=$v['id'].",";									
-			getchildrenId($arr,$v['id']);				
-		}		
-	}
-	$res=array_unique(explode(',',$Tree.$id));
-	sort($res);
-	return $res;	
-}
-/**
- * getchildrenId 获取父id
- * $arr  所有数组
- * $id  对你ID
- */
-function getparentid($arr,$id){
-	static $Tree='';
-	foreach($arr as $k=>$v){
-		if($v['id']==$id){	
-			if($v['pid']==0){
-				$Tree=$v['id'];
-			}									
-			getparentid($arr,$v['pid']);				
-		}		
-	}
-	return $Tree;	
-}
-/**
- * addchildren 组装分类子id
- * $arr  所有数组
- * $id  对像ID
- */
-function addchildren($arr,$id){
-	
-		$pid=getparentid($arr,$id);
-		
-    	$children=getchildrenId($arr,$pid);    	
-    	$sort=implode(',',$children);    			
-	return ['fid'=>$pid,'childrenid'=>$sort];	
+function get_all_child($array,$id){
+    $arr = array();
+    foreach($array as $v){
+        if($v['pid'] == $id){
+            $arr[] = $v['id'];
+            $arr = array_merge($arr,get_all_child($array,$v['id']));
+        };
+    };
+    return $arr;
 }
 /*
- * 字符重复次数
+ * 更新所有分类子类id
+ * @$array 是表所有数据
+ * $field 要更新的字段
  */
-function strrpt($str,$count){
-	$data=str_repeat($str,$count);
-	return $data;
+function allupdata($array,$field){
+    	$data=[];
+    	foreach($array as $k=>$v){
+    		$data[$k]['id']=$v['id'];
+    		$allchild=get_all_child($array,$v['id']);
+    		$arrid=array_merge($allchild,array($v['id']));
+    		sort($arrid);
+    		$childrenid=implode(',',$arrid);
+    		$data[$k][$field]=$childrenid;
+    	}		
+    	return $data;
 }
+
 /*
 *日期转化  
 * $type 1:转化为时间类型，2转化为时间戳
@@ -245,4 +216,35 @@ function unit($bit,$unit='KB'){
 	}
 	return $str." ".$unit;
 }	
+/**
+ * 递归实现删除目录下的所有的文件和文件夹
+ * @param $dir 要删除的目录
+ * @param bool $deleteRootToo 是否删除根目录 默认不删除
+ http://www.manongjc.com/article/1333.html
+ */
+function clearCache($dir, $deleteRootToo = false)
+{
+    if(!$dh = @opendir($dir))
+    {
+        return 0;
+    }
+    while (false !== ($obj = readdir($dh)))
+    {
+        if($obj == '.' || $obj == '..')
+        {
+            continue;
+        }
+        if (!@unlink($dir . '/' . $obj))//删除文件, 如果是目录则返回false
+        {
+            clearCache($dir.'/'.$obj, true);
+        }
+    }
+    
+    closedir($dh);
+    if ($deleteRootToo)
+    {
+        @rmdir($dir);//删除目录
+    }
+    return;
+}
 

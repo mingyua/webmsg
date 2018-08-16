@@ -13,14 +13,14 @@
 	<div class="lay-main">
 		<div class="lay-left">
 				<h2 class="laylogo"><a href="{:URL('index/index')}" class="c-white">mingyu</a></h2>
-				<ul class="layui-nav layui-nav-tree layui-inline" lay-filter="menulist" style="margin-right: 10px;">
+				<ul class="layui-nav layui-nav-tree layui-inline" style="margin-right: 10px;">
 					{volist name="menulist" id="v"}
 				  <li class="layui-nav-item">
-				    <a data-url="{$v.url}"><i class="layui-icon {$v.icon} mr-10"></i>{$v.name}</a>
+				    <a lay-href="{$v.url}"><i class="layui-icon {$v.icon} mr-10"></i>{$v.name}</a>
 				    {notempty name="v.children"}
 				    	<dl class="layui-nav-child">
 				    	{volist name="v.children" id="k"}
-				    	<dd><a data-url="{$k.url}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$k.name}</a></dd>
+				    	<dd><a lay-href="{$k.url}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$k.name}</a></dd>
 				    	{/volist}
 				    	</dl>
 				    {/notempty}
@@ -34,12 +34,12 @@
 							<li id='menuicon' title="菜单"><i class="layui-icon layui-icon-shrink-right"></i></li>
 							<a href="{:URL('index/index/index')}" target="_blank"><li class="layui-hide-xs" title="前台"><i class="layui-icon layui-icon-website"></i></li></a>
 							<li id="reload" title="刷新"><i class="layui-icon layui-icon-refresh"></i></li>
-							<input type="hidden"  id="refurl" value="" />
+							<input type="text"  id="refurl" value="" />
 					</ul>
 					<ul class="pull-right">
 							<li  title="通知"><i class="layui-icon layui-icon-notice"></i></li>
 							<li class="layui-hide-xs"  title="主题"><i class="layui-icon layui-icon-theme"></i></li>
-							<li class="layui-hide-xs"  title="便签"><i class="layui-icon layui-icon-note"></i></li>
+							<li class="layui-hide-xs"  title="清除缓存" lay-submit lay-filter="submit" data-url="{:URL('index/clearCache')}"><i class="layui-icon layui-icon-fonts-clear"></i></li>
 							<li id="webinfo"  title="更多"><i class="layui-icon layui-icon-more-vertical"></i></li>
 					</ul>
 				</div>
@@ -71,7 +71,7 @@
   
 <script>layui.use(['index','nicescroll'], function() {
 	var index = layui.index,centerurl = layui.cache.centerurl;
-		index.reloadurl(centerurl);
+		index.access(centerurl);
 		index.screenw();
 
 		

@@ -16,7 +16,6 @@ class Article extends Controller
      */
     public function index()
     {
- 	
     	$map[]=['temp','neq',1];
     	$arr=db('cate')->where($map)->select();   	
     	$cate=menuTree($arr,'0');
@@ -51,7 +50,8 @@ class Article extends Controller
     		}else if($k=='title'){
     			$where[]=[$k,'like','%'.$v.'%'];
     		}else if($k=='cid'){
-    			$id=getchildrenId($arr,$v);
+    			$id=get_all_child($arr,$v);
+    			$id=array_merge($id,array($v));
     			$where[]=['cateid','IN',$id];
     		}else{
     			$where[]=[$k,'eq',$v];
@@ -68,18 +68,6 @@ class Article extends Controller
         $articlelist=['code'=>0,'msg'=>'','count'=>$count,'data'=>$list];
         echo json_encode($articlelist);        
     }
-
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function edit()
-    {
-        return $this->fetch();//
-    }
-
     /**
      * 显示指定的资源
      *

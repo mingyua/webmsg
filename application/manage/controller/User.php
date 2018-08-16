@@ -102,25 +102,15 @@ class User extends Controller
     	
     }
  
- 	public function groupstatus($id,$status){
-
+ 	public function status($id,$status){
+		$table=input('table');
        if($status=='true'){
        	$st=1;
        }else{
        	$st=0;
        }
        
-       db('group')->where('id',$id)->data(['status'=>$st])->update();
-    }
- 	public function userstatus($id,$status){
-
-       if($status=='true'){
-       	$st=1;
-       }else{
-       	$st=0;
-       }
-       
-       db('user')->where('id',$id)->data(['status'=>$st])->update();
+       db($table)->where('id',$id)->data(['status'=>$st])->update();
     }
  		
     public function delete($id)
