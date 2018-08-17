@@ -1,0 +1,70 @@
+<div class="layui-fluid">
+	<div class="layui-row layui-form">
+		<div class="layui-col-md12">
+			<div class="layui-card">
+				<div class="layui-card-body">
+					<div class="layui-form-item"> <label class="layui-form-label">类型</label>
+						<div class="layui-input-block"> <input name="kinds" autocomplete="off" placeholder="请输入数字" class="layui-input" type="text"> </div>
+					</div>
+					<div class="layui-form-item"> <label class="layui-form-label">标题</label>
+						<div class="layui-input-block"> <input name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input" type="text"> </div>
+					</div>
+					<div class="layui-form-item layui-form-text"> <label class="layui-form-label">缩略图</label>
+						<div class="layui-input-block">
+							<a class="layui-btn uploadbg demoMore" lay-data="{ url:'/manage/upload/index' }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a><input type="hidden" name="thumb" value=""> </div>
+					</div>
+					<div class="layui-form-item"> <label class="layui-form-label">链接地址</label>
+						<div class="layui-input-block"> <input name="title" lay-verify="rep" autocomplete="off" placeholder="必须带http://" class="layui-input" type="text"> </div>
+					</div>
+					<div class="layui-form-item"> <label class="layui-form-label">位置</label>
+						<div class="layui-input-block"> <input name="title" lay-verify="rep" autocomplete="off" placeholder="请输入显示位置标识:AD1" class="layui-input" type="text"> </div>
+					</div>
+					<div class="layui-form-item"> <label class="layui-form-label">关联</label>
+						<div class="layui-input-inline"> <input name="relationid" disabled autocomplete="off" placeholder="点击搜索" class="layui-input" type="text"> </div>
+						<div class="layui-input-inline"> <button id="search" class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-search"></i></button> </div>
+						<div id="autodiv" class="layui-input-inline" style="display: none;"> <input id="autocomplate" name="relationname" autocomplete="off" placeholder="关键字" class="layui-input" type="text"> </div>
+					</div>
+					<div class="layui-form-item"> <label class="layui-form-label">内容</label>
+						<div class="layui-input-block"> <textarea name="desc" class="layui-textarea"></textarea> </div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block"> <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button> </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> {load href="__CSS__/jquery.autocompleter.css"} {load href="__JS__/jquery.autocompleter.js"}
+<script type="text/javascript">
+	layui.use('upload', function() {
+		var $ = layui.jquery,
+			upload = layui.upload;
+		upload.render({
+			elem: '.demoMore',
+			before: function() {
+				layer.load(0);
+			},
+			done: function(res, index, upload) {
+				var item = this.item;
+				item.html('<img src="__ROOT__' + res.data + '" height="100px">');
+				item.next('input').next('input').val(res.data);
+				layer.closeAll();
+				// console.log(item.next('input').next('input')); //获取当前触发上传的元素，layui 2.1.0 新增
+			}
+		});
+		$(function() {
+			$('#autocomplate').autocompleter({
+				limit: 5,
+				source: "{:URL('hook/getlist')}",
+				callback: function(value, index, selected) {
+					if(selected) {
+						$('input[name="relationid"]').val(selected.id);
+					}
+				}
+			});
+		});
+		$("#search").click(function() {
+			$('#autodiv').toggle();
+		});
+	});
+</script>

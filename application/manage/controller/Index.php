@@ -23,21 +23,17 @@ class index extends Auth
     public function index()
     {
     	$map[] = ['status','=',1];
-        $menu=db('menu')->where($map)->order('sort ASC')->select();
+        $menu=db('menu')->where($map)->cache('menu',3600)->order('sort ASC')->select();
         $list=getchildren($menu,'0');
         $this->assign('menulist',$list);  
         return $this->fetch();
     }
     public function center()
     {      
-    	$url="/manage/jind/lsdjflwke.html?id=213213";
-		$url=preg_replace('/(\/manage\/|.html.*)/','',$url);
-		$url=explode('/',$url);
-    	echo $url[0]."/".$url[1];
     	$quick=db('shortcut')->where('status',1)->order('sort ASC')->select();
     	$qlist=[];$i=1;
     	foreach($quick as $k=>$v){
-    		if ($i%8==0){
+    		if ($i%9==0){
     			$qlist[0][]=$v;
     		}else{
     			$qlist[1][]=$v;
@@ -64,7 +60,7 @@ class index extends Auth
 		$url=explode('/',$url);
     	$url=$url[0]."/".$url[1];		
 		$map[]=['groupid','eq',$gid];
-		$menu=db('auth')->where($map)->select();
+		$menu=db('auth')->where($map)->cache('auth',2*3600)->select();
 		$urllist=array_filter(array_column($menu,'menuurl'));		
 		if(in_array($url,$urllist)){
 			$back= ['msg'=>'有权访问','status'=>1,'icon'=>1];	

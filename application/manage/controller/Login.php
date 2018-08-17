@@ -54,6 +54,7 @@ class Login extends Controller
 						session('htuserid',$user['id']);
 						session('htusername',$user['username']);
 						session('htpwd',$user['userpwd']);
+						session('htthumb',$user['thumb']);
 						session('htgid',$user['groupid']);
 						session('htuptime',$user['uptime']);
 						session('htaddtime',$user['addtime']);

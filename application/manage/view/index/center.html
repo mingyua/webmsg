@@ -7,7 +7,7 @@
           <div class="layui-card">
             <div class="layui-card-header bd-b">登录信息</div>
             <div class="layui-card-body layui-clear">
-								<div class="layui-col-md4"><img src="__MANAGE__/images/upload.png"/></div>
+								<div id="htuserlogo" class="layui-col-md4"><img  src="{notempty name='$Think.session.htthumb'}__ROOT__{$Think.session.htthumb}{else/}__MANAGE__/images/upload.png{/notempty}"/></div>
 								<div class="layui-col-md8">
 									<ul class="userinfo">
 										<li>登录用户:{$Think.session.htusername} </li>
@@ -134,7 +134,8 @@ layui.use(['carousel','form'], function() {
     ,width: '100%' //设置容器宽度
     ,height: '220px' //始终显示箭头
     ,arrow: 'none' //始终显示箭头
-    ,autoplay:false
+    ,autoplay:true
+    ,interval:10000
   });
   
   

@@ -81,6 +81,39 @@ class User extends Controller
     	}
         
     }
+    public function repwd()
+    {
+    	
+    	if($this->request->post()){
+    		$post=$this->request->post();
+    		$data['userpwd']=md5($post['userpwd']);
+    		$res=db('user')->where('id','eq',session('htuserid'))->update($data);
+    		if(false===$res){
+    			$back=['msg'=>'操作失败','status'=>0,'icon'=>0,'url'=>''];
+    		}else{
+	    		$back=['msg'=>'操作成功','status'=>1,'icon'=>1,'url'=>url('index/center')];    			
+    		}
+    		return $back;
+    	}else{
+    		return view();
+    	}
+        
+    }
+    public function ckpwd()
+    {
+    	$input=input('pwd');
+    	$map[]=['id','eq',session('htuserid')];
+    	$map[]=['username','eq',session('htusername')];
+    	$map[]=['userpwd','eq',md5($input)];
+    	$user=db('user')->where($map)->find();
+    	if($user){    		
+        	$back= ['msg'=>'通过','status'=>1,'icon'=>1,'url'=>''];    		
+    	}else{
+        	$back= ['msg'=>'原密码有误,请重试!','status'=>0,'icon'=>5,'url'=>''];    		    		
+    	}
+		return $back;
+    }
+    
     public function group()
     {
         return view();

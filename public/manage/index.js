@@ -1,12 +1,13 @@
 layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 	var a = layui.layer,
-		$ = layui.$,
+		$ = layui.jquery,
 		form = layui.form,
 		table = layui.table,
 		upload = layui.upload,
 		element = layui.element,		
 		w = $(window).width(),
-		mydata,
+		mydata=3,
+		diymsg='您无权访问此页面!',
 		geturl="/manage/index/geturl";
 	var fun = {
 		access: function(str) {
@@ -35,21 +36,21 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 		checkauth: function(url){
 			
 			$.ajax({
+				async:false,
 				type:"get",
 				url:geturl,
-				async:false,
+				 dataType:"json",
 				data:{data:url},
-				success:function(){
+				success:function(res){
 					if(res.status!=1){
 						mydata=0;
 						
 					}else{
 						mydata=1;
 					}
-					
 				}
 			});
-			alert(mydata);
+			return mydata;
 		},		
 		screenw: function() {
 			if(w < 640) {
@@ -122,22 +123,20 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 		      layer.msg('ID：'+ data.id + ' 的查看操作');
 		    } else if(obj.event === 'del'){
 		      var ajaxurl=$(this).attr('data-url'),msg=$(this).attr('data-msg');
-		      //alert(fun.checkauth(ajaxurl));
-		      fun.checkauth(ajaxurl);
-		     
+		      if(fun.checkauth(ajaxurl)==0) {a.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;}	     
 		      layer.confirm(msg,{title:'删除提醒',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'}, function(index){		      	
 		      	fun.ajaxsend(ajaxurl,{id:data.id},obj);		        
 		        layer.closeAll();
 		      });
 		    }else if(obj.event === 'ajax'){
 		    	var ajaxurl=$(this).attr('data-url'),title=$(this).attr('data-title');
-		    	 fun.checkauth(ajaxurl);
+	 	        if(fun.checkauth(ajaxurl)==0) {a.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;}
 		    	fun.ajaxsend(ajaxurl,data,'');	
 		    	layer.closeAll();
 		    }
 		    else if(obj.event === 'edit'){
 		    	var ajaxurl=$(this).attr('data-url')+"?id="+data.id,title=$(this).attr('data-title');
-		    	fun.checkauth(ajaxurl);
+		        if(fun.checkauth(ajaxurl)==0) {a.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;}
 		      	fun.popu(ajaxurl,title,'600px','700px');
 		    }else if(obj.event === 'jumpurl'){		    	
 				fun.access(data.jumpurl);
@@ -146,7 +145,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 		//状态修改
 		  form.on('switch(status)', function(obj){
 		  	var ajaxurl=$(this).attr('data-url'),id=$(this).attr('data-id'),st=1;
-		  	fun.checkauth(ajaxurl);
+		    if(fun.checkauth(ajaxurl)==0) {a.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;}
 		  	if(obj.elem.checked == false){st=0;}
 		  	$.post(ajaxurl,{id:id,status:obj.elem.checked});
 		  });	
