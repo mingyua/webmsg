@@ -1,9 +1,9 @@
 <div class="layui-fluid">
-	<div class="layui-row">
+	<div id="demoTable" class="layui-row">
 		<div class="layui-col-md12">
 			<div class="layui-card">
 				<div id="tabledata" class="layui-card-header pt-10">
-					<button class="layui-btn layui-btn-danger" data-type="getCheckData" data-url="{:URL('hook/alldel')}"  title="删除选中"><i class="layui-icon layui-icon-delete"></i></button>
+					<button class="layui-btn layui-btn-danger" data-type="getCheckData" data-url="{:URL('hook/alldel',array('page'=>'slide'))}"  title="删除选中"><i class="layui-icon layui-icon-delete"></i></button>
 					<button class="layui-btn pull-right" lay-href="{:URL('hook/addslide')}">添加图片</button>
 				</div>
 				<div class="layui-card-body">
@@ -14,11 +14,15 @@
 	</div>
 </div>
 <script type="text/html" id="imgdata">
-	<img src="">
+	<img layer-pid="{{d.id}}" layer-src="__ROOT__{{d.thumb}}" src="__ROOT__{{d.thumb}}" alt="{{d.title}}">
 </script>
+<script type="text/html" id="relation">
+	<a href="{:URL('show/index')}?id={{d.relationid}}" target="_blank">{{d.relationname}}</a>
+</script>
+<script type="text/html" id="switchTpl"> <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="显示|不显示" data-id="{{d.id}}" data-url="{:URL('hook/status',array('table'=>'hook'))}" lay-filter="status" {{ d.status==1 ? 'checked' : '' }}> </script>
 <script type="text/html" id="barDemo">
-	<a class="layui-btn layui-btn-xs" lay-href="{:URL('user/adduser')}?id={{d.id}}" data-title="编辑">编辑</a>
-	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('user/delete',array('table'=>'user'))}" lay-event="del">删除</a>
+	<a class="layui-btn layui-btn-xs" lay-href="{:URL('hook/addslide')}?id={{d.id}}" data-title="编辑">编辑</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('hook/delete',array('table'=>'hook'))}" lay-event="del">删除</a>
 </script>
 <script src="__MANAGE__/admin.js" type="text/javascript" charset="utf-8"></script>
 
@@ -53,8 +57,8 @@ layui.use(['table'], function() {
 						field: 'desc',
 						title: '内容',
 					},{
-						field: 'relation',
 						title: '关联',
+						toolbar:'#relation'
 					}, {
 						field: 'url',
 						title: '链接地址',
@@ -62,8 +66,14 @@ layui.use(['table'], function() {
 					},{
 						field: 'position',
 						title: '位置',
-						width: 160,
+						width: 80,
 						sort: true
+					}, {
+						field: 'status',
+						title: '状态',
+						width: 95,
+						templet: '#switchTpl',
+						unresize: true
 					},{
 						fixed: 'right',
 						width: 178,
@@ -73,8 +83,6 @@ layui.use(['table'], function() {
 				]
 			]
 		});
-		
-		
 		
 	});
 </script>

@@ -15,25 +15,16 @@
 					<div class="layui-form-item"> <label class="layui-form-label">标题</label>
 						<div class="layui-input-block"> <input name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input" type="text" value="{$info.title|default=''}"> </div>
 					</div>
-					<div class="layui-form-item layui-form-text"> <label class="layui-form-label">缩略图</label>
+					<div class="layui-form-item layui-form-text"> <label class="layui-form-label">标志</label>
 						<div class="layui-input-block">
 							<a class="layui-btn uploadbg demoMore" lay-data="{ url:'/manage/upload/index' }">{notempty name="$info"}<img src="__ROOT__{$info.thumb}"/>{else /}<img src="__MANAGE__/images/upload.png"/>{/notempty}</a><input type="hidden" name="thumb"  value="{$info.thumb|default=''}"> </div>
 					</div>
 					<div class="layui-form-item"> <label class="layui-form-label">链接地址</label>
 						<div class="layui-input-block"> <input name="url" lay-verify="" autocomplete="off" placeholder="必须带http://" class="layui-input" type="text" value="{$info.url|default=''}"> </div>
 					</div>
-					<div class="layui-form-item"> <label class="layui-form-label">位置</label>
-						<div class="layui-input-block"> <input name="position" lay-verify="required" autocomplete="off" placeholder="请输入显示位置标识:AD1" class="layui-input" type="text" value="{$info.position|default=''}"> </div>
-					</div>
-					<div class="layui-form-item"> <label class="layui-form-label">关联</label>
-						<div class="layui-input-inline"> <input name="relationid" disabled autocomplete="off" placeholder="点击搜索" class="layui-input" type="hidden" {notempty name="$info.relation"} value="{$info.relation,',',0|toArr}" {/notempty}> </div>
-
-						<div id="autodiv" class="layui-input-inline"> <input id="autocomplate" name="relationname" autocomplete="off" placeholder="关键字" class="layui-input" type="text" {notempty name="$info.relation"} value="{$info.relation,',',1|toArr}" {/notempty}> </div>
-						<div class="layui-form-mid layui-word-aux">输入关键字后,在下拉列表里面选择</div>
-					</div>
-					<div class="layui-form-item"> <label class="layui-form-label">内容</label>
+					<!--<div class="layui-form-item"> <label class="layui-form-label">内容</label>
 						<div class="layui-input-block"> <textarea name="desc" class="layui-textarea">{$info.desc|default=''}</textarea> </div>
-					</div>
+					</div>-->
 					<div class="layui-form-item"> <label class="layui-form-label">排序</label>
 						<div class="layui-input-inline"> <input name="sort" lay-verify="required|number" autocomplete="off" placeholder="请输入数字" class="layui-input" type="text" value="{$info.sort|default=''}"> </div>
 					 	<div class="layui-form-mid layui-word-aux">升序排列</div>
@@ -48,7 +39,7 @@
 			</div>
 		</div>
 	</div>
-</div> {load href="__CSS__/jquery.autocompleter.css"} {load href="__JS__/jquery.autocompleter.js"}
+</div> 
 <script type="text/javascript">
 	layui.use(['upload','form'], function() {
 		var $ = layui.jquery,
@@ -68,24 +59,6 @@
 				// console.log(item.next('input').next('input')); //获取当前触发上传的元素，layui 2.1.0 新增
 			}
 		});
-		$(function() {
-			$('#autocomplate').autocompleter({
-				limit: 5,
-				empty: false,
-				matchSubset:false, 
-				cacheLength:1,
-				selectFirst:true,
-				source: "{:URL('hook/getlist')}",
-				template: '{{ title }}',
-				callback: function(value, index, selected) {
 
-					if(selected) {
-						$('input[name="relationid"]').val(selected.id);
-						$('input[name="relationname"]').val(selected.title);
-					}
-					  console.log(JSON.stringify(selected));
-				}
-			});
-		});
 	});
 </script>

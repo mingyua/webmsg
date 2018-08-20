@@ -147,9 +147,14 @@ function toDate($type=1,$time='',$format='Y-m-d H:i:s'){
  * 
  * 
  */
-function toArr($text,$tag=','){
+function toArr($text,$tag=',',$pos=''){
 	$arr=explode($tag,$text);
-	return $arr;
+	if(isset($pos)){
+		return $arr[$pos];
+	}else{
+		return $arr;
+	}
+	
 }
 /*
  *数组排序 
@@ -246,5 +251,17 @@ function clearCache($dir, $deleteRootToo = false)
         @rmdir($dir);//删除目录
     }
     return;
+}
+
+function dyconfig($getname,$pos){
+	$array=[
+		'hookkinds'=>[['id'=>1,'name'=>'图片轮播'],['id'=>2,'name'=>'友情链接'],['id'=>3,'name'=>'在线客服']],
+	];
+	if(isset($pos)){
+		return $array[$getname][$pos];
+	}else{
+		return $array[$getname];
+	}
+	
 }
 
