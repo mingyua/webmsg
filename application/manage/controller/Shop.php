@@ -57,6 +57,19 @@ class Shop extends Controller
    		}
        return $back;
     }
-    
+     public function alldel($data)
+    {
+    	$id=array_column($data,'id');
+    	  $table=input('table');
+       	$res=db($table)->delete($id);
+       	if(false===$res){
+       		$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
+       	}else{
+       		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url('shop/index')];
+       	}
+    	
+       return $back;
+    }
+   
 
 }

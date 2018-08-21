@@ -256,6 +256,7 @@ function clearCache($dir, $deleteRootToo = false)
 function dyconfig($getname,$pos){
 	$array=[
 		'hookkinds'=>[['id'=>1,'name'=>'图片轮播'],['id'=>2,'name'=>'友情链接'],['id'=>3,'name'=>'在线客服']],
+		'tempcate'=>[['id'=>1,'name'=>'单页'],['id'=>2,'name'=>'列表']],
 	];
 	if(isset($pos)){
 		return $array[$getname][$pos];

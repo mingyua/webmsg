@@ -1,5 +1,8 @@
 layui.define('index',function(e){ 
-  var $=layui.$, table=layui.table,layer=layui.layer,form=layui.table,head=layui.index;
+  var $=layui.$, table=layui.table,layer=layui.layer,form=layui.table,head=layui.index,
+  		diymsg='您无权访问此页面!',
+		geturl="/manage/index/geturl";
+
    var myobj = {
     reload: function(){
       var demoReload = $('#keywords'),cateid=$('#cateid'),daterange=$('#daterange'),st=$('#status');
@@ -22,7 +25,7 @@ layui.define('index',function(e){
 	      var checkStatus = table.checkStatus('tablist')
 	      ,data = checkStatus.data,ajaxurl=$(this).attr('data-url');
 	      
-	      
+	      if(head.checkauth(ajaxurl)==0) {layer.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;}	  
 	      if(data.length<=0){
 	      	 layer.alert('至少选择一条数据！',{btn:'',title:'提示',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'});
 	      }else{

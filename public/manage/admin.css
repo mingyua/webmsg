@@ -118,6 +118,15 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 
 #layuiclick .layui-btn{background: none;}
 
+.tempbox{position:relative;width: 100%;height:240px;overflow: hidden;}
+.tempbox img{width: 100%;height: 100%;}
+.tempbox .btngroup{position: absolute;bottom: 0;width: 100%;text-align: center;}
+.tempbox .btngroup button{display: none;margin: 10px;}
+.tempbox .btngroup .title{letter-spacing: 10px; width: 100%;padding: 15px;text-align: center;background-color:rgba(0,150,136,.8);color:#FFF;font-size: 16px;display: inline-block;}
+.tempbox:hover button{display: inline;}
+.tempbox:hover .title{display: none;}
+
+
 @font-face {font-family: "layui-icon-ext";
   src: url('../font/iconfont.eot'); /* IE9*/
   src: url('../font/iconfont.eot#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -141,3 +150,4 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 .layui-tree li .layui-tree-check:hover {
     color: #009E94;
 }
+

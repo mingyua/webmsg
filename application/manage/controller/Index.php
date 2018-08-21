@@ -23,7 +23,7 @@ class index extends Auth
     public function index()
     {
     	$map[] = ['status','=',1];
-        $menu=db('menu')->where($map)->cache('menu',3600)->order('sort ASC')->select();
+        $menu=db('menu')->where($map)->cache('menu',1000)->order('sort ASC')->select();
         $list=getchildren($menu,'0');
         $this->assign('menulist',$list);  
         return $this->fetch();

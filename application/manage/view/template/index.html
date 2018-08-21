@@ -1,0 +1,42 @@
+<div class="layui-fluid">
+	<div id="demoTable" class="layui-row">
+		<div class="layui-col-md12">
+			<div class="layui-card">
+				<div id="templist" class="layui-card-body layui-clear  layui-col-space10">
+					
+				</div>
+				<div id="demo20" class="t-c"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+layui.use(['laypage', 'layer'], function(){
+  var laypage = layui.laypage
+  ,layer = layui.layer;
+  
+  
+  var data = {$templist|raw};
+  
+  //调用分页
+  laypage.render({
+    elem: 'demo20'
+    ,count: data.length
+    ,limit:12
+    ,jump: function(obj){
+      //模拟渲染
+      document.getElementById('templist').innerHTML = function(){
+        var arr = []
+        ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+        layui.each(thisData, function(index, item){
+          arr.push('<div class="layui-col-lg3 layui-col-md4 layui-col-sm6 layui-col-xs12"><div class="tempbox"><img src="__ROOT__'+item.thumb+'"/><div class="btngroup"><div class="title">'+item.name+'</div><button class="layui-btn pull-right"><i class="layui-icon layui-icon-edit"></i></button><button class="layui-btn layui-btn-danger pull-left"><i class="layui-icon layui-icon-delete"></i></button></div></div></div>');
+        });
+        return arr.join('');
+      }();
+    }
+  });
+  
+});	
+</script>
+
