@@ -25,7 +25,7 @@
 					</thead>
 					<tbody> {foreach name='list' item='data'}
 						<tr>
-							<td>{$data.time|toDate='Ymd-His'}</td>
+							<td>{:toDate(1,$data.time,'Ymd-His')}</td>
 							<td>{$data.part}</td>
 							<td>{$data.compress}</td>
 							<td>{$data.size|unit}</td>

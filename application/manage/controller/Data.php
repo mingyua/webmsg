@@ -102,13 +102,16 @@ class Data extends Controller
     {
 
       $data=$this->db->dataList();
+
       $this->assign('list',$data);
       return view();
     }
    //备份文件列表
    public function importlist()
    {
-      	$this->assign('list',$this->db->fileList());
+   		$list=$this->db->fileList();
+   		$data=array_sort($list,'compress');
+      	$this->assign('list',$data);
       return view();
         
       
