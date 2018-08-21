@@ -60,7 +60,7 @@ class index extends Auth
 		$url=explode('/',$url);
     	$url=$url[0]."/".$url[1];		
 		$map[]=['groupid','eq',$gid];
-		$menu=db('auth')->where($map)->cache('auth',2*3600)->select();
+		$menu=db('auth')->where($map)->cache('auth',0)->select();
 		$urllist=array_filter(array_column($menu,'menuurl'));		
 		if(in_array($url,$urllist)){
 			$back= ['msg'=>'有权访问','status'=>1,'icon'=>1];	

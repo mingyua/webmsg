@@ -1,0 +1,111 @@
+<div class="layui-fluid">
+	<div id="demoTable" class="layui-row">
+		<div class="layui-col-md12">
+			<div class="layui-card">
+				<div class="layui-card-header pt-10">
+					<button class="layui-btn layui-btn-danger" data-type="getCheckData" data-url="{:URL('hook/alldel',array('page'=>'slide'))}"  title="删除选中"><i class="layui-icon layui-icon-delete"></i></button>
+					<button class="layui-btn pull-right" lay-href="{:URL('hook/addslide')}">添加图片</button>
+				</div>
+				<div class="layui-card-body">
+					<table class="layui-hide" id="tabledata" lay-filter="list"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/html" id="messbar">
+	<div id="copy{{d.id}}">{{d.mess}}</div>
+</script>
+<script type="text/html" id="relation">
+	<a href="http://www.{{d.url}}" target="_blank">{{d.url}}</a>
+</script>
+<script type="text/html" id="switchTpl"> 
+{{d.notice}}
+</script>
+<script type="text/html" id="barDemo">
+	<a id="copybtn" class="layui-btn layui-btn-xs"  data-clipboard-action="copy" data-clipboard-target="#copy{{d.id}}">复制短信</a>
+	<!--<a class="layui-btn layui-btn-xs" lay-href="{:URL('hook/addslide')}?id={{d.id}}" data-title="编辑">编辑</a>-->
+	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定已经续费了吗？" data-url="{:URL('shop/getmoney',array('table'=>'shoper'))}" lay-event="del">续费</a>
+</script>
+<script src="__MANAGE__/admin.js" type="text/javascript" charset="utf-8"></script>
+{load href="__JS__/clipboard.min.js"}
+<script>
+	
+layui.use(['table'], function() {
+		var table=layui.table;
+		table.render({
+			elem: '#tabledata',
+			url: "{:URL('shop/shoplist')}" //数据接口
+			,page: true //开启分页
+			,id:'tablist'
+			,cols: [
+				[ //表头
+					{
+						checkbox: true,
+						fixed: true,
+						fixed: 'left'
+					}, {
+						field: 'id',
+						title: 'ID',
+						width: 80
+					}, {
+						field:'name',
+						title: '企业名称'
+					}, {
+						field: 'realname',
+						title: '称呼',
+						width: 80,
+						
+					},{
+						title: '链接地址',
+						toolbar:'#relation'
+					}, {
+						field: 'phone',
+						title: '联系电话',
+
+					}, {
+						field: 'email',
+						title: '邮箱',
+
+					}, {
+						field: 'money',
+						title: '续费金额',
+						width: 80,
+					}, {
+						field: 'start-time',
+						title: '开始时间',
+						sort: true
+
+					},{
+						field: 'end-time',
+						title: '结束时间',
+						sort: true
+					}, {
+						field: 'status',
+						title: '状态',
+						width: 95,
+						templet: '#switchTpl',
+						sort: true,
+						unresize: true
+					},{
+
+						align: 'center',
+						toolbar: '#barDemo'
+					},{
+						title: '短信',
+						toolbar: '#messbar',
+						width:0.1
+					}
+				]
+			]
+		});
+		 var clipboard = new Clipboard('#copybtn');
+		 clipboard.on('success', function(e) {
+		    console.info('Action:', e.action);
+		    console.info('Text:', e.text);
+		    console.info('Trigger:', e.trigger);
+		
+		    e.clearSelection();
+		});
+	});
+</script>
