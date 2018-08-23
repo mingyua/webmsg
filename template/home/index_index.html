@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>前端页面</title> {load href="__LAYUI__/css/layui.css"} {load href="__CSS__/home.css"} </head>
+
+<body>
+	<section id="headnav">
+		<div class="layui-container"> 31321323
+			<ul class="layui-nav">
+				<li class="layui-nav-item">
+					<a href="">最新活动</a>
+				</li>
+				<li class="layui-nav-item layui-this">
+					<a href="javascript:;">产品</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a href="">选项1</a>
+						</dd>
+						<dd>
+							<a href="">选项2</a>
+						</dd>
+						<dd>
+							<a href="">选项3</a>
+						</dd>
+					</dl>
+				</li>
+				<li class="layui-nav-item">
+					<a href="">大数据</a>
+				</li>
+				<li class="layui-nav-item">
+					<a href="javascript:;">解决方案</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a href="">移动模块</a>
+						</dd>
+						<dd>
+							<a href="">后台模版</a>
+						</dd>
+						<dd class="layui-this">
+							<a href="">选中项</a>
+						</dd>
+						<dd>
+							<a href="">电商平台</a>
+						</dd>
+					</dl>
+				</li>
+				<li class="layui-nav-item">
+					<a href="">社区</a>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section id="slide">
+		<div class="layui-carousel" id="test10">
+			<div carousel-item="">
+				{PE:_list table="hook" where="[['kinds','eq',1],['status','eq',1]]" id="v" limit="6" empty="没有数据"}				
+					<div><img src="__ROOT__{$v.thumb}"></div>
+				{/PE:_list}
+			</div>
+		</div>
+		{PE:_getval table='article' where="[['id','eq',8]]" name="site" cache="art,0" /}
+		{$site.title}
+	</section>
+	
+	
+	<section>
+	{PE:_list table="menu" where="[['id','gt','0'],['status','eq',1]]" id="v" page="true" limit="1" empty="没有数据"}
+	{$v.name,'<Br>'|addtext|raw}
+	{/PE:_list}
+	   <p>{$page|raw}</p> 
+	</section>
+	
+	
+</body> {load href="__JS__/jquery.min.js"} {load href="__LAYUI__/layui.js"}
+<script>
+	window.onscroll = function() {
+		//变量t是滚动条滚动时，距离顶部的距离
+		var t = document.documentElement.scrollTop || document.body.scrollTop;
+		var scrollup = document.getElementById('headnav');
+		//当滚动到距离顶部200px时，返回顶部的锚点显示
+		if(t >= 90) {
+			scrollup.style.position = "fixed";
+		} else { //恢复正常
+			scrollup.style.position = "relative";
+		}
+	}
+	layui.use(['carousel','element'], function() {
+		var element = layui.element,carousel=layui.carousel; //导航的hover效果、二级菜单等功能，需要依赖element模块
+		//监听导航点击
+		element.on('nav(demo)', function(elem) {
+			//console.log(elem)
+			layer.msg(elem.text());
+		});
+  //图片轮播
+	  carousel.render({
+	    elem: '#test10'
+	    ,width: '100%'
+	    ,height: '572px'
+	    ,interval: 5000
+	  });		
+		
+	});
+</script>
+
+</html>

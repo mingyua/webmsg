@@ -266,3 +266,6 @@ function dyconfig($getname,$pos){
 	
 }
 
+function addtext($text,$addword){
+	return $text.$addword;
+}

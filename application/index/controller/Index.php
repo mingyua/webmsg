@@ -6,10 +6,9 @@ class Index extends Controller
 {
 	 protected function initialize()
     {
+    	
+    	
     	$this->uid=session('uid');
-//		$this->view->filter(function($content){
-//      	return str_replace("\r\n",'',$content);
-//      });    	
     	
     }
 	
