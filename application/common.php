@@ -10,17 +10,30 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+
+function getconfigfield($field){
+	$arr=db('config')->cache('config',0)->select();
+	$data=[];
+	foreach($arr as $k=>$v){
+		$data[$v['key']]=$v['value'];
+	}
+	return $data[$field];
+}
+
 /*
  * fieldhtml 返回对应类型的表单代码
  * $arr 数据
  * 
  */
 
+
+
 function fieldhtml($arr){
 	$html='';
 	foreach($arr as $k=>$v){
 		if($v['tip']){ $tip='<div class="layui-form-mid layui-word-aux">'.$v['tip'].'</div>'; }else{ $tip=''; }
 		if(strlen($v['width'])>0){ $width='class="layui-input-inline" style="width:'.$v['width'].'"'; }else{ $width='class="layui-input-block"'; }
+		
 		switch($v['type']){
 			case 'text':
 		  	$html .= '<div class="layui-form-item"><label class="layui-form-label">'.$v['name'].'</label><div '.$width.'><input name="'.$v['key'].'" value="'.$v['value'].'" placeholder="'.$v['placeholder'].'" class="layui-input" type="text"></div>'.$tip.'</div>';		  	
@@ -29,7 +42,13 @@ function fieldhtml($arr){
 		  	$html .= '<div class="layui-form-item layui-form-text"><label class="layui-form-label">'.$v['name'].'</label><div '.$width.'><textarea name="'.$v['key'].'" placeholder="'.$v['placeholder'].'" class="layui-textarea">'.$v['value'].'</textarea></div>'.$tip.'</div>';		  	
 			break; 
 			case 'file':
-		  	$html .= '<div class="layui-form-item layui-form-text"><label class="layui-form-label">'.$v['name'].'</label><div '.$width.'><a class="layui-btn uploadbg demoMore" lay-data="{url:\'/manage/upload/index\'}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a><input type="hidden" name="'.$v['key'].'" value="'.$v['value'].'"></div>'.$tip.'</div>';		  	
+			if($v['value']){
+				$img=trim($v['value'],'.');
+			}else{
+				$img="/public/manage/images/upload.png";
+			}
+
+		  	$html .= '<div class="layui-form-item layui-form-text"><label class="layui-form-label">'.$v['name'].'</label><div '.$width.'><a class="demoMore" lay-data="{url:\'/manage/upload/index\'}"><img src="'.$img.'" width="100%" /></a><input type="hidden" name="'.$v['key'].'" value="'.$v['value'].'"></div>'.$tip.'</div>';		  	
 			break; 
 			
 

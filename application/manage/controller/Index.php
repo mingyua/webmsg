@@ -12,7 +12,7 @@ namespace app\manage\controller;
 
 use think\Controller;
 use think\Request;
-
+use think\facade\Cache;
 class index extends Auth
 {
     /**
@@ -48,6 +48,7 @@ class index extends Auth
     {      
 	    header("Content-type: text/html; charset=utf-8");
 		clearCache('./runtime/');
+		Cache::clear(); 
 		return ['msg'=>'清除缓存成功!','status'=>1,'icon'=>1,'url'=>''];
 	}
 
