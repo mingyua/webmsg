@@ -9,12 +9,15 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('think', function () {
-    return 'hello,ThinkPHP5!';
-});
+Route::get('/','home/index/index');
+Route::group(['method' => 'get', 'ext' => 'html'], function () {
+    Route::rule('about', 'about/index');
+    Route::rule('about-:id', 'about/index')->name('about_read');
+})->pattern(['id' => '\d+', 'name' => '\w+']);	
+	
 
-Route::get('hello/:name', 'index/hello');
-
+//Route::rule('about','home/about/index')->ext('html');
+//Route::rule('about-:id','home/about/index')->ext('html')->name('about_read');
 return [
-
+	
 ];

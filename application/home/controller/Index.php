@@ -18,6 +18,11 @@ class Index extends Controller
     	$this->assign('id',input('id'));
        return $this->fetch();
     }
-
-
+    public function angulerjs()
+    {
+    	$nav=db('cate')->select();
+    	$navs=catechannel($nav);
+    	//dump($navs);
+       return $this->fetch();
+    }
 }

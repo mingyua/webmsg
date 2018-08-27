@@ -1,0 +1,52 @@
+<section id="headnav">
+	<div class="container">
+		<a href="{:getconfigfield('nomote')}"><img src="__ROOT__{:getconfigfield('logo')}" /></a>
+		<div class="side-open">
+			<hr>
+			<hr>
+			<hr>
+			<hr> </div>
+		<div class="side-box">
+			<div class="side-cut">
+				<div class="side-shadow"></div>
+				<div class="side-bin">
+					<div class="side-nav">
+						<ul>
+							<li class="nav-first">
+								<a href="/"><i class="layui-icon layui-icon-home"></i><b>网站首页</b></a>
+							</li> {PE:_nav table="cate" where="[['status','eq',1]]" order="sort asc" id="v"}
+							<li class="nav-first">
+								<a href="{$v.url}" title="{$v.name}" data-alert="全部"> <i class="layui-icon {$v.icon}"></i> <b>{$v.name}</b></a> {notempty name="$v.children"} <i>&nbsp;</i>
+								<ul> {volist name="$v.children" id="k"}
+									<li class="nav-second">
+										<a href="{$k.url}" title="{$k.name}" data-alert="全部"><b>{$k.name}</b></a>
+									</li> {/volist} </ul> {/notempty} </li> {/PE:_nav} </ul>
+					</div>
+					<div class="side-foot">
+						<div class="side-phone">
+							<p> <b>Call me :</b>
+								<a href="tel:400-666-8888">400-666-8888</a>
+							</p> <i class="fa fa-qrcode" data-toggle="modal" data-target="#met-ewm-modal"></i> </div>
+						<div class="social-box">
+							<audio id="audio" src="" status="1"></audio> <canvas id="canvas" width="105" height="34"></canvas>
+							<a rel="nofollow" data-toggle="modal" data-target="#met-share-modal"><i class="fa fa-share-alt"></i></a>
+							<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=&amp;site=qq&amp;menu=yes" rel="nofollow" target="_blank"><i class="fa fa-qq"></i></a>
+							<a href="http://www.weibo.com/" rel="nofollow" target="_blank"><i class="fa fa-weibo"></i></a>
+						</div>
+						<div class="side-text">{:getconfigfield('foot')}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<ul class="layui-nav layui-hide-xs">
+			<li class="layui-nav-item">
+				<a href="/">网站首页</a>
+			</li> {PE:_nav table="cate" where="[['status','eq',1]]" order="sort asc" id="v"}
+			<li class="layui-nav-item">
+				<a href="{$v.url}">{$v.name}</a> {notempty name="$v.children"}
+				<dl class="layui-nav-child"> {volist name="$v.children" id="k"}
+					<dd>
+						<a href="{$k.url}">{$k.name}</a>
+					</dd> {/volist} </dl> {/notempty} </li> {/PE:_nav} </ul>
+	</div>
+</section>

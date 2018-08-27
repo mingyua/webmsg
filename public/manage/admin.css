@@ -68,45 +68,17 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 .uploadbg{height: 100px;max-width: 400px;min-width:100px;overflow: hidden;display: inline-block;float: left;background: url(./images/upload.png) center center no-repeat;vertical-align: middle;line-height: 100px;margin-right: 30px;}
 
 
-.gridly {
-	position: relative;
-	margin-left: 10px;
-}
+.gridly { position: relative; margin-left: 10px; }
 
-.gridly .brick {
-	opacity: 1;
-	cursor: pointer;
-	position: relative;
-}
+.gridly .brick { opacity: 1; cursor: pointer; position: relative; }
 
-.gridly .brick .delete {
-	display: block;
-	color: #FFF;
-	background: #FD482C;
-	width: 40px;
-	height: 40px;
-	top: 0;
-	right: 0;
-	position: absolute;
-	text-align: center;
-	line-height: 40px;
-}
+.gridly .brick .delete { display: block; color: #FFF; background: #FD482C; width: 40px; height: 40px; top: 0; right: 0; position: absolute; text-align: center; line-height: 40px; }
 
-.gridly .brick.small {
-	float: left;
-	width: 100px;
-	height: 100px;
-}
+.gridly .brick.small { float: left; width: 100px; height: 100px; }
 
-.gridly .brick.large {
-	float: left;
-	width: 100px;
-	height: 100px;
-}
+.gridly .brick.large { float: left; width: 100px; height: 100px; }
 
-.gridly .brick.dragging {
-	opacity: 0.8;
-}
+.gridly .brick.dragging { opacity: 0.8; }
 
 #singlepage p{padding-bottom:10px;}
 #singlepage .imgbox{width: 100%;height: 180px; overflow: hidden;margin-bottom: 10px;}
@@ -135,19 +107,7 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
   url('../font/iconfont.svg#layui-icon-ext') format('svg'); /* iOS 4.1- */
 }
 
-.layui-icon-ext {
-  font-family:"layui-icon-ext" !important;
-  font-style:normal;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.2px;
-  -moz-osx-font-smoothing: grayscale;
-  color:#006666;
-}
-.layui-tree li .layui-tree-check {
-    font-size: 20px;
-    color:#009E94
-}
-.layui-tree li .layui-tree-check:hover {
-    color: #009E94;
-}
+.layui-icon-ext { font-family:"layui-icon-ext" !important; font-style:normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale; color:#006666; }
+.layui-tree li .layui-tree-check { font-size: 20px; color:#009E94 }
+.layui-tree li .layui-tree-check:hover { color: #009E94; }
 
