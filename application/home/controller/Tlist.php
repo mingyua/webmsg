@@ -17,6 +17,18 @@ class Tlist extends Controller
     	
     	
        return $this->fetch();
+    }    
+    public function newlist()
+    {
+    	
+    	
+       return $this->fetch();
+    }    
+    public function show()
+    {
+    	
+    	
+       return $this->fetch();
     }
 
 }

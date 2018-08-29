@@ -15,6 +15,7 @@ class Index extends Controller
      */
     public function index()
     {
+    	
     	$this->assign('id',input('id'));
        return $this->fetch();
     }

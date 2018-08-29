@@ -1,6 +1,6 @@
 <section id="headnav">
 	<div class="container">
-		<a href="{:getconfigfield('nomote')}"><img src="__ROOT__{:getconfigfield('logo')}" /></a>
+		<a href="{:URL('home/index/index')}"><img src="__ROOT__{:getconfigfield('logo')}" /></a>
 		<div class="side-open">
 			<hr>
 			<hr>
@@ -13,13 +13,13 @@
 					<div class="side-nav">
 						<ul>
 							<li class="nav-first">
-								<a href="/"><i class="layui-icon layui-icon-home"></i><b>网站首页</b></a>
+								<a href="{:URL('home/index/index')}"><i class="layui-icon layui-icon-home"></i><b>网站首页</b></a>
 							</li> {PE:_nav table="cate" where="[['status','eq',1]]" order="sort asc" id="v"}
 							<li class="nav-first">
-								<a href="{$v.url}" title="{$v.name}" data-alert="全部"> <i class="layui-icon {$v.icon}"></i> <b>{$v.name}</b></a> {notempty name="$v.children"} <i>&nbsp;</i>
+								<a href="{:url('home/'.$v['url'].'/index',['cid'=>$v['id']] )}" title="{$v.name}" data-alert="全部"> <i class="layui-icon {$v.icon}"></i> <b>{$v.name}</b></a> {notempty name="$v.children"} <i>&nbsp;</i>
 								<ul> {volist name="$v.children" id="k"}
 									<li class="nav-second">
-										<a href="{$k.url}" title="{$k.name}" data-alert="全部"><b>{$k.name}</b></a>
+										<a href="{:url('home/'.$k['url'].'/index',['cid'=>$k['id']] )}" title="{$k.name}" data-alert="全部"><b>{$k.name}</b></a>
 									</li> {/volist} </ul> {/notempty} </li> {/PE:_nav} </ul>
 					</div>
 					<div class="side-foot">
@@ -40,13 +40,13 @@
 		</div>
 		<ul class="layui-nav layui-hide-xs">
 			<li class="layui-nav-item">
-				<a href="/">网站首页</a>
+				<a href="{:URL('home/index/index')}">网站首页</a>
 			</li> {PE:_nav table="cate" where="[['status','eq',1]]" order="sort asc" id="v"}
 			<li class="layui-nav-item">
-				<a href="{$v.url}">{$v.name}</a> {notempty name="$v.children"}
+				<a href="{:url('home/'.$v['url'].'/index',['cid'=>$v['id']] )}">{$v.name}</a> {notempty name="$v.children"}
 				<dl class="layui-nav-child"> {volist name="$v.children" id="k"}
 					<dd>
-						<a href="{$k.url}">{$k.name}</a>
+						<a href="{:url('home/'.$k['url'].'/index',['cid'=>$k['id']] )}">{$k.name}</a>
 					</dd> {/volist} </dl> {/notempty} </li> {/PE:_nav} </ul>
 	</div>
 </section>

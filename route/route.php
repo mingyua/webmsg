@@ -9,15 +9,24 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('/','home/index/index');
-Route::group(['method' => 'get', 'ext' => 'html'], function () {
-    Route::rule('about', 'about/index');
-    Route::rule('about-:id', 'about/index')->name('about_read');
-})->pattern(['id' => '\d+', 'name' => '\w+']);	
+
+
+return [
+    '/'=>'home/index/index',
+    'about-:cid'=>'home/about/index',
+    'download-:catId'=>'home/download/index',
+    'services-:catId'=>'home/services/index',
+    'servicesInfo-:catId-[:id]'=>'home/services/info',
+    'system-:catId'=>'home/system/index',
+    'news-:cid'=>'home/news/index',
+    'product-:cid'=>'home/product/index',
+    'newsInfo-:catId-[:id]'=>'home/news/info',
+    'team-:cid'=>'home/team/index',
+    'contact-:catId'=>'home/contact/index',
+    'senmsg'=>'home/index/senmsg',
+    'down-:id'=>'home/download/down',
+];
 	
 
 //Route::rule('about','home/about/index')->ext('html');
 //Route::rule('about-:id','home/about/index')->ext('html')->name('about_read');
-return [
-	
-];

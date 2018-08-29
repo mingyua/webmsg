@@ -84,7 +84,7 @@ function menuTree($arr,$pid=0,$level=0,$html="&nbsp;&nbsp;&nbsp;&nbsp;"){
 			if($level==0){
 				$v['catename']=$flg.$v['name'];
 			}else{
-				$v['catename']=$flg."└".$v['name'];
+				$v['catename']=$flg."└--------".$v['name'];
 			}
 			$v['level']=$level;
 			$v['_html']=$flg;

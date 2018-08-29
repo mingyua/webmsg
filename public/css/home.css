@@ -58,6 +58,40 @@ body{background: #EFEFEF;}
 .newrightbox .litext h3{display: block;padding: 0;position: relative;}
 .newrightbox .litext h3 a{position:relative;width:100%;display: block; font-size: 18px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
 .newrightbox li:hover a{ color:#00c0ff;}
+
+.tuwendate{position: relative;width: 100%;display: block;}
+.tuwendate li{position: relative;width: 100%;clear: both;height: 170px;overflow: hidden;margin-bottom: 15px;padding-bottom: 10px;border-bottom: 1px solid #E7ECF0;}
+.tuwendate li:hover h3 a{color: #666;}
+.tuwendate li:hover p a i{color: #FFF;background: #008200;border: 0;}
+.tuwendate li:hover img{transform: scale(1.1,1.1);
+-webkit-transform: scale(1.1,1.1);
+-moz-transform: scale(1.1,1.1);
+-ms-transform: scale(1.1,1.1);
+-o-transform: scale(1.1,1.1);}
+
+.tuwendate li img,.tuwendate li .textbox,.tuwendate li i,.tuwendate li .date .time{-webkit-transition: all .30s ease-in-out; -moz-transition: all .30s ease-in-out; -o-transition: all .30s ease-in-out; -ms-transition: all .30s ease-in-out; transition: all .30s ease-in-out;}
+.tuwendate li .img {width: 20%;float: left;overflow: hidden; }
+  .tuwendate li .img img{width: 100%;height: 160px; -webkit-transition: -webkit-transform 0.3s;
+  -moz-transition: -moz-transform 0.3s;
+  -o-transition: -o-transform 0.3s;
+  transition: transform 0.3s;}
+.tuwendate li .textbox{width: 60%;float: left;margin: 0 3%;}
+.tuwendate li .textbox h3{font-size: 18px;margin-bottom: 15px;}
+.tuwendate li .date{width: 14%;float: right;text-align: right;color:#666}
+.tuwendate li:hover .textbox,.tuwendate li:hover i{-webkit-transform: translate(20px,0);
+-moz-transform: translate(20px,0);
+-o-transform: translate(20px,0);
+-ms-transform: translate(20px,0);
+transform: translate(20px,0);}
+.tuwendate li:hover .date .time{-webkit-transform: translate(-20px,0);
+-moz-transform: translate(-20px,0);
+-o-transform: translate(-20px,0);
+-ms-transform: translate(-20px,0);
+transform: translate(-20px,0);}
+.tuwendate li:hover i{background: #11DF83;color:#FFF;border: 0px;}
+.tuwendate li .date i{position: absolute;right:20px; bottom: 60px; border-radius: 50%;border: 1px solid #ccc;width: 30px;height: 30px;display: block;line-height: 30px;text-align: center;}
+.tuwendate li .textbox p{line-height: 24px;color:#666}
+
 #slide{height:1200px;display: block;}
 .pagination{text-align: center;}
 .pagination li{display: inline-block;margin-right: -1px;padding: 5px;border: 1px solid #e2e2e2;min-width: 20px;text-align: center;}

@@ -14,12 +14,7 @@ class About extends Controller
      */
     public function index()
     {
-    	//dump(Config::get());
-    	$cate=db('cate')->select();
-    	foreach($cate as $k=>$v){
-    		$cate[$k]['url']=url('about_read',['id'=>$v['id']]);
-    	}
-    	dump($cate);
+		$this->assign('id',input('cid'));
        return $this->fetch();
     }
 

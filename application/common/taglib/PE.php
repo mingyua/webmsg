@@ -148,8 +148,7 @@ class PE extends TagLib{
 		$parseStr .= 'if( count($res)==0 ) : echo "'.$empty.'" ;';
         $parseStr .= 'else: ';
         $parseStr .= '$data=catechannel($res);';
-        $parseStr .= 'foreach($data as $k=>$'.$id.'): ';
-        $parseStr .= '$data[$k]["url"]=url($'.$id.'["url"]); ?>';
+        $parseStr .= 'foreach($data as $k=>$'.$id.'): ?>';
         $parseStr .= $content;
         $parseStr .= '<?php endforeach; endif; ?>';
         if (!empty($parseStr)) {
