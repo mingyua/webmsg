@@ -5,7 +5,7 @@ use think\facade\Config;
 use think\Controller;
 use think\Request;
 
-class About extends Controller
+class About extends Common
 {
     /**
      * 显示资源列表

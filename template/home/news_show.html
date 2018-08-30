@@ -1,0 +1,25 @@
+{layout name="layout" /}
+<section>
+<div class="mt-20 mb-30 container">
+	<span class=" c-666"><i class="layui-icon layui-icon-location pr-5"></i>您现在的位置： </span><span class="layui-breadcrumb">
+	<a href="{:URL('home/index/index')}"><cite>首页</cite></a>
+	<a href="{:url('home/'.$navinfo['url'].'/index',['catId'=>$navinfo['id']] )}"><cite>{$navinfo.name}</cite></a>
+	<a <cite>{$info.title}</cite></a>
+	</span>
+</div>
+<div class="container bg-white">
+	<h1 class="pt-20 pb-20">{$info.title}</h1>
+	<p class="pull-right pb-20">
+		<span><i class="layui-icon layui-icon-praise pr-5"></i>115</span><span class="pl-10"><i class="layui-icon layui-icon-log pr-5"></i>{:toDate(1,$info.addtime)}</span>
+	</p>
+	<div class=" layui-clear">
+	</div>
+</div>
+<div class="container bg-white mt-20 mb-20">
+	<div class="layui-card pd-15">
+		<div class=" content">
+				{$info.content|raw}
+		</div>
+	</div>
+</div>
+</section>

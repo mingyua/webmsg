@@ -1,4 +1,5 @@
-body{background: #EFEFEF;}
+body{background: #F4F4F4;}
+.content{font-size: 16px;}
 .t-l{text-align: left;}.t-c{text-align: center;}.t-r{text-align: right;}
 .f-12{font-size:12px}.f-14{font-size:14px}.f-16{font-size:16px}.f-18{font-size:18px}.f-20{font-size:20px}.f-22 { font-size: 22px }.f-24{font-size:24px}.f-26{font-size:26px}.f-28{font-size:28px}.f-30{font-size:30px}
 .mt-2{margin-top:2px}.mt-5{margin-top:5px}.mt-10{margin-top:10px}.mt-15{margin-top:15px}.mt-20{margin-top:20px}.mt-25{margin-top:25px}.mt-30{margin-top:30px}.mt-35{margin-top:35px}.mt-40{margin-top:40px}.mt-50{margin-top:50px}
@@ -16,8 +17,9 @@ body{background: #EFEFEF;}
 .c-666 a:hover,a.c-666:hover{ color:#666}
 .c-999,.c-999 a,a.c-999{color:#999}
 .c-999 a:hover,a.c-999:hover{color:#999}
-
-
+.c-white{color:#FFF}
+/*背景渐变*/
+.tp5_bg{background-image: linear-gradient(312deg, rgb(255, 162, 84) 0%, rgb(255, 118, 140) 100%);}
 
 .pull-left{float: left;}
 .pull-right{float: right;}
@@ -1607,3 +1609,8 @@ body.open .side-text {
 .social-sidebar a:hover {
 	background: #00c0ff;
 }
+
+
+
+#bannercate{text-align: center;display: block;padding: 60px 0 120px 0;}
+#footer{background: #000000;padding: 30px;}

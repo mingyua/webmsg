@@ -5,7 +5,7 @@ namespace app\home\controller;
 use think\Controller;
 use think\Request;
 
-class Contact extends Controller
+class Contact extends Common
 {
     /**
      * 显示资源列表

@@ -1,1 +1,29 @@
-{:url('home/about/index',['cid'=>$id] )}
+{layout name="layout" /}
+<section id="bannercate" class="tp5_bg">
+<div class="container">
+	<h2 class="t-c c-white f-26 mb-30"><b>{$navinfo.name}</b></h2>
+	<p class="mb-30 c-white f-16">
+		感谢使用本套网站内容管理系统，致力于为您提供设计简约且操作简单的网站程序
+	</p>
+	 {volist name="navbtn" id="v"}
+	<a href="{:url('home/'.$v['url'].'/index',['catId'=>$v['id']] )}" class="layui-btn layui-btn-radius layui-btn-md {$v.id==$catId ? 'layui-btn-nomarl' : 'layui-btn-primary'}  pl-20 pr-20 mb-15">{$v.name}</a> {/volist}
+</div>
+</section><section id="list">
+<div class="container bg-white pt-20" style="position: relative;top:-50px">
+	<div class="mb-30">
+		<span class="pl-15 c-666"><i class="layui-icon layui-icon-location pr-5"></i>您现在的位置： </span>
+		<span class="layui-breadcrumb">
+		<a href="{:URL('home/index/index')}"><cite>首页</cite></a>
+		<a href="{:url('home/'.$navinfo['url'].'/index',['catId'=>$navinfo['id']] )}"><cite>{$navinfo.name}</cite></a>
+		</span>
+		<hr>
+	</div>
+	<div class="layui-card pd-15">
+		<div class="layui-row">
+			<div class="layui-col-md12">
+					{$info.content|raw}
+			</div>
+		</div>
+	</div>
+</div>
+</section>

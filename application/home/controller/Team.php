@@ -5,7 +5,7 @@ namespace app\home\controller;
 use think\Controller;
 use think\Request;
 
-class Team extends Controller
+class Team extends Common
 {
     /**
      * 显示资源列表

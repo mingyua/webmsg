@@ -117,6 +117,28 @@ function getchildren($arr,$pid=0,$level=0){
 	return $Tree;
 	
 }
+
+
+/*
+ * 知道任意id返回所有主父级和子级ID
+ * @$array 是表所有数据
+ * 
+ */
+function getprentsid($array,$id){
+    $arr = array();
+    foreach($array as $v){    	
+	        if($v['id'] == $id){
+	            //$arr[] = $v['pid'];
+	            if($v['pid']==0){
+	            	$arr[] = $v['id'];
+	            }
+	             $arr=array_merge($arr,getprentsid($array,$v['pid'])); 
+	        };
+       
+    };
+    return $arr;
+}
+
 function get_all_child($array,$id){
     $arr = array();
     foreach($array as $v){
@@ -166,7 +188,7 @@ function toDate($type=1,$time='',$format='Y-m-d H:i:s'){
  * 
  * 
  */
-function toArr($text,$tag=',',$pos=''){
+function toArr($text,$tag=',',$pos=null){
 	$arr=explode($tag,$text);
 	if(isset($pos)){
 		return $arr[$pos];

@@ -9,19 +9,20 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-
+Route::rule('news','home/news/index?catId=6');
+Route::rule('about','home/about/index?catId=1');
 
 return [
     '/'=>'home/index/index',
-    'about-:cid'=>'home/about/index',
+    'about-:catId'=>'home/about/index',
     'download-:catId'=>'home/download/index',
     'services-:catId'=>'home/services/index',
     'servicesInfo-:catId-[:id]'=>'home/services/info',
     'system-:catId'=>'home/system/index',
-    'news-:cid'=>'home/news/index',
-    'product-:cid'=>'home/product/index',
-    'newsInfo-:catId-[:id]'=>'home/news/info',
-    'team-:cid'=>'home/team/index',
+    'news-:catId'=>'home/news/index',
+    'product-:catId'=>'home/product/index',
+    'newsInfo-:catId-[:id]'=>'home/news/show',
+    'team-:catId'=>'home/team/index',
     'contact-:catId'=>'home/contact/index',
     'senmsg'=>'home/index/senmsg',
     'down-:id'=>'home/download/down',

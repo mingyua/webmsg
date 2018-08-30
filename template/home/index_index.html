@@ -1,12 +1,6 @@
 {layout name="layout" /}
-	<section id="slide">
-		<div class="layui-carousel" id="test10">
-			<div carousel-item="">
-				{PE:_list table="hook" where="[['kinds','eq',1],['status','eq',1]]" id="v" limit="6" empty="没有数据"}				
-					<div><img src="__ROOT__{$v.thumb}"></div>
-				{/PE:_list}
-			</div>
-		</div>
-		
-		{:url('home/about/index',['catId'=>$id] )}
-	</section>
+<section id="slide">
+	<div class="layui-carousel" id="test10">
+		<div carousel-item=""> {PE:_list table="hook" where="[['kinds','eq',1],['status','eq',1]]" id="v" limit="6" empty="没有数据"}
+			<div><img src="__ROOT__{$v.thumb}"></div> {/PE:_list} </div>
+	</div> {:url('home/about/index',['catId'=>$id] )} </section>

@@ -5,7 +5,7 @@ namespace app\home\controller;
 use think\Controller;
 use think\Request;
 
-class Tlist extends Controller
+class Tlist extends Common
 {
     /**
      * 显示资源列表

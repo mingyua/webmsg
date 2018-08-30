@@ -5,7 +5,7 @@ namespace app\home\controller;
 use think\Controller;
 use think\Request;
 
-class Product extends Controller
+class Product extends Common
 {
     /**
      * 显示资源列表

@@ -101,6 +101,7 @@ class Article extends Controller
 	    		$name="文章列表";
 	    		$jumpurl=URL('article/index');
 	    	}
+	    	
 	    	if(isset($post['imglist'])){
 	    		$imglist=toArr($post['imglist'],',');
 	    		$dataimg=[];
