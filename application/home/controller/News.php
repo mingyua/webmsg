@@ -15,6 +15,7 @@ class News extends Common
     public function index()
     {
     	$map[]=['cateid','in',$this->childrenid];
+    	$map[]=['status','eq',1];
     	$newslist=db('article')->where($map)->paginate(12);
     	$this->assign('newslist',$newslist);
 

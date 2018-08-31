@@ -6,7 +6,7 @@ use think\Controller;
 use think\Request;
 use think\Db;
 use think\helper\Time;
-class Shop extends Controller
+class Shop extends Auth
 {
     /**
      * 显示资源列表

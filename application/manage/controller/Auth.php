@@ -14,7 +14,9 @@ use think\Db;
 class Auth extends Controller{
     protected function initialize()
     {
-       
+      $tags=db('tags')->order('sort ASC')->cache('tags',3600)->select(); 
+       $this->tags=$tags;
+       $this->assign('tags',$tags);
       $htusername=session('htusername');
       if(!$htusername){
       	$this->redirect('login/index');

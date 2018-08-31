@@ -12,18 +12,19 @@ class Common extends Controller
     	$input=input();
     	$this->catId=isset($input['catId'])?$input['catId']:'';
     	$this->id=isset($input['id'])?$input['id']:'';
+    	$seocate=db('cate')->where('id',$this->catId)->find();
     	if($this->id){
     		$info=db('article')->where('id',$this->id)->find();
     		$seo=['title'=>$info['title']."-"];
     	}else{
-    		$cate=db('cate')->where('id',$this->catId)->find();    		
-    		$this->childrenid=$cate['childrenid'];    		
-    		$info=db('article')->where('cateid',$cate['id'])->find();
-    		if($cate['temp']==1){
+    		    		
+    		$this->childrenid=$seocate['childrenid'];    		
+    		$info=db('article')->where('cateid',$seocate['id'])->find();
+    		if($seocate['temp']==1){
     			$seo=['title'=>$info['title']."-"];
     		}else{
-    			$seo=['title'=>$cate['name']."-"];
-    		}
+    			$seo=['title'=>$seocate['name']."-"];
+    		}    		
     		
     	}
     	if($this->catId){
@@ -38,7 +39,7 @@ class Common extends Controller
 	    	$this->assign('mcate',$mcate);
 	    	$this->assign('navbtn',$navbtn);
 		}
-    	
+    	$this->assign('seocate',$seocate);
        $this->assign('seo',$seo);
        $this->assign('catId',$this->catId);
        $this->assign('id',$this->id);

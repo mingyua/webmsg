@@ -13,7 +13,7 @@ namespace app\manage\controller;
 use think\Controller;
 use think\Request;
 use app\manage\model\Cate as Cates;
-class Cate extends Controller
+class Cate extends Auth
 {
     /**
      * 显示资源列表

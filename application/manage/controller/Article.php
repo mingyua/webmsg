@@ -7,7 +7,7 @@ use think\Request;
 use app\manage\model\Article as Art;
 use app\manage\model\Cate;
 
-class Article extends Controller
+class Article extends Auth
 {
     /**
      * 显示资源列表

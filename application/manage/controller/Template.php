@@ -5,7 +5,7 @@ namespace app\manage\controller;
 use think\Controller;
 use think\Request;
 
-class Template extends Controller
+class Template extends Auth
 {
     /**
      * 显示资源列表

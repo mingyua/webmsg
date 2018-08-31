@@ -13,7 +13,7 @@ namespace app\manage\controller;
 use think\Controller;
 use think\Request;
 use think\Model;
-class Set extends Controller
+class Set extends Auth
 {
     /**
      * 显示资源列表

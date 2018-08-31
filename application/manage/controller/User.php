@@ -14,7 +14,7 @@ use think\Controller;
 use think\Request;
 use think\Db;
 use app\manage\model\User as Users;
-class User extends Controller
+class User extends Auth
 {
     /**
      * 显示资源列表

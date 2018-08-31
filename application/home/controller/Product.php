@@ -14,7 +14,7 @@ class Product extends Common
      */
     public function index()
     {
-        //
+       return $this->fetch();
     }
 
     /**

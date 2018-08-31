@@ -17,7 +17,7 @@ use PHPExcel_IOFactory;
 use PHPExcel;
 use think\facade\Session;
 use \tp5er\Backup;
-class Data extends Controller
+class Data extends Auth
 {
 	
 	public function initialize(){

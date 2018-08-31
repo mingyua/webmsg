@@ -13,7 +13,7 @@ use think\Controller;
 use think\Request;
 use think\Db;
 
-class Menu extends Controller
+class Menu extends Auth
 {
     /**
      * 显示资源列表

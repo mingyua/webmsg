@@ -1,4 +1,4 @@
-
+{load href="__CSS__/jquery.tagsinput.css"}
 <div class="layui-fluid">
 	<div id="layui-row">
 		<div class="layui-col-xs12">
@@ -62,6 +62,22 @@
 								<textarea id="contents" name="content" placeholder="请输入内容" class="">{$info.content|default=''}</textarea>
 							</div>
 						</div>
+ 
+						<div class="layui-form-item">
+							<label class="layui-form-label">标签</label>
+							<div class="layui-input-block">
+								<input id="tags_1" name="tags" type="text" class="tags" value="{$info.tags?$info.tags:''}" />	
+								
+							</div>
+						</div>
+						<div class="layui-form-item">
+
+							<div  class="layui-input-block tagslist">
+								{volist name="tags" id="v"}
+								<a class="addtags" title="{$v.name}">{$v.name}</a>		
+								{/volist}
+							</div>
+						</div>
 						
 						<div class="layui-form-item">
 							<label class="layui-form-label">排序</label>
@@ -104,7 +120,7 @@
 </div>
 {load href="__MANAGE__/admin.js"}
 {load href="__MANAGE__/jquery.gridly.js"}
-{load href="__MANAGE__/sample.js"}
+{load href="__MANAGE__/sample.js"}{load href="__JS__/jquery.tagsinput.js"}
 <script type="text/javascript">
 	var EDITERURL='__MANAGE__/ueditor/';
 </script>
@@ -145,10 +161,36 @@
     }
   });		
 
-	function delimg(){
-		alert('111');
+	function onAddTag(tag) {
+		alert("添加标签: " + tag);
 	}
+	function onRemoveTag(tag) {
+		 $("a[title='"+tag+"']").removeClass('dis');
+	}
+	
+	function onChangeTag(input,tag) {
+		alert("Changed a tag: " + tag);
+	}
+	
+	$(function() {
+		var taglist='{$info.tags?$info.tags:''}';
+		var arr=taglist.split(',');
+		$.each(arr, function(index,item) {
+			$("a[title='"+item+"']").addClass('dis');
+		});
+		
+		$('#tags_1').tagsInput({width:'auto',height:'80px',onRemoveTag:onRemoveTag});
+		
+		$('.tagslist').on('click','a',function(){
+			if ($('#tags_1').tagExist($(this).text())) {				
+				layer.alert('已经存在');
+			}else{
+				$(this).addClass('dis');
+				$('#tags_1').addTag($(this).text());
+			}
+		});
 
+	});
 		
 });
 </script>

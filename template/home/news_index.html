@@ -19,18 +19,18 @@
 			<div class="layui-row">
 				<div class="layui-col-md12">
 					<ul class="tuwendate"> {volist name="newslist" id="v" empty="暂无数据"}
-						<li>
-							<a href="{:url('home/'.$navinfo['url'].'/show',['catId'=>$v['cateid'],'id'=>$v['id']])}" class="img"> <img src="__ROOT__{$v.thumb}" /></a>
-							<div class="textbox">
-								<h3><a href="{:url('home/'.$navinfo['url'].'/show',['catId'=>$v['cateid'],'id'=>$v['id']])}">{$v.title}</a></h3>
+						<li  id="divmover">
+							<a href="{:url('home/'.$navinfo['url'].'/show',['catId'=>$v['cateid'],'id'=>$v['id']])}" class="img"> <img class="imgscale" src="__ROOT__{$v.thumb}" /></a>
+							<div class="textbox toright">
+								<h3 class=""><a href="{:url('home/'.$navinfo['url'].'/show',['catId'=>$v['cateid'],'id'=>$v['id']])}">{$v.title}</a></h3>
 								<p>{$v.desc}</p>
 							</div>
-							<div class="date">
-								<div class="time">
+							<div class="date ">
+								<div class="time toleft">
 									<h2>{:toDate('1',$v.addtime,'m-d')}</h2>
 									<p>{:toDate('1',$v.addtime,'Y')}</p>
 								</div>
-								<a href="{:url('home/'.$navinfo['url'].'/show',['catId'=>$v['cateid'],'id'=>$v['id']])}"><i class="layui-icon layui-icon-right"></i></a>
+								<a href="{:url('home/'.$navinfo['url'].'/show',['catId'=>$v['cateid'],'id'=>$v['id']])}" ><i class="layui-icon layui-icon-right toright"></i></a>
 							</div>
 						</li> {/volist} </ul>
 					<div class="">{$newslist->render()|raw}</div>

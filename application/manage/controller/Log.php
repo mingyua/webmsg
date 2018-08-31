@@ -15,7 +15,7 @@ use think\Request;
 use Iplocation\IpLocation;
 use mac\GetMacAddr;
 use app\manage\model\Log as Logs;
-class Log extends Controller
+class Log extends Auth
 {
     /**
      * 显示资源列表

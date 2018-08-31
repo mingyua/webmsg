@@ -6,7 +6,7 @@
 	<meta name="Description" content="{:getconfigfield('description')}" />
 	<!--{:getconfigfield('yuanz')}-->
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-	<title>{$seo.title}{:getconfigfield('title')}</title> 
+	<title>{$seocate?$seo.title:''}{:getconfigfield('title')}</title> 
 	{include file="public/css" /}
 </head>
 <body>
