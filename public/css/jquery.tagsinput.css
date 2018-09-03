@@ -19,7 +19,8 @@ div.tagsinput {
 	margin-right: 5px;
 	margin-bottom: 5px;
 	font-family: helvetica;
-	font-size: 13px
+	font-size: 13px;
+	cursor: pointer;
 }
 .tagslist .dis{
 	background: #FFF;
