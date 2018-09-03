@@ -1,42 +1,56 @@
-{load href="__MANAGE__/lib/codeedit/built-editor.css"}
-{load href="__MANAGE__/lib/codeedit/built-editor.min.js"}
-<script>
-	require(["orion/editor/edit"], function(edit) {
-		edit({className: "editor"});
-	});
-</script>
+ {load href="__MANAGE__/lib/codeedit/codemirror.css"} {load href="__MANAGE__/lib/codeedit/monokai.css"}
+
 <div class="layui-fluid">
-	<div  class="layui-row">
+	<div class="layui-row layui-form">
 		<div class="layui-col-md12">
 			<div class="layui-card">
-				<div class="layui-card-header f-20">
-					{$template.name}
+				<div class="layui-card-header f-20"> {$template.name} </div>
+				<div class="layui-card-body ">
+					<div class="layui-form-item layui-form-text">
+						<textarea id="editor" name="desc" placeholder="请输入内容">{$content}</textarea>
+					</div>
 				</div>
-				<div class="layui-card-body">
-<pre class="editor" data-editor-lang="html">
-{$content}
-</pre>
-				</div>	
+				<input type="hidden" name="file" id="file" value="{$template.template}" />
 				<div class="layuiadmin-card-link pb-30 pt-30">
-				  <div class="layui-form-item">
-				    <div class="layui-input-block t-c">
-				      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-				    </div>
-				  </div>					
+					<div class="layui-form-item">
+						<div class="layui-input-block t-c"> <button class="layui-btn" lay-submit lay-filter="submit" data-url="{:URL('template/edit')}" >立即提交</button> </div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
+</div> 
+{load href="__MANAGE__/lib/codeedit/codemirror.js"} 
+{load href="__MANAGE__/lib/codeedit/closetag.js"} 
+{load href="__MANAGE__/lib/codeedit/xml.js"} 
+{load href="__MANAGE__/lib/codeedit/javascript.js"} 
+{load href="__MANAGE__/lib/codeedit/css.js"} 
+{load href="__MANAGE__/lib/codeedit/htmlmixed.js"} 
+{load href="__MANAGE__/lib/codeedit/code-blast.js"}
 <script type="text/javascript">
-layui.use(['laypage', 'layer'], function(){
-  var laypage = layui.laypage
-  ,layer = layui.layer;
-  
-$('.editor').css('height','100%');  
 
-  
-});	
+	layui.use(['laypage', 'layer'], function() {
+		var laypage = layui.laypage,
+			layer = layui.layer;
+		$('.editor').css('height', '100%');
+		
+	var myTextarea = document.getElementById('editor');
+	var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
+		lineNumbers: true,
+		mode: "htmlmixed",
+		theme: 'monokai',
+		lineWrapping: true,
+		autofocus: true,
+		tabSize: 4,
+		autoCloseTags: true,
+		
+	});		
+	CodeMirrorEditor.on("change",function(){
+		myTextarea.value=CodeMirrorEditor.getValue()
+	 //console.log(myTextarea.value);
+	});		
+		
+	});
+	
+	
 </script>
-
