@@ -2,7 +2,14 @@
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md12">
       <div class="layui-card">
-        <div class="layui-card-header">网站设置</div>
+				<div id="demoTable" class="layui-card-header pt-10"> 
+					<div class="layui-form pull-right">
+						<div class="layui-form-item">							
+							<div class="layui-inline"> <button class="layui-btn" lay-href="{:URL('set/add')}" ><i class="layui-icon layui-icon-add-circle"></i>添加项</button> </div>
+						</div>
+					</div>
+				</div>
+
         <div class="layui-card-body" pad15="">
           
           <div class="layui-form" wid100="" lay-filter="">
@@ -20,11 +27,12 @@
   </div>
   <div class="layui-clear" style="height: 60px;">&nbsp;</div>
 </div>
-
+{load href="__MANAGE__/admin.js"}
 
 <script type="text/javascript">
-	layui.use('upload', function(){
+	layui.use(['upload','table'], function(){
   var $ = layui.jquery
+  ,table=layui.table
   ,upload = layui.upload;
 		 upload.render({
 		    elem: '.demoMore'

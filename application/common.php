@@ -31,7 +31,7 @@ function getconfigfield($field){
 function fieldhtml($arr){
 	$html='';
 	foreach($arr as $k=>$v){
-		if($v['tip']){ $tip='<div class="layui-form-mid layui-word-aux">'.$v['tip'].'</div>'; }else{ $tip=''; }
+		if($v['tip']){ $tip='<div class="layui-form-mid layui-word-aux">'.$v['key'].':'.$v['tip'].'</div>'; }else{ $tip='<div class="layui-form-mid layui-word-aux">'.$v['key'].':</div>'; }
 		if(strlen($v['width'])>0){ $width='class="layui-input-inline" style="width:'.$v['width'].'"'; }else{ $width='class="layui-input-block"'; }
 		
 		switch($v['type']){

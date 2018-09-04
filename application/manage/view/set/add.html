@@ -1,0 +1,106 @@
+
+<div class="layui-fluid">
+	<div class="layui-row">
+		
+		<div class="layui-card">
+			<div class="layui-card-body">
+			<table class="layui-hide" id="tabledata" lay-filter="list"></table>
+			</div>
+			<p class="t-r layui-clear pb-25"><button id="tableReload" class="layui-btn"><i class="layui-icon layui-icon-add-1"></i></button></p>
+		</div>
+	</div>
+</div>
+
+<script type="text/html" id="barDemo">
+	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('set/delete')}" lay-event="del">删除</a>
+</script> 
+{load href="__MANAGE__/admin.js"}
+<script>
+	layui.use(['table'], function() {
+		var table = layui.table;
+		table.render({
+			elem: '#tabledata',
+			url: "{:URL('set/setlist')}" //数据接口
+				,
+			page: false //开启分页
+				,
+			id: 'tablist',
+			cols: [
+				[ {
+					field: 'id',
+					title: 'ID',
+					width: 80,
+					sort: true
+				}, {
+					field: 'type',
+					title: '类型',
+					width: 120,
+					edit: 'text'
+				},{
+					field: 'name',
+					title: '字段名称',
+					width: 120,
+					edit: 'text'
+				}, {
+					field: 'key',
+					title: '字段',
+					width: 120,
+					sort: true,
+					edit: 'text'
+				}, {
+					field: 'placeholder',
+					title: '默认提示',
+					sort: true,
+					edit: 'text'
+				}, {
+					field: 'tip',
+					title: '帮助提示',
+					edit: 'text',
+					sort: true
+				}, {
+					field: 'width',
+					title: '宽',
+					width: 120,
+					sort: true,
+					edit: 'text'
+				}, {
+					field: 'sort',
+					title: '排序',
+					width: 60,
+					edit: 'text'
+				}, {
+					width: 80,
+					align: 'center',
+					toolbar: '#barDemo'
+				}]
+			]
+		});
+		
+ table.on('edit(list)', function(obj){
+    var value = obj.value //得到修改后的值
+    ,data = obj.data //得到所在行所有键值
+    ,field = obj.field; //得到字段
+    $.post("{:URL('set/edit')}",{id:data.id,key:value,field:field},function(res){
+    	if(res.status==2){
+	    	layer.msg(res.msg,{icon:res.icon});
+	    	table.reload('tablist');
+    	}
+    })
+   
+    //layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
+  });		
+		
+		$('#tableReload').click(function(){
+			layer.prompt({title: '输入字段名称，并确认', formType: 3}, function(name, index){
+			  layer.close(index);
+			  layer.prompt({title: '输入字段，并确认', formType:3}, function(key, index){
+			  	layer.close(index);
+				    $.post("{:URL('set/add')}",{name:name,key:key},function(res){
+				    	layer.msg(res.msg,{icon:res.icon});
+				    })
+			  });
+			});			
+		});
+		
+	});
+</script>

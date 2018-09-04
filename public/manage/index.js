@@ -138,6 +138,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 				layer.closeAll();
 		    }
 		    else if(obj.event === 'edit'){
+		    	
 		    	var ajaxurl=$(this).attr('data-url')+"?id="+data.id,title=$(this).attr('data-title');
 		        if(fun.checkauth(ajaxurl)==0) {a.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;}
 		      	fun.popu(ajaxurl,title,'600px','700px');

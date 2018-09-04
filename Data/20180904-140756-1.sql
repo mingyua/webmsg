@@ -6,7 +6,7 @@
 -- Database : 
 -- 
 -- Part : #1
--- Date : 2018-08-31 18:00:58
+-- Date : 2018-09-04 14:07:56
 -- -----------------------------
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -174,20 +174,22 @@ CREATE TABLE `wb_config` (
   `tip` varchar(255) DEFAULT NULL,
   `width` varchar(255) DEFAULT NULL,
   `sort` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`,`key`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- -----------------------------
 -- Records of `wb_config`
 -- -----------------------------
-INSERT INTO `wb_config` VALUES ('1', '网站名称', 'name', '我的网站', '', 'text', '', '', '1');
-INSERT INTO `wb_config` VALUES ('2', '网站域名', 'nomote', 'http://c.com/home/', '', 'text', '', '', '2');
-INSERT INTO `wb_config` VALUES ('3', '首页标题', 'title', '我的标题', '', 'text', '', '', '3');
-INSERT INTO `wb_config` VALUES ('4', 'META关键词', 'keywords', '我是关键语', '多个关键词用英文状态 , 号分割', 'textarea', '', '', '4');
-INSERT INTO `wb_config` VALUES ('5', 'META描述', 'description', '我是描述', '', 'textarea', '', '', '5');
-INSERT INTO `wb_config` VALUES ('6', 'META验证', 'yuanz', '我是验证信息', '', 'text', '', '', '6');
-INSERT INTO `wb_config` VALUES ('7', '版权信息', 'foot', 'Copyright © 2002-2018 响应式互联网APP企业织梦模板 版权所有', '', 'textarea', '', '', '7');
-INSERT INTO `wb_config` VALUES ('8', '网站LOGO', 'logo', './public/uploads/20180824\\7f938757ac7d23df3397cf2e00ddfa16.png', '', 'file', '21323', '200px', '8');
+INSERT INTO `wb_config` VALUES ('1', '网站名称', 'name', '我的网站', '', 'text', '', '60%', '1');
+INSERT INTO `wb_config` VALUES ('2', '网站域名', 'nomote', 'http://c.com', '', 'text', '例http://www.xxx.com', '60%', '2');
+INSERT INTO `wb_config` VALUES ('3', '首页标题', 'title', '我的标题', '', 'text', '', '60%', '4');
+INSERT INTO `wb_config` VALUES ('4', 'META关键词', 'keywords', '我是关键词', '多个关键词用英文状态 , 号分割', 'textarea', '关键词控制在200个字符', '60%', '4');
+INSERT INTO `wb_config` VALUES ('5', 'META描述', 'description', '我是描述22', '', 'textarea', '', '60%', '5');
+INSERT INTO `wb_config` VALUES ('6', 'META验证', 'yuanz', '我是验证信息', '', 'text', '', '60%', '6');
+INSERT INTO `wb_config` VALUES ('7', '版权信息', 'foot', 'Copyright © 2002-2018 响应式互联网APP企业织梦模板 版权所有', '', 'textarea', '', '60%', '7');
+INSERT INTO `wb_config` VALUES ('8', '网站LOGO', 'logo', './public/uploads/20180824\\7f938757ac7d23df3397cf2e00ddfa16.png', '', 'file', '高度为100px,尽量不要留空白', '200px', '8');
+INSERT INTO `wb_config` VALUES ('20', '手机号码', 'phone', '18798075208', '请输入手机号码', 'text', '手机号码为11位', '60%', '3');
+INSERT INTO `wb_config` VALUES ('22', 'ICP备案号', 'icpcode', '', '', 'text', '', '60%', '9');
 
 -- -----------------------------
 -- Table structure for `wb_group`
@@ -328,6 +330,9 @@ INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD
 INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1535610934', '1535610934');
 INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1535678536', '1535678536');
 INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1535701166', '1535701166');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1535937768', '1535937768');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1536026676', '1536026676');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1536040367', '1536040367');
 
 -- -----------------------------
 -- Table structure for `wb_menu`
@@ -623,6 +628,6 @@ CREATE TABLE `wb_user` (
 -- -----------------------------
 -- Records of `wb_user`
 -- -----------------------------
-INSERT INTO `wb_user` VALUES ('1', '1', '1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', './public/uploads/avatar/1534823171.gif', '18798075208', '1', '1533519038', '1535701166');
+INSERT INTO `wb_user` VALUES ('1', '1', '1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', './public/uploads/avatar/1534823171.gif', '18798075208', '1', '1533519038', '1536040367');
 INSERT INTO `wb_user` VALUES ('3', '1', '2', 'mingyu', 'e10adc3949ba59abbe56e057f20f883e', './public/uploads/avatar/1534823334.gif', '18798075208', '1', '1534152368', '1534755300');
 INSERT INTO `wb_user` VALUES ('4', '1', '1', 'mingyua', 'e10adc3949ba59abbe56e057f20f883e', './public/uploads/avatar/1534823334.gif', '18798075208', '1', '1534152368', '1534152368');
