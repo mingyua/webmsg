@@ -29,7 +29,9 @@ class index extends Auth
         return $this->fetch();
     }
     public function center()
-    {      
+    {
+    	$map[]=['id','eq',session('htuserid')];
+    	$uinfo=db('user')->where($map)->find();      
     	$quick=db('shortcut')->where('status',1)->order('sort ASC')->select();
     	$qlist=[];$i=1;
     	foreach($quick as $k=>$v){
@@ -40,8 +42,8 @@ class index extends Auth
     		} 
     		$i++;
     	}
+    	$this->assign('uinfo',$uinfo);  
     	$this->assign('qlist',$qlist);  
-    	$this->assign('title','我是测试');  
         return view();
     }
     public function clearCache()

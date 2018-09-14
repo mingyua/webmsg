@@ -7,13 +7,19 @@
           <div class="layui-card">
             <div class="layui-card-header bd-b">登录信息</div>
             <div class="layui-card-body layui-clear">
-								<div id="htuserlogo" class="layui-col-md4"><img  src="{notempty name='$Think.session.htthumb'}__ROOT__{$Think.session.htthumb}{else/}__MANAGE__/images/upload.png{/notempty}"/></div>
+								<div id="htuserlogo" class="layui-col-md4">
+									<img  src="{notempty name='$Think.session.htthumb'}__ROOT__{$Think.session.htthumb}{else/}__MANAGE__/images/upload.png{/notempty}"/>
+									<div class="layui-clear"></div>
+								</div>
 								<div class="layui-col-md8">
 									<ul class="userinfo">
-										<li>登录用户:{$Think.session.htusername} </li>
-										<li>登录时间:{$Think.session.htuptime|toDate}</li>
-										<li><a href="{:URL('login/loginout')}" class="layui-btn layui-bg-orange">退出登录</a></li>
-
+										<li>登录用户:{$uinfo.username} </li>
+										<li>联系电话:{$uinfo.phone} </li>
+										<li>登录时间:{$uinfo.addtime|toDate} </li>
+										<li class="mt-20">
+												<a lay-href="{:URL('user/repwd')}" class="layui-btn layui-bg-blue">密码修改</a>
+												<a href="{:URL('login/loginout')}" class="layui-btn layui-btn-danger">退出登录</a>
+										</li>										
 									</ul>
 								</div>
              
