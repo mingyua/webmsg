@@ -8,7 +8,7 @@
 // |          MingYu <285412937@qq.com>                                   |
 // +----------------------------------------------------------------------+
 
-namespace app\ \controller;
+namespace app\home\controller;
 use think\facade\Config;
 use think\Controller;
 use think\Request;
