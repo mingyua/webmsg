@@ -22,7 +22,8 @@ class Team extends Common
      */
     public function index()
     {
-        //
+       
+		return $this->fetch();
     }
 
     /**

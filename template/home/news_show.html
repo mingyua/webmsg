@@ -3,8 +3,11 @@
 <div class="mt-20 mb-30 container">
 	<span class=" c-666"><i class="layui-icon layui-icon-location pr-5"></i>您现在的位置： </span><span class="layui-breadcrumb">
 	<a href="{:URL('home/index/index')}"><cite>首页</cite></a>
+	{if $navinfo<>''}
 	<a href="{:url('home/'.$navinfo['url'].'/index',['catId'=>$navinfo['id']] )}"><cite>{$navinfo.name}</cite></a>
+	{/if}
 	<a <cite>{$info.title}</cite></a>
+	
 	</span>
 </div>
 <div class="container bg-white">

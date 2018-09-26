@@ -38,14 +38,21 @@ class Common extends Controller
     	if($this->catId){
 	    	$catelist=db('cate')->select();
 	    	$fid=getprentsid($catelist,$this->catId);
-	    	$mcate=db('cate')->where('id',$fid[0])->find();
-	    	$allid=get_all_child($catelist,$fid[0]);    	  	
-	    	$allid=array_merge($allid,$fid);
-	    	$navbtn=db('cate')->where('id','in',$allid)->order('pid ASC')->select();
-	    	$navinfo=db('cate')->where('id',$this->catId)->find();
-	    	$this->assign('navinfo',$navinfo);
-	    	$this->assign('mcate',$mcate);
-	    	$this->assign('navbtn',$navbtn);
+			if(!empty($fid)){
+		    	$mcate=db('cate')->where('id',$fid[0])->find();
+		    	$allid=get_all_child($catelist,$fid[0]);    	  	
+		    	$allid=array_merge($allid,$fid);
+		    	$navbtn=db('cate')->where('id','in',$allid)->order('pid ASC')->select();
+		    	$navinfo=db('cate')->where('id',$this->catId)->find();
+		    	$this->assign('navinfo',$navinfo);
+		    	$this->assign('mcate',$mcate);
+		    	$this->assign('navbtn',$navbtn);
+			}else{
+		    	$this->assign('navinfo','');
+		    	$this->assign('mcate','');
+		    	$this->assign('navbtn','');				
+			}
+
 		}
     	$this->assign('seocate',$seocate);
        $this->assign('seo',$seo);

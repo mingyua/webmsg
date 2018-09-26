@@ -119,6 +119,7 @@ class Article extends Auth
 	    			$dataimg[$img[0]]['thumb']=trim($img[1]);
 	    			
 	    		}
+				
 	    		$post['thumb']=$dataimg[0]['thumb'];
 	    	}
 	    	
@@ -129,7 +130,7 @@ class Article extends Auth
 	    			$back=['msg'=>'操作失败，请重试！','status'=>2,'icon'=>0,'url'=>''];
 	    		}else{
 	    			if(isset($dataimg)){
-		    			$data=addarr($dataimg,'artid',$post['id']);
+		    			$data=addarr($dataimg,'artid',$post['id']);						
 		    			db('thumb')->where('artid',$post['id'])->delete();
 		    			db('thumb')->insertAll($data);	 
 	    			}   			
@@ -138,12 +139,13 @@ class Article extends Auth
 	    		
 	    	}else{
 	    		
-				$result=$art->allowField(true)->save($post);	    		
+				$result=$art->allowField(true)->save($post);
 	    		if(false===$result){
 	    			$back=['msg'=>'操作失败，请重试！','status'=>2,'icon'=>0,'url'=>''];
 	    		}else{
 	    			if(isset($dataimg)){
-		    			$data=addarr($dataimg,'artid',$result->id);
+	    				
+		    			$data=addarr($dataimg,'artid',$art->max('id'));						
 		    			db('thumb')->insertAll($data);	
 	    			}    				    			
 	    			$back=['msg'=>'操作成功！','status'=>1,'icon'=>1,'url'=>$jumpurl,'name'=>$name];	    			

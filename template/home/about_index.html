@@ -1,7 +1,7 @@
 {layout name="layout" /}
 <section id="bannercate" class="tp5_bg">
 <div class="container">
-	<h2 class="t-c c-white f-26 mb-30"><b>{$navinfo.name}</b></h2>
+	<h2 class="t-c c-white f-26 mb-30"><b>{$navinfo.name|default=''}</b></h2>
 	<p class="mb-30 c-white f-16">
 		感谢使用本套网站内容管理系统，致力于为您提供设计简约且操作简单的网站程序
 	</p>
@@ -14,7 +14,9 @@
 		<span class="pl-15 c-666"><i class="layui-icon layui-icon-location pr-5"></i>您现在的位置： </span>
 		<span class="layui-breadcrumb">
 		<a href="{:URL('home/index/index')}"><cite>首页</cite></a>
+		{if $navinfo<>''}
 		<a href="{:url('home/'.$navinfo['url'].'/index',['catId'=>$navinfo['id']] )}"><cite>{$navinfo.name}</cite></a>
+		{/if}
 		</span>
 		<hr>
 	</div>
