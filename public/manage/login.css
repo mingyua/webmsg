@@ -17,28 +17,16 @@ body {
 	border: 0px solid #E8E8E8;
 }
 
-.loginbox i {
+
+
+ .code {
 	position: absolute;
-	left: 30px;
-	margin-top: 0px;
-	font-size: 20px;
-	padding: 18px 15px 18px 10px ;
-	z-index: 9999;
-	color:#999;
-	border-right: 1px solid #E8E8E8;
-}
-
-.loginbox input {
-	height: 60px;
-	padding-left: 70px;
-	float: left;
-}
-
-.loginbox .code {
-	position: relative;
-	float: left;
-
-	border: 1px solid #E8E8E8;
+	float: right;
+	width: 182px;
+	height: 49px;
+	right: 1px;
+	top:7px;
+	border-left: 1px solid #ccc;
 }
 
 .loginbox button {
@@ -113,3 +101,77 @@ body {
 	left: 210px;
 }
 .footer{text-align: center;margin-top:10px;color:#C2C2C2;text-shadow: 0px 1px 0px #e5e5ee;font-size: 14px;}
+
+
+
+
+#diy_input .layui-form-item {
+	position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  width: 100%;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+#diy_input .layui-i {
+  transition: 0.3s;
+  margin-bottom: 5px;
+}
+
+#diy_input .layui-i:before {
+  content: attr(data-icon);
+  font-weight: normal;
+  font-family: "layui-icon";
+  font-size: 24px;
+  position: absolute;
+  left: 0;
+  transform: rotateY(90deg);
+  bottom: 0;
+  height: 52px;
+  background: transparent;
+  color: #666;
+  transform-origin: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color .3s 0s ease, transform .3s 0s ease;
+  width: 42px;
+}
+#diy_input i{ font-style:normal}
+#diy_input .layui-input {
+  border: 1px solid #ddd;
+  padding: 0 10px;
+  width: 100%;
+  height: 52px;
+  transition: 0.3s;
+  font-weight: normal;
+  box-sizing: border-box;
+  font-family: "Work Sans", sans-serif;
+  outline: none;
+}
+
+#diy_input .layui-input:focus {
+  padding-left: 42px;
+  border-color: #bbb;
+}
+
+#diy_input .layui-input:focus + i:before {
+  transform: rotateY(0deg);
+}
+
+#diy_input .layui-input:valid {
+  padding-left: 42px;
+  border-color: green;
+}
+
+#diy_input .layui-input:valid + i {
+  color: green;
+}
+
+#diy_input .layui-input:valid + i:before {
+  transform: rotateY(0deg);
+  color: green;
+  font-size: 22px;
+  content: attr(data-icon-ok);
+}

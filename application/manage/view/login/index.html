@@ -13,7 +13,10 @@
 <div class="layui-fluid">
 	<div class="layui-row">
 		<div class="layui-col-md12">
-			<div class="loginbox layui-form">
+
+
+			
+			<div id="diy_input" class="loginbox layui-form">
 
 			<div class="padd">
 				
@@ -23,21 +26,24 @@
         <div id="right_hand" class="initial_right_hand"></div>
 
 			  <div class="layui-form-item">
-			      <i class="layui-icon layui-icon-username"></i><input name="name" lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input" type="text">
+			      <input id="username" name="name" lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input" type="text" required> 
+			      <i class="layui-i" for="username" data-icon="&#xe66f;" data-icon-ok="&#xe605;"></i>
 			  </div>   
 			  <div class="layui-form-item">
-			      <i class="layui-icon layui-icon-password"></i><input id="password" name="password" lay-verify="required" autocomplete="off" placeholder="请输入密码" class="layui-input" type="password">
+			      <input id="password" name="password" lay-verify="required" autocomplete="off" placeholder="请输入密码" class="layui-input" type="password" required>
+			      <i class="layui-i" for="username" data-icon="&#xe673;" data-icon-ok="&#xe605;"></i>
 			  </div>   
-			  <div class="layui-form-item">
-			     <i class="layui-icon layui-icon-vercode"></i>
-			     <input name="code" lay-verify="required" autocomplete="off" placeholder="请输入验证码" class="layui-input" type="text" style="width: 217px;">
+			  <div class="layui-form-item">			
+			     <input id="code" name="code" lay-verify="required" autocomplete="off" placeholder="请输入验证码" class="layui-input pull-left" type="text"  required>
+			     <i class="layui-i" for="code" data-icon="&#xe66a;" data-icon-ok="&#xe605;"></i>
 			     <img src="{:captcha_src()}" alt="captcha" class="code" onclick="this.src='{:captcha_src()}?'+Math.random();" />
+			     
 			  </div>  
 			</div>
 			  
-			  <hr class="layui-bg-gray">
-			  <div class="layui-form-item" style="padding:10px 20px;">
-			  	<button id="sub" class="layui-btn layui-btn-fluid" lay-submit lay-filter='submit'>登录</button>
+			  <hr class="layui-bg-gray" />
+			  <div class="layui-form-item" >
+			  	<button id="sub" class="layui-btn layui-btn-lg" lay-submit lay-filter='submit' style="margin:10px 20px;">登录</button>
 			  </div>
 			</div>
 			<p class="footer">Powered by MingYu © 2018</p>
