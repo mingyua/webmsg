@@ -33,7 +33,7 @@ class Common extends Controller
     		}else{
     			$seo=['title'=>$seocate['name']."-"];
     		}    		
-    		
+    		$this->assign('childrenid',$this->childrenid);	
     	}
     	if($this->catId){
 	    	$catelist=db('cate')->select();
@@ -55,7 +55,7 @@ class Common extends Controller
 
 		}
 		
-    	$this->assign('childrenid',$this->childrenid);
+    	
     	$this->assign('seocate',$seocate);
         $this->assign('seo',$seo);
         $this->assign('catId',$this->catId);

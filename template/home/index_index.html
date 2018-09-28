@@ -91,17 +91,17 @@
 	<p class="t-c f-18 c-666 mb-50" data-scroll-reveal="enter right over 0.8s after 0.3s and move 1000px">News Information </p>
 	<div class="layui-row "> {PE:_list table="article" where="[['cateid','in',[6,9,10]],['status','eq',1]]" id="v" limit="4" empty="没有数据"}
 		<div id="divmover" aos="slide-up" data-scroll-reveal="enter bottom over 0.8s after {$k*0.2}s and move 200px" class="layui-col-md3"> {if ($k+1)%2==0}
-			<div class="overflow"><img class="imgscale" src="__ROOT__{$v.thumb}" height="280px" /></div>
+			<div class="overflow"><a href="{:url('home/news/show',['catId'=>$v['cateid'],'id'=>$v['id']])}"><img class="imgscale" src="__ROOT__{$v.thumb}" height="280px" /></a></div>
 			<div class="pd-30 toleft" style="height: 220px;">
 				<h2 class="mb-20">{:toDate('1',$v.uptime,'Y-m-d')}</h2>
-				<h1 class="mb-20">{$v.title}！</h1>
+				<h1 class="mb-20"><a href="{:url('home/news/show',['catId'=>$v['cateid'],'id'=>$v['id']])}">{$v.title}</a></h1>
 				<p>{$v.desc}</p>
 			</div> {else /}
 			<div class="pd-30 toleft" style="height: 220px;">
 				<h2 class="mb-20">{:toDate('1',$v.uptime,'Y-m-d')}</h2>
-				<h1 class="mb-20">{$v.title}！</h1>
+				<h1 class="mb-20"><a href="{:url('home/news/show',['catId'=>$v['cateid'],'id'=>$v['id']])}">{$v.title}</a></h1>
 				<p>{$v.desc}</p>
 			</div>
-			<div class="overflow"><img class="imgscale" src="__ROOT__{$v.thumb}" height="280px" /></div> {/if} </div> {/PE:_list} </div>
+			<div class="overflow"><a href="{:url('home/news/show',['catId'=>$v['cateid'],'id'=>$v['id']])}"><img class="imgscale" src="__ROOT__{$v.thumb}" height="280px" /></a></div> {/if} </div> {/PE:_list} </div>
 </section>
 <!--news end-->
