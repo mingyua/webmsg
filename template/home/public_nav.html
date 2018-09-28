@@ -1,6 +1,6 @@
 <section id="headnav">
 <div class="container">
-	<a href="{:URL('home/index/index')}"><img src="__ROOT__{:getconfigfield('logo')}" class="animated fadeInLeftBig"/></a>
+	<a href="{:URL('home/index/index')}"><img src="__ROOT__{:getconfigfield('logo')}" data-scroll-reveal="enter left over 0.8s after 0.2s and move 1000px" /></a>
 	<div class="side-open">
 		<hr>
 		<hr>
@@ -18,7 +18,7 @@
 						<a href="{:URL('home/index/index')}"><i class="layui-icon layui-icon-home"></i><b>网站首页</b></a>
 						</li>
 						 {PE:_nav table="cate" where="[['status','eq',1]]" order="sort asc" id="v"}
-						<li class="nav-first">
+						<li class="nav-first" >
 						<a href="{:url('home/'.$v['url'].'/index',['catId'=>$v['id']] )}" title="{$v.name}" data-alert="全部"> <i class="layui-icon {$v.icon}"></i><b>{$v.name}</b></a> {notempty name="$v.children"} <i>&nbsp;</i>
 						<ul>
 							 {volist name="$v.children" id="k"}
@@ -52,7 +52,7 @@
 			</div>
 		</div>
 	</div>
-	<ul class="layui-nav layui-hide-xs">
+	<ul class="layui-nav layui-hide-xs" data-scroll-reveal="enter right over 0.8s after 0.2s and move 1000px">
 		<li class="layui-nav-item">
 		<a href="{:URL('home/index/index')}">网站首页</a>
 		</li>

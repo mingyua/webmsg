@@ -1,4 +1,4 @@
-body{background: #F4F4F4;}
+body{background: #F4F4F4;overflow-x: hidden;}
 #content img{width:100%;overflow: hidden;height: 220px;}
 #news img{width: 100%;overflow: hidden}
 .content{font-size: 16px;}
@@ -76,8 +76,8 @@ body{background: #F4F4F4;}
 #divmover:hover .todown{-webkit-transform:scale(1.0) translate(0,10px);-moz-transform:scale(1.0) translate(0,10px)}
 #divmover:hover .toleft{-webkit-transform:scale(1.0) translate(-10px,0);-moz-transform:scale(1.0) translate(-10px,0)}
 #divmover:hover .toright{-webkit-transform:scale(1.0) translate(10px,0);-moz-transform:scale(1.0) translate(10px,0)}
-#divmover:hover .imgscale{transform: scale(1.1,1.1); -webkit-transform: scale(1.1,1.1); -moz-transform: scale(1.1,1.1); -ms-transform: scale(1.1,1.1); -o-transform: scale(1.1,1.1);}
-.toup,.todown,.toleft,.toright,.imgscale{-webkit-transition: all .30s ease-in-out; -moz-transition: all .30s ease-in-out; -o-transition: all .30s ease-in-out; -ms-transition: all .30s ease-in-out; transition: all .30s ease-in-out;}
+#divmover:hover .imgscale{transform: scale(1.2, 1.2);-ms-transform:scale(1.2, 1.2); 	-moz-transform:scale(1.2, 1.2); -webkit-transform:scale(1.2, 1.2); -o-transform:scale(1.2, 1.2);}
+.toup,.todown,.toleft,.toright,.imgscale{transition-delay: 0s;transition-duration: 1s;transition-property: all;transition-timing-function: ease;moz-transition-delay: 0s;-moz-transition-duration: 1s; -moz-transition-property: all; -moz-transition-timing-function: ease;-webkit-transition-delay: 0s; -webkit-transition-duration: 1s;-webkit-transition-property: all; -webkit-transition-timing-function: ease;-o-transition-delay: 0s; -o-transition-duration: 1s; -o-transition-property: all; -o-transition-timing-function: ease;}
 .overflow{overflow: hidden;}
 
 

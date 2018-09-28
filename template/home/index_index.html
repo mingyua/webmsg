@@ -12,8 +12,8 @@
 <!--content start-->
 <section id="content" class="mt-30 mb-50">
 	<div class="container">
-		<h1 class="t-c f-30 mb-20 animated fadeInUp"><b>我们积累了各行业丰富的案例和经验</b></h1>
-		<p class="t-c f-18 c-666 mb-50 animated fadeInUp">网页设计 / 软件界面 / 平面广告 / 移动APP / </p>
+		<h1 class="t-c f-30 mb-20" data-scroll-reveal="enter bottom over 0.8s after 0.1s and move 100px"><b>我们积累了各行业丰富的案例和经验</b></h1>
+		<p class="t-c f-18 c-666 mb-50" data-scroll-reveal="enter bottom over 0.8s after 0.3s and move 100px">网页设计 / 软件界面 / 平面广告 / 移动APP / </p>
 		<div class="layui-row layui-col-space30">
 			<div class="layui-col-md4">
 				<div class="hover-boxshadow"><img src="__PUBLIC__/uploads/20180831/a526b4bc7c43706f073343329767201a.png" /></div>
@@ -87,10 +87,10 @@
 <!--about end-->
 <!--news start-->
 <section id="news" class="layui-clear mt-50 mb-50 pd-5">
-	<h1 class="t-c f-30 mb-20"><b>最新资讯</b></h1>
-	<p class="t-c f-18 c-666 mb-50">News Information </p>
+	<h1 class="t-c f-30 mb-20" data-scroll-reveal="enter left over 0.8s after 0.2s and move 1000px"><b>最新资讯</b></h1>
+	<p class="t-c f-18 c-666 mb-50" data-scroll-reveal="enter right over 0.8s after 0.3s and move 1000px">News Information </p>
 	<div class="layui-row "> {PE:_list table="article" where="[['cateid','in',[6,9,10]],['status','eq',1]]" id="v" limit="4" empty="没有数据"}
-		<div id="divmover" class="layui-col-md3"> {if ($k+1)%2==0}
+		<div id="divmover" aos="slide-up" data-scroll-reveal="enter bottom over 0.8s after {$k*0.2}s and move 200px" class="layui-col-md3"> {if ($k+1)%2==0}
 			<div class="overflow"><img class="imgscale" src="__ROOT__{$v.thumb}" height="280px" /></div>
 			<div class="pd-30 toleft" style="height: 220px;">
 				<h2 class="mb-20">{:toDate('1',$v.uptime,'Y-m-d')}</h2>
