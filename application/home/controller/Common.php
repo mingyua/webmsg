@@ -54,10 +54,12 @@ class Common extends Controller
 			}
 
 		}
+		
+    	$this->assign('childrenid',$this->childrenid);
     	$this->assign('seocate',$seocate);
-       $this->assign('seo',$seo);
-       $this->assign('catId',$this->catId);
-       $this->assign('id',$this->id);
-       $this->assign('info',$info);
+        $this->assign('seo',$seo);
+        $this->assign('catId',$this->catId);
+        $this->assign('id',$this->id);
+        $this->assign('info',$info);
     }
 }

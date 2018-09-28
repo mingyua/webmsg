@@ -20,8 +20,9 @@
 		<div class="layui-card pd-15">
 			<div class="layui-row">
 				<div class="layui-col-md12">
-					<ul class="tuwendate"> {volist name="newslist" id="v" empty="暂无数据"}
-						<li  id="divmover">
+					<ul class="tuwendate">
+					    {PE:_list table="article" where="[['cateid','in',$childrenid],['status','eq',1]]" field="*" order="id desc" limit="12" id="v" page="true" empty="没有数据"}
+						<li  id="divmover"  data-scroll-reveal="enter bottom over 0.8s after 0.2s and move 100px" >
 							<a href="{:url('home/'.$navinfo['url'].'/show',['catId'=>$v['cateid'],'id'=>$v['id']])}" class="img"> <img class="imgscale" src="__ROOT__{$v.thumb}" /></a>
 							<div class="textbox toright">
 								<h3 class=""><a href="{:url('home/'.$navinfo['url'].'/show',['catId'=>$v['cateid'],'id'=>$v['id']])}">{$v.title}</a></h3>
@@ -34,8 +35,8 @@
 								</div>
 								<a href="{:url('home/'.$navinfo['url'].'/show',['catId'=>$v['cateid'],'id'=>$v['id']])}" ><i class="layui-icon layui-icon-right toright"></i></a>
 							</div>
-						</li> {/volist} </ul>
-					<div class="">{$newslist->render()|raw}</div>
+						</li> {/PE:_list}	 </ul>
+					<div class="">{$page|raw}</div>
 				</div>
 			</div>
 		</div>

@@ -23,6 +23,13 @@
 		<div class=" content">
 				{$info.content|raw}
 		</div>
+		<div class="layui-footer">
+			{PE:_getval table='article' where="[['cateid','eq',$catId],['id','lt',$id]]" order="id DESC" name="upart" /}
+			<p class="mb-10"><span class="layui-btn layui-btn-primary">上一篇</span>{if $upart<>null}<a href="{:url('home/'.$navinfo['url'].'/show',['catId'=>$upart['cateid'],'id'=>$upart['id']])}" class="pl-15">{$upart.title}</a>{else /} <span class="pl-15">没有了</span>{/if}</p>
+			{PE:_getval table='article' where="[['cateid','eq',$catId],['id','gt',$id]]" order="id ASC" name="updown" /}
+			<p class="mb-10"><span class="layui-btn layui-btn-primary">下一篇</span>{if $updown<>null}<a href="{:url('home/'.$navinfo['url'].'/show',['catId'=>$updown['cateid'],'id'=>$updown['id']])}" class="pl-15">{$updown.title}</a>{else /} <span class="pl-15">没有了</span>{/if}</p>
+
+		</div>
 	</div>
 </div>
 </section>
