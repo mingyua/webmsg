@@ -1,0 +1,64 @@
+<div class="layui-fluid">
+	<div id="layui-row">
+		<div class="layui-col-xs12">
+			<div class="layui-card">
+				<div class="layui-card-body">
+					
+					<ul>
+						<li class="flex">
+							<div class="avatar t-c"><img src="__PUBLIC__/images/avatar/1.jpg"/><p class="t-c">admin</p></div>
+							<div class="text">
+								<h2 id="1" data-name="ADMIN"  data-uid="1" >我是标题</h2>
+								<p>我是内容</p>
+								<p id="replay"></p>
+								<div class="comments">
+									<dl class="flex">
+										<dd class="img"><img src="__PUBLIC__/images/avatar/1.jpg"/></dd>
+										<dd class="text">
+											<h2 id="2" data-name="ADMIN" data-uid="1" class="f-14">ADMIN</h2>
+											<p class="f-12">我是内容</p>
+											<p id="replay"></p>
+										</dd>
+										<dd class="date">2018-09-30</dd>
+									</dl>
+									<dl class="flex">
+										<dd class="img"><img src="__PUBLIC__/images/avatar/1.jpg"/></dd>
+										<dd class="text">
+											<h2 id="3" data-name="MINGYU" data-uid="1"  class="f-14">MINGYU <b class="c-orange">@</b> ADMIN</h2>
+											<p class="f-12">我是内容</p>	
+											<p id="replay"></p>
+										</dd>
+										<dd class="date">2018-09-30</dd>
+									</dl>
+								</div>
+								
+							</div>
+							<div class="date">2018-09-30</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$('.layui-card-body').on('click','h2',function(e){
+			var _this=$(this),name=_this.attr('data-name'),id=_this.attr('id'),uid=_this.attr('data-uid');
+			$('.commentbox').remove();
+			_this.next('p').append('<div class="commentbox"><textarea id="desc" name="desc" class="layui-textarea" placeholder="@'+name+'"></textarea><p class="commentfoot"><span>300</span><span id="sendcomment" data-id="'+id+'" data-uid="'+uid+'" >发送</span><span id="cancel">取消</span></p></div>');
+		});
+		$("body").on('click','#cancel',function(){
+			$('.commentbox').remove();
+		});
+		$("body").on('click','#sendcomment',function(){
+			var _this=$(this),id=_this.attr('data-id'),uid=_this.attr('data-uid'),desc=$('#desc').val();
+			alert(desc+'--id='+id+'uid:'+uid);
+			
+		})
+		
+	});
+
+</script>

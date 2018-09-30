@@ -24,7 +24,7 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 .c-999,.c-999 a,a.c-999{color:#999}
 .c-999 a:hover,a.c-999:hover{color:#999}
 .c-white,.c-white:hover{color:#FFFFFF;text-transform:uppercase;}
-
+.c-orange{color:orange}
 .boxshadow{box-shadow: 0 1px 2px #E8E8E8;background: #FFF;}
 .disnone{display: none;}
 
@@ -111,3 +111,28 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 .layui-tree li .layui-tree-check { font-size: 20px; color:#009E94 }
 .layui-tree li .layui-tree-check:hover { color: #009E94; }
 
+.flex{display: -webkit-flex; /* Safari */-webkit-flex-flow: row-reverse wrap; /* Safari 6.1+ */display: flex;flex-flow: row wrap;}
+.flex .avatar img{border-radius: 50%;width: 100px;height: 100px;overflow: hidden;box-shadow: 0 4px 4px #ccc;}
+.flex .img img{border-radius: 50%;width: 30px;height: 30px;overflow: hidden;box-shadow: 0 4px 4px #ccc;margin-right: 10px;}
+.flex .text{padding: 5px;margin-left: 10px;}
+.flex .text h2{padding: 5px 0;margin-bottom: 5px;}
+.flex div:nth-child(2){
+	flex: 1;
+}
+.flex dd:nth-child(2){
+	flex: 1;
+}
+.flex .text p{display: block;} 
+.flex .comments{display: block;background: #F0F0F0;min-height: 30px;margin-top: 10px;padding: 10px;}
+
+
+.commentfoot{display: block;padding:0 0 20px 0;}
+.commentfoot span{cursor: pointer;}
+.commentfoot span:nth-child(1){
+	float: left;
+}
+.commentfoot span:nth-child(2){
+	float: right;margin-left: 20px;
+}.commentfoot span:nth-child(3){
+	float: right;margin-left: 20px;
+}

@@ -13,7 +13,7 @@
 	<div class="lay-main">
 		<div class="lay-left">
 				<h2 class="laylogo"><a href="{:URL('index/index')}" class="c-white">mingyu</a></h2>
-				<ul class="layui-nav layui-nav-tree layui-inline" style="margin-right: 10px;">
+				<ul class="layui-nav layui-nav-tree layui-inline " style="margin-right: 10px;" lay-shrink="all">
 					{volist name="menulist" id="v"}
 				  <li class="layui-nav-item">
 				    <a lay-href="{$v.url}"><i class="layui-icon {$v.icon} mr-10"></i>{$v.name}</a>
@@ -32,7 +32,7 @@
 				<div class="lay-header">
 					<ul>
 							<li id='menuicon' title="菜单"><i class="layui-icon layui-icon-shrink-right"></i></li>
-							<a href="{:URL('index/index/index')}" target="_blank"><li class="layui-hide-xs" title="前台"><i class="layui-icon layui-icon-website"></i></li></a>
+							<a href="__ROOT__" target="_blank"><li class="layui-hide-xs" title="前台"><i class="layui-icon layui-icon-website"></i></li></a>
 							<li id="reload" title="刷新"><i class="layui-icon layui-icon-refresh"></i></li>
 							<input type="hidden"  id="refurl" value="" />
 					</ul>
@@ -50,7 +50,7 @@
 						<div class="layui-card">
 							<div class="layui-card-header bd-b">13213213</div>
 							<div class="layui-card-body">
-								46465465
+								46465465<div class="layui-anim layui-anim-up layui-anim-loop">5555</div>
 							</div>
 						</div>
 				</div>

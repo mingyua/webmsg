@@ -1,0 +1,93 @@
+<div class="layui-fluid">
+	<div id="layui-row">
+		<div class="layui-col-xs12">
+			<div class="layui-card">
+				<div id="demoTable" class="layui-card-header pt-10"> 
+					<button  class="layui-btn layui-btn-danger" data-type="getCheckData" data-url="{:URL('comment/alldel')}"  title="删除选中"><i class="layui-icon layui-icon-delete"></i></button>
+					<div class="layui-form pull-right">
+						<div class="layui-form-item">							
+							<div class="layui-inline">								
+								<select id="cateid" name="cateid">
+								</select>																	
+							</div>
+							<div class="layui-inline">								
+								<select id="status" name="status">
+									<option value="">请选择状态</option>
+									<option value="1">显示</option>
+									<option value="0">不显示</option>
+								</select>																	
+							</div>
+							<div class="layui-inline" style="width: 200px;"><input type="text" id="daterange" name="addtime" class="layui-input" placeholder="开始 到 结束" value="" /> </div>
+							<div class="layui-inline"><input type="text" name="keywords" id="keywords" class="layui-input" placeholder="请输入标题" value="" /> </div>
+							<div class="layui-inline"><button class="layui-btn" data-type="reload"><i class="layui-icon layui-icon-search"></i></button></div>
+							<div class="layui-inline"> <button class="layui-btn" data-type="add" data-title="添加话题" dataw="600px" datah="700px" data-url="{:URL('comment/addcomment')}" ><i class="layui-icon layui-icon-add-circle"></i>添加问题</button> </div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-card-body">
+					<table class="layui-hide" id="tabledata" lay-filter="list"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
+</div>
+{load href="__MANAGE__/admin.js"}
+<script type="text/html" id="switchTpl">
+  <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="显示|不显示" data-id="{{d.id}}" data-url="{:URL('comment/status')}" lay-filter="status" {{ d.status == 1 ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="barDemo">	
+	<a class="layui-btn layui-btn-xs" lay-href="{:URL('comment/view')}" data-title="查看" >查看</a>
+	<a class="layui-btn layui-btn-xs" data-url="{:URL('comment/addcomment')}" data-title="编辑" lay-event="edit">编辑</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('comment/delete')}" lay-event="del">删除</a>
+</script>
+<script type="text/javascript">
+layui.use(['table','form','laydate'], function() {
+		var table=layui.table,form=layui.form,laydate=layui.laydate,cid="{$cid}";
+		form.render();
+		table.render({
+			elem: '#tabledata',
+			url: "{:URL('comment/commentlist')}" //数据接口
+			,where:{key:{cid:cid}}
+			,page: true //开启分页
+			,id:'tablist'
+			,cols: [
+				[ //表头
+					{
+						checkbox: true,
+						fixed: true,
+						fixed: 'left'
+					}, {
+						field: 'id',
+						title: 'ID',
+						width: 80,
+						sort: true
+					}, {
+						field: 'title',
+						title: '文章标题'
+					},{
+						field: 'catename',
+						title: '分类',
+						width: 120
+					},{
+						field: 'addtime',
+						title: '添加时间',
+						width: 200
+					}, {field:'status', title:'状态', width:95, templet: '#switchTpl', unresize: true}
+					,{
+						fixed: 'right',
+						width: 178,
+						align: 'center',
+						toolbar: '#barDemo'
+					}
+				]
+			]
+		});
+		
+laydate.render({
+    elem: '#daterange'
+    ,range: true
+});		
+		
+});
+</script>

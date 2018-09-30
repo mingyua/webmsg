@@ -34,7 +34,7 @@ class Cate extends Auth
     public function add()
     {
     	if($this->request->post()){
-    		$arr=db('cate')->field('id,pid')->select();  
+    		
     		$post=$this->request->post();
     		if(isset($post['id'])){
     			$isupdate=true;
@@ -45,6 +45,7 @@ class Cate extends Auth
     		if(false===$res){
     			$back=['msg'=>'操作失败！','status'=>2,'icon'=>2,'url'=>''];
     		}else{
+    			$arr=db('cate')->field('id,pid')->select();  
     			model('Cate')->saveAll(allupdata($arr,'childrenid'));	
     			$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>''];
     		}
