@@ -21,7 +21,11 @@ class Comment extends Controller
      */
     public function index()
     {
-    	
+ 
+ 
+    	$map[]=['A.pid','eq',0];
+    	$cc= model('Comment')->pagelist($map,'addtime desc',0,10);
+    	//dump($cc);
 		$this->assign('cid',input('cid'));
         return view();
         //
@@ -31,8 +35,15 @@ class Comment extends Controller
         return view();
         //
     }
-    public function view()
+    public function view($id)
     {
+    	$map[]=['id','eq',$id];
+		$info=model('Comment')->with('user')->where($map)->find();
+		$maps[]=['pid','eq',$id];
+		$replay=model('Comment')->with('user')->where($maps)->order('addtime desc')->select();
+		//dump($replay);
+		$this->assign('replay',$replay);
+		$this->assign('info',$info);
         return view();
         //
     }
@@ -81,6 +92,23 @@ class Comment extends Controller
     	}
 
     }
+	/*
+	 * 添加回复
+	*/
+	public function addreplay(){
+		if($this->request->post()){
+			$request=$this->request->post();
+			$request['status']=1;
+			$res=model('Comment')->allowField(true)->save($request);
+    		if(false===$res){
+    			$back=['msg'=>'操作失败！','status'=>2,'icon'=>2,'url'=>''];
+    		}else{
+    			$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>''];
+    		}
+			
+			return $back;
+		}
+	}
     public function addcommentcate()
     {
     	if($this->request->post()){
@@ -138,7 +166,7 @@ class Comment extends Controller
     	$input=array_filter($key,function($item){
     		 return $item !== '';
     	});
-    	$where[]=['id','neq',0];
+    	$where[]=['A.pid','eq',0];
     	foreach($input as $k=>$v){
     		
     		if($k=='addtime'){
@@ -153,16 +181,9 @@ class Comment extends Controller
     		}else{
     			$where[]=[$k,'eq',$v];
     		}
-    	}
-    	
-    	//dump($where);
-    	//$where[]=[''];
-    	$count=model('Comment')->field('*')->count();
-        $list=model('Comment')->with('commentcate')->where($where)->order('addtime desc')->limit($fristlimit,$limit)->select();
-        foreach($list as $k=>$v){
-        	$list[$k]['catename']=$v['commentcate']['name'];
-        }   
-		//dump($list);     
+    	}    	
+    	$count=model('Comment')->alias('A')->where($where)->field('*')->count();
+		$list=model('Comment')->pagelist($where,'addtime desc',$fristlimit,$limit);
         $articlelist=['code'=>0,'msg'=>'','count'=>$count,'data'=>$list];
         echo json_encode($articlelist);        
     }

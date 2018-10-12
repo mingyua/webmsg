@@ -6,34 +6,27 @@
 					
 					<ul>
 						<li class="flex">
-							<div class="avatar t-c"><img src="__PUBLIC__/images/avatar/1.jpg"/><p class="t-c">admin</p></div>
+							<div class="avatar t-c"><img src="__ROOT__{$info.user.thumb}"/><p class="t-c">{$info.user.username}</p></div>
 							<div class="text">
-								<h2 id="1" data-name="ADMIN"  data-uid="1" >我是标题</h2>
-								<p>我是内容</p>
+								<h2 id="{$info.id}" data-name="{$info.user.username}"  data-uid="{$info.user.id}" >{$info.title}<span class="f-12 c-666 pl-20">{$info.addtime|time_trans}</span></h2>
+								<p>{$info.desc}</p>
 								<p id="replay"></p>
 								<div class="comments">
+									{volist name="replay" id="v"}
 									<dl class="flex">
-										<dd class="img"><img src="__PUBLIC__/images/avatar/1.jpg"/></dd>
+										<dd class="img"><img src="__ROOT__{$v.user.thumb}"/></dd>
 										<dd class="text">
-											<h2 id="2" data-name="ADMIN" data-uid="1" class="f-14">ADMIN</h2>
-											<p class="f-12">我是内容</p>
+											<h2 id="{$v.id}" data-name="{$v.user.username}" data-uid="{$v.user.id}" class="f-14">{$v.user.username}<span class="f-12 c-666 pl-10">{if $v.touid!=$info.uid }@{$v.tousername}{/if}   {$v.addtime|time_trans}</span></h2>
+											<p class="f-12">{$v.desc}</p>
 											<p id="replay"></p>
 										</dd>
-										<dd class="date">2018-09-30</dd>
+										<dd class="date"></dd>
 									</dl>
-									<dl class="flex">
-										<dd class="img"><img src="__PUBLIC__/images/avatar/1.jpg"/></dd>
-										<dd class="text">
-											<h2 id="3" data-name="MINGYU" data-uid="1"  class="f-14">MINGYU <b class="c-orange">@</b> ADMIN</h2>
-											<p class="f-12">我是内容</p>	
-											<p id="replay"></p>
-										</dd>
-										<dd class="date">2018-09-30</dd>
-									</dl>
+									{/volist}
 								</div>
 								
 							</div>
-							<div class="date">2018-09-30</div>
+							<div class="date"></div>
 						</li>
 					</ul>
 				</div>
@@ -42,20 +35,43 @@
 	</div>
 	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
 </div>
-
+{load href="__JS__/moment.min.js"}
 <script type="text/javascript">
 	$(function(){
+		var nowuid="{:session("htuserid")}",cateid='{$info.cateid}',pid='{$info.id}';
 		$('.layui-card-body').on('click','h2',function(e){
-			var _this=$(this),name=_this.attr('data-name'),id=_this.attr('id'),uid=_this.attr('data-uid');
-			$('.commentbox').remove();
-			_this.next('p').append('<div class="commentbox"><textarea id="desc" name="desc" class="layui-textarea" placeholder="@'+name+'"></textarea><p class="commentfoot"><span>300</span><span id="sendcomment" data-id="'+id+'" data-uid="'+uid+'" >发送</span><span id="cancel">取消</span></p></div>');
+			$('.commentbox').remove();	
+			var _this=$(this),name=_this.attr('data-name'),id=_this.attr('id'),uid=_this.attr('data-uid');	
+			if(uid!=nowuid){			
+			_this.next('p').next('p').html('').append('<div class="commentbox"><textarea id="desc" maxlength="300" name="desc" class="layui-textarea" placeholder="@'+name+'"></textarea><p class="commentfoot"><span id="countwords" data-num="300">300</span><span id="sendcomment" data-id="'+id+'" data-uid="'+uid+'"  data-name="'+name+'">发送</span><span id="cancel">取消</span></p></div>');
+			$('#desc').focus();
+			}
 		});
 		$("body").on('click','#cancel',function(){
 			$('.commentbox').remove();
 		});
-		$("body").on('click','#sendcomment',function(){
-			var _this=$(this),id=_this.attr('data-id'),uid=_this.attr('data-uid'),desc=$('#desc').val();
-			alert(desc+'--id='+id+'uid:'+uid);
+		$('body').on('keyup','#desc',function(){
+			var word=$(this).val().length,total=$('#countwords').attr('data-num');
+			$('#countwords').html('您还可以输入<font color="red">'+ Number(total-word) +'</font>字');		
+		});
+		$("body").off('click','#sendcomment').on('click','#sendcomment',function(){
+			var _this=$(this),id=_this.attr('data-id'),touid=_this.attr('data-uid'),name=_this.attr('data-name'),desc=$('#desc').val(),addhtml="";
+			addhtml +='<dl class="flex"><dd class="img"><img src="__ROOT__{:session("htthumb")}"/></dd><dd class="text">';
+	        addhtml +='<h2 id="" data-name="{:session("htusername")}" data-uid="{:session("htuserid")}" class="f-14">{:session("htusername")} @ '+name+'<span class="f-12 c-666 pl-20">刚刚</span></h2>';
+	        addhtml +=' <p class="f-12">'+desc+'</p>';
+	        addhtml +='<p id="replay"></p></dd><dd class="date"></dd></dl>';			
+			$.ajax({
+				type:"post",
+				url:"{:URL('comment/addreplay')}",
+				data:{pid:pid,uid:nowuid,touid:touid,tousername:name,cateid:cateid,desc:desc},
+				success:function(e){
+					$('.comments').prepend(addhtml);
+					
+					console.log(e);
+					$('.commentbox').remove();
+				}
+			});
+			//console.log(_this);
 			
 		})
 		

@@ -306,7 +306,97 @@ function dyconfig($getname,$pos){
 function addtext($text,$addword){
 	return $text.$addword;
 }
+/*
+ * 几秒前，几分钟前，几天前等方法
+ */
+function time_trans($the_time)
+{
+    $now_time = time();
+    $show_time = strtotime($the_time);
+ 
+    $dur = $now_time - $show_time;
+ 
+    if($dur < 60){
+        return '刚刚';
+    }else if($dur < 3600){
+        return floor($dur/60).'分钟前';
+    }else if($dur < 86400) {
+        return floor($dur/3600).'小时前';
+    }else if($dur < 259200) {//3天内
+        return floor($dur / 86400) . '天前';
+    }else{
+        return date('Y/m/d',$show_time);
+    }
+}
+/**
+   * [array_to_sql 根据数组key和value拼接成需要的sql]
+   * @param [type] $array  [key, value结构数组]
+   * @param string $type  [sql类型insert,update]
+   * @param array $exclude [排除的字段]
+   * @return [string]     [返回拼接好的sql]
+   */
+  function array_to_sql($array,$table='', $type='insert', $exclude = array()){
+     
+    $sql = '';
+    if(count($array) > 0){
+      foreach ($exclude as $exkey) {
+        unset($array[$exkey]);//剔除不要的key
+      }
+ 
+      if('insert' == $type){
+        $keys = array_keys($array);
+        $values = array_values($array);
+        $col = implode("`, `", $keys);
+        $val = implode("', '", $values);
+        $sql = $table." (`$col`) values('$val')";
+      }else if('update' == $type){
+        $tempsql = '';
+        $temparr = array();
+        foreach ($array as $key => $value) {
+          $tempsql = "'$key' = '$value'";
+          $temparr[] = $tempsql;
+        }
+ 
+        $sql = implode("," , $temparr);
+	}
+	}
+	return $sql;
+	}
+  
+  /* $filename 读取文件地址
+   * $startLine = 1;//读取开始行数
+   * $endLine = 50;//读取结束行数
+   * $totalLine    //文件总行数
+   * $excArr    //读取后数据数组
+   */
+	function readBigFileLines($filename, $startLine = 0,$endLine=50) {
+		$content = '';
+		if($endLine < $startLine) return 'error:end line error';
+		$count = $endLine - $startLine;
+		$fp = fopen($filename,'r');//读模式打开文件
+		if(!$fp) return 'error:can not read file';
+		for ($i=1;$i<$startLine;$i++) {
+		if(!feof($fp)) fgets($fp);//跳过前$startLine行
+		}
+		for($i;$i<=$endLine;$i++){
+		if(!feof($fp)) $content .= fgets($fp);//读取文件行内容
+		}
+		fclose($fp);		
+		$totalLine=count(array_filter(explode(';'.PHP_EOL,file_get_contents($filename))));
+		$excArr=explode(';'.PHP_EOL,trim($content));
+		return ['totalnum'=>$totalLine,'content'=>$excArr];
+	}
+	
+function EshowMsg($type=1,$msg='数据导入完成!',$jump=0){
 
+    echo "<script>addtext('<div style=display:block;width:100%;padding:5px;font-size:12px;overflow:hidden>".$msg."</div>');document.getElementById('boxtext').scrollTop = document.getElementById('boxtext').scrollHeight;</script>";
+   // 把数据从PHP的缓冲中释放出来
+    ob_flush();
+  // 将不在缓冲中的或者说是被释放出来的数据发送到浏览器
+    flush();
+	
+}	
+	
 //加密函数
 function lock_url($txt,$key='mingyu')
 {
@@ -346,3 +436,5 @@ function unlock_url($txt,$key='mingyu')
   }
   return trim(base64_decode($tmp),$key);
 }
+
+

@@ -33,11 +33,15 @@
 	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
 </div>
 {load href="__MANAGE__/admin.js"}
+<script type="text/html" id="laytitle">
+  {{d.title}} <span class="layui-badge">{{d.num}}</span>
+</script>
+
 <script type="text/html" id="switchTpl">
   <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="显示|不显示" data-id="{{d.id}}" data-url="{:URL('comment/status')}" lay-filter="status" {{ d.status == 1 ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="barDemo">	
-	<a class="layui-btn layui-btn-xs" lay-href="{:URL('comment/view')}" data-title="查看" >查看</a>
+	<a class="layui-btn layui-btn-xs" lay-href="{:URL('comment/view')}?id={{d.id}}" data-title="查看" >查看</a>
 	<a class="layui-btn layui-btn-xs" data-url="{:URL('comment/addcomment')}" data-title="编辑" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('comment/delete')}" lay-event="del">删除</a>
 </script>
@@ -63,17 +67,18 @@ layui.use(['table','form','laydate'], function() {
 						width: 80,
 						sort: true
 					}, {
-						field: 'title',
-						title: '文章标题'
+						//field: 'title',
+						title: '问题',
+						toolbar: '#laytitle'
 					},{
 						field: 'catename',
 						title: '分类',
 						width: 120
 					},{
-						field: 'addtime',
+						field: 'time',
 						title: '添加时间',
 						width: 200
-					}, {field:'status', title:'状态', width:95, templet: '#switchTpl', unresize: true}
+					}, { title:'状态', width:95, templet: '#switchTpl', unresize: true}
 					,{
 						fixed: 'right',
 						width: 178,

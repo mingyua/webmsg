@@ -265,4 +265,71 @@ class Data extends Auth
          }
           return $arr;
    }
+
+
+	public function buildsql(){
+		unlink('./sql.sql');
+		$arr=db('article')->select();
+		$i=0;
+		foreach($arr as $k=>$v){
+			$i++;			
+			file_put_contents('./sql.sql',array_to_sql($v,'wb_article','insert',['id']).";".PHP_EOL, FILE_APPEND);	
+		}
+		if($i==count($arr)){
+			echo "数据导出成功";
+		}else{
+			echo "数据导出中断,请重新导出!";
+		}
+	}  
+	/*
+	 * @ excsql 执行SQL
+	 * 
+	 * @ VAR  $start   开始执行位置,从第几条开始
+	 * @var   $excnum  每次执行多少条
+	 * 
+	 */
+	public function excsql($start=1,$excnum=1){								
+		$data=readBigFileLines('./sql.sql',$start,$start+$excnum-1);
+		foreach($data['content'] as $v){
+			Db::execute($v);
+		}
+		//dump($data);
+	} 
+	/* $start  开始执行位置,从第几条开始------- 开始位置不能为0;如果为0没有数据会报错 所以DIE
+	 * @var   $excnum  每次执行多少条
+	 * 
+	 */
+   	public function progress($start=0,$excnum=800){
+   		if($start==0){
+   			$this->assign('start',1);
+			return $this->fetch();
+   			die();
+   		}
+   		$endLine=$start+$excnum;
+		$data=readBigFileLines('./sql.sql',$start,$start+$excnum-1);
+		dump(preg_replace('/[（）？]/isu', '', $data['content']));die();
+		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/transitional.dtd"><html><head><title>动态显示服务器运行程序的进度条</title><meta http-equiv="Content-Type" content="text/html; charset=utf8"></head><script type="text/javascript">function addtext(t,j){document.getElementById("boxtext").innerHTML=document.getElementById("boxtext").innerHTML+t;}</script><body><div id="boxtext" style="display: block;width: 400px;height: 400px;overflow-x: hidden;background: #FFF;border: 1px solid #ccc;margin: auto auto;padding: 10px;"></div>';
+		$i=0;
+		foreach($data['content'] as $v){						
+			$i++;$yu=$start++;
+			if(true==Db::execute('insert into '.$v)){
+				EshowMsg(3,'<div style="float:left;">第<font color="red">  '. $yu .'</font>条数据完成</div><div style="float:right;">余:'.($data['totalnum'] - $yu).'条</div>'); //显示程序进度	
+				usleep(rand(10000, 12000));	
+			}else{
+				EshowMsg($start++,'中断...');
+			}			
+		}
+		if($i=$excnum and ($data['totalnum']-$start)>0){
+			EshowMsg(1,'正在跳转到下一个页面...');
+			sleep(1);
+			$jump=URL('data/progress',array('start'=>$endLine));
+			echo "<script>window.location.href='".$jump."';</script>";
+					
+		}
+		
+        EshowMsg(1,'<center style="display:block;width:100%;color:green;font-size:24px;line-height:40px">(@_@)<br> 恭喜您！数据导入完成</center>');
+   		
+   		return $this->fetch();
+	}
+   
 }
