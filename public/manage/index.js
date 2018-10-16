@@ -16,8 +16,9 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 				url:geturl,
 				data:{data:str},
 				success:function(res){
+					console.log(res);
 					if(res.status==1){						
-						$('#lay-body').load(str, '', function(res, status) {
+						$('#lay-body').load(str, '', function(res, status) {							
 							if(status == 'success') {
 								$('#refurl').val(str);								
 							} else {
@@ -28,7 +29,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 					}else{
 						a.alert(res.msg,{icon:res.icon,skin:'layui-layer-diy'});
 					}
-					
+				
 				}
 			});
 			
@@ -42,6 +43,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 				 dataType:"json",
 				data:{data:url},
 				success:function(res){
+					console.log(res);
 					if(res.status!=1){
 						mydata=0;
 						

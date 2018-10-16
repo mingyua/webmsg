@@ -14,20 +14,23 @@
 								<div class="comments">
 									{volist name="replay" id="v"}
 									<dl class="flex">
-										<dd class="img"><img src="__ROOT__{$v.user.thumb}"/></dd>
+										<dd class="img"><img src="__ROOT__{$v.avatar}"/></dd>
 										<dd class="text">
-											<h2 id="{$v.id}" data-name="{$v.user.username}" data-uid="{$v.user.id}" class="f-14">{$v.user.username}<span class="f-12 c-666 pl-10">{if $v.touid!=$info.uid }@{$v.tousername}{/if}   {$v.addtime|time_trans}</span></h2>
-											<p class="f-12">{$v.desc}</p>
+											<h2 id="{$v.comment_id}" data-name="{$v.username}" data-uid="{$v.id}" class="f-14">{$v.username}<span class="f-12 c-666 pl-10">{if $v.touid!=$info.uid }@{$v.tousername}{/if}   {$v.addtime|time_trans}</span></h2>
+											<p class="f-12">{$v.content}</p>
 											<p id="replay"></p>
 										</dd>
-										<dd class="date"></dd>
+										<dd class="layuizan" id="{$v.comment_id}" data-uid="{$v.id}" data-tag="{$v.time}"><i class="layui-icon layui-icon-praise {if $v.zanzt > 0}c-red{/if}" ></i><em>{$v.zan}</em></dd>
 									</dl>
 									{/volist}
 								</div>
 								
 							</div>
-							<div class="date"></div>
+							<div class="layuizan" id="{$info.id}" data-uid="{$info.user.id}" data-tag="{$info.time}"><i class="layui-icon layui-icon-praise {if $info.zanzt > 0}c-red{/if}" ></i><em>{$info.zan}</em></div>
 						</li>
+						{if $total>$size}
+						<li class="loadbox" ><p class="loadmore" data-page="{$page}"><i class="layui-icon layui-hide layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i>加载更多</p></li>
+						{/if}
 					</ul>
 				</div>
 			</div>
@@ -38,6 +41,7 @@
 {load href="__JS__/moment.min.js"}
 <script type="text/javascript">
 	$(function(){
+		
 		var nowuid="{:session("htuserid")}",cateid='{$info.cateid}',pid='{$info.id}';
 		$('.layui-card-body').on('click','h2',function(e){
 			$('.commentbox').remove();	
@@ -47,14 +51,14 @@
 			$('#desc').focus();
 			}
 		});
-		$("body").on('click','#cancel',function(){
+		$(".layui-card").on('click','#cancel',function(){
 			$('.commentbox').remove();
 		});
-		$('body').on('keyup','#desc',function(){
+		$('.layui-card').on('keyup','#desc',function(){
 			var word=$(this).val().length,total=$('#countwords').attr('data-num');
 			$('#countwords').html('您还可以输入<font color="red">'+ Number(total-word) +'</font>字');		
 		});
-		$("body").off('click','#sendcomment').on('click','#sendcomment',function(){
+		$(".layui-card").off('click','#sendcomment').on('click','#sendcomment',function(){
 			var _this=$(this),id=_this.attr('data-id'),touid=_this.attr('data-uid'),name=_this.attr('data-name'),desc=$('#desc').val(),addhtml="";
 			addhtml +='<dl class="flex"><dd class="img"><img src="__ROOT__{:session("htthumb")}"/></dd><dd class="text">';
 	        addhtml +='<h2 id="" data-name="{:session("htusername")}" data-uid="{:session("htuserid")}" class="f-14">{:session("htusername")} @ '+name+'<span class="f-12 c-666 pl-20">刚刚</span></h2>';
@@ -63,7 +67,7 @@
 			$.ajax({
 				type:"post",
 				url:"{:URL('comment/addreplay')}",
-				data:{pid:pid,uid:nowuid,touid:touid,tousername:name,cateid:cateid,desc:desc},
+				data:{comment_id:pid,uid:nowuid,touid:touid,tousername:name,cateid:cateid,content:desc},
 				success:function(e){
 					$('.comments').prepend(addhtml);
 					
@@ -71,9 +75,58 @@
 					$('.commentbox').remove();
 				}
 			});
-			//console.log(_this);
+			//console.log(_this);			
+		});
+		$('.loadmore').click(function(){
+			var _this=$(this),nowpage=Number(_this.attr('data-page')),page=_this.attr('data-page',nowpage + 1),id="{$info.id}";
 			
-		})
+			$.ajax({
+				type:"post",
+				url:"{:URL('comment/view')}",
+				data:{id:id,page:nowpage+1},
+				beforeSend:function(){
+					_this.find('i').removeClass('layui-hide');
+				},
+				success: function(res){
+					if(res.length<=0){
+						$('.loadbox').html('没有了');			
+					}
+					$.each(res, function(index,item) {
+						var zanzt;
+						if(item.zanzt>0){zanzt="c-red";}else{ zanzt='';}
+						var addhtml="";
+						addhtml +='<dl class="flex"><dd class="img"><img src="__ROOT__'+item.avatar+'"/></dd><dd class="text">';
+				        addhtml +='<h2 id="'+item.comment_id+'" data-name="'+item.username+'" data-uid="'+item.id+'" class="f-14">'+item.username+' @ '+item.tousername+'<span class="f-12 c-666 pl-20">'+item.addtime+'</span></h2>';
+				        addhtml +=' <p class="f-12">'+item.content+'</p>';
+				        addhtml +='<p id="replay"></p></dd><dd class="layuizan" id="'+item.comment_id+'" data-uid="'+item.uid+'" data-tag="'+item.time+'"><i class="layui-icon layui-icon-praise '+zanzt+'"></i><em>'+item.zan+'</em></dd></dl>';	
+				        $('.comments').append(addhtml);
+					});
+				},
+				complete:function(){
+					_this.find('i').addClass('layui-hide');
+				}
+			});
+		});
+		
+		$('.layui-card').on('click','.layuizan',function(){
+			var _this=$(this),touid=Number(_this.attr('data-uid')),id=Number(_this.attr('id'));
+			$.ajax({
+				type:"post",
+				url:"{:URL('comment/zan')}",
+				data:{comment_id:id,touid:touid,tag:_this.attr('data-tag')},
+				success:function(res){
+					if(res.status==1){
+							_this.find('i').addClass('c-red')
+					        _this.find('em').text(Number(_this.text()) + 1);
+					   				
+					}else{
+						_this.find('i').removeClass('c-red')						
+						 _this.find('em').text(Number(_this.text()) - 1);
+					}
+					console.log(res);
+				}
+			});
+		});
 		
 	});
 

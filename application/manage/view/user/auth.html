@@ -44,7 +44,7 @@ layui.use(['tree', 'layer','index'], function(){
 			if(res.status==1){
 				layer.msg(res.msg,{icon:res.icon,time:2000},function(item){
 					if((res.url).length>0){
-						indfun.reloadurl(res.url);
+						indfun.access(res.url);
 					}
 				});
 			}

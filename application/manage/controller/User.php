@@ -171,13 +171,16 @@ class User extends Auth
     }
     public function auth($id){
     	//菜单
-    	$menu=model('Menu')->with('auth')->field('id,pid,name,url')->select();
+    	$where[]=['A.id','eq','B.menuid'];
+		
+		$menu=db('menu')->alias('A')->JOIN('wb_auth B',['A.id=B.menuid','B.groupid='.$id.''],'LEFT')->field('A.id,A.pid,A.name,A.url,B.groupid')->order('A.sort ASC')->select();
     	foreach($menu as $k=>$v){
-    		if(isset($v['auth']) && $v['auth']['groupid']==$id){
+    		$menu[$k]=$v;
+    		if($v['groupid']==$id){
 				$menu[$k]['checked']='ture';   			
     		} 
-    		unset($menu[$k]['auth']); 		
     	}
+		//dump($menu);
     	$this->assign('menulist',json_encode(catechannel($menu)));
     	$map[]=['id','eq',input('id')];
     	$info=db('group')->where($map)->find();

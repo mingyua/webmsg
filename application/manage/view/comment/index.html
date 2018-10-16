@@ -33,12 +33,14 @@
 	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
 </div>
 {load href="__MANAGE__/admin.js"}
-<script type="text/html" id="laytitle">
-  {{d.title}} <span class="layui-badge">{{d.num}}</span>
+<script type="text/html" id="layuser">
+ <img src="__ROOT__{{d.thumb}}" class="imground" alt="{{d.username}}" title="{{d.username}}" />{{d.username}}
 </script>
-
+<script type="text/html" id="laytitle">
+  {{d.title}} <span class="layui-badge layui-bg-black">{{d.num}}</span>
+</script>
 <script type="text/html" id="switchTpl">
-  <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="显示|不显示" data-id="{{d.id}}" data-url="{:URL('comment/status')}" lay-filter="status" {{ d.status == 1 ? 'checked' : '' }}>
+  <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="已审核|未审核" data-id="{{d.id}}" data-url="{:URL('comment/status')}" lay-filter="status" {{ d.status == 1 ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="barDemo">	
 	<a class="layui-btn layui-btn-xs" lay-href="{:URL('comment/view')}?id={{d.id}}" data-title="查看" >查看</a>
@@ -67,7 +69,10 @@ layui.use(['table','form','laydate'], function() {
 						width: 80,
 						sort: true
 					}, {
-						//field: 'title',
+						title: '用户',
+						width: 160,
+						toolbar: '#layuser'
+					},{
 						title: '问题',
 						toolbar: '#laytitle'
 					},{

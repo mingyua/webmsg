@@ -35,14 +35,27 @@ class Comment extends Controller
         return view();
         //
     }
-    public function view($id)
+    public function view($id,$page=1)
     {
-    	$map[]=['id','eq',$id];
-		$info=model('Comment')->with('user')->where($map)->find();
-		$maps[]=['pid','eq',$id];
-		$replay=model('Comment')->with('user')->where($maps)->order('addtime desc')->select();
-		//dump($replay);
+    	$size=6;
+    	$start=($page-1)*$size;
+
+    	$map[]=['A.id','eq',$id];
+		$info=model('Comment')->alias('A')->with('user')->join('comment_zan B',['B.touid=A.uid','B.tag=A.addtime'],'LEFT')->join('comment_zan C',['C.uid='.session('htuserid'),'C.tag=A.addtime'],'LEFT')->where($map)->field('A.*,A.addtime as time,COUNT(B.tag) as zan,C.uid as zanzt')->group('A.addtime')->find();
+		$maps[]=['A.comment_id','eq',$id];
+		$total=model('CommentReply')->alias('A')->where($maps)->count();
+		
+		$replay=model('CommentReply')->alias('A')->join('user U','A.uid=U.id')->join('comment_zan B',['B.touid=A.uid','B.tag=A.addtime'],'LEFT')->join('comment_zan C',['C.uid='.session('htuserid'),'C.tag=A.addtime'],'LEFT')->where($maps)->field('A.*,U.id,U.username,U.thumb as avatar,A.addtime as time,COUNT(B.tag) as zan,C.uid as zanzt')->group('A.addtime')->order('A.addtime desc')->limit($start,$size)->select();
+		$this->assign('page',$page);
+		$this->assign('size',$size);
+		$this->assign('total',$total);
+		//dump($info);die();
+		if($this->request->post()){
+			//sleep(3);
+			return $replay;
+		}		//dump($replay);die();
 		$this->assign('replay',$replay);
+
 		$this->assign('info',$info);
         return view();
         //
@@ -60,6 +73,7 @@ class Comment extends Controller
     	if($this->request->post()){
     		
     		$post=$this->request->post();
+
     		if(isset($post['id'])){
     			$isupdate=true;
     		}else{
@@ -99,7 +113,7 @@ class Comment extends Controller
 		if($this->request->post()){
 			$request=$this->request->post();
 			$request['status']=1;
-			$res=model('Comment')->allowField(true)->save($request);
+			$res=model('CommentReply')->allowField(true)->save($request);
     		if(false===$res){
     			$back=['msg'=>'操作失败！','status'=>2,'icon'=>2,'url'=>''];
     		}else{
@@ -148,6 +162,30 @@ class Comment extends Controller
     	}
 
     }
+	/*
+	 *赞 
+	 */
+	public function zan(){
+		if($this->request->post()){
+			$post=$this->request->post();
+			$post['uid']=session('htuserid');
+			$post['addtime']=time();
+			$map[]=['comment_id','eq',$post['comment_id']];
+			$map[]=['uid','eq',session('htuserid')];
+			$map[]=['touid','eq',$post['touid']];
+			$map[]=['tag','eq',$post['tag']];
+			$zan=db('comment_zan')->where($map)->find();
+			//dump($zan);die();
+			if(!empty($zan['tag'])){
+				db('comment_zan')->where($map)->delete();
+				return ['msg'=>'删除','status'=>2];
+			}else{
+				db('comment_zan')->insert($post);
+				return ['msg'=>'添加','status'=>1];
+			}
+		}
+	}
+	
     /**
      * 加载指定资源
      *
@@ -158,6 +196,9 @@ class Comment extends Controller
     public function commentlist($key,$page,$limit)
     {
     	
+		
+		
+		
     	$fristlimit=($page-1)*$limit;
     	$map[]=['pid','eq',0];
     	$arr=db('comment_cate')->where($map)->select();
@@ -166,7 +207,7 @@ class Comment extends Controller
     	$input=array_filter($key,function($item){
     		 return $item !== '';
     	});
-    	$where[]=['A.pid','eq',0];
+    	$where[]=['A.id','neq',0];
     	foreach($input as $k=>$v){
     		
     		if($k=='addtime'){
@@ -181,11 +222,15 @@ class Comment extends Controller
     		}else{
     			$where[]=[$k,'eq',$v];
     		}
-    	}    	
+    	}   
+		
+
+		 	
     	$count=model('Comment')->alias('A')->where($where)->field('*')->count();
 		$list=model('Comment')->pagelist($where,'addtime desc',$fristlimit,$limit);
         $articlelist=['code'=>0,'msg'=>'','count'=>$count,'data'=>$list];
         echo json_encode($articlelist);        
+
     }
     public function commentcatelist()
     {

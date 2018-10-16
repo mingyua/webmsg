@@ -27,9 +27,8 @@ class Comment extends Model
         return $this->belongsTo('User','uid');
     }
     public function pagelist($where,$order,$frist,$end)
-    {    	
-		$buildSql=db('comment')->where($where)->alias('A')->join('comment B','B.pid=A.id')->join('comment_cate C','A.cateid=C.id')->field('A.*,C.name as catename,FROM_UNIXTIME(A.addtime,"%Y/%d/%m %H:%i:%s") as time')->buildSql();
-		$data=Db::table($buildSql . ' a')->field('*,count(id) as num')->group('id')->order($order)->limit($frist,$end)->select();
+    {
+    	$data=db('comment')->alias('A')->join('user D','A.uid=D.id')->join('comment_cate C','A.cateid=C.id')->field('A.*,C.name as catename,FROM_UNIXTIME(A.addtime,"%Y/%d/%m %H:%i:%s") as time,D.username,D.thumb,(SELECT count(comment_id) FROM wb_comment_reply WHERE comment_id=A.id) as num')->order($order)->limit($frist,$end)->select();		    	
        return $data;
     }	
 	

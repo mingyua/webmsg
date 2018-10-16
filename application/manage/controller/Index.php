@@ -59,9 +59,7 @@ class index extends Auth
 		 return	['msg'=>'有权访问','status'=>1,'icon'=>1];	
 		}
 		$gid=session('htgid');
-		$url=preg_replace('/(\/manage\/|.html)/','',input('data'));
-		$url=explode('/',$url);
-    	$url=$url[0]."/".$url[1];		
+		$url=preg_replace('/(\?.*|.html|\/manage\/)/i','',input('data'));
 		$map[]=['groupid','eq',$gid];
 		$menu=db('auth')->where($map)->cache('auth',0)->select();
 		$urllist=array_filter(array_column($menu,'menuurl'));		
