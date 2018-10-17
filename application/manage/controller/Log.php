@@ -61,7 +61,11 @@ class Log extends Auth
     public function alldel($data)
     {
     	$id=array_column($data,'addtime');
-       	$res=db('log')->delete($id);
+		$time=[];
+		foreach($id as $k){
+			$time=strtotime($k);
+		}
+       	$res=db('log')->delete($time);
        	if(false===$res){
        		$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
        	}else{

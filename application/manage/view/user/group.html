@@ -2,7 +2,6 @@
 	<div  id="demoTable"  class="layui-row">
 		<div class="layui-col-md12">
 			<div class="layui-card">
-				<div class="layui-card-header pt-10"> <button class="layui-btn layui-bg-red" data-type="getCheckData" data-url="{:URL('user/alldel',array('table'=>'group'))}" title="删除选中"><i class="layui-icon layui-icon-delete"></i></button> <button  id="addTable" class="layui-btn pull-right">添加组</button> </div>
 				<div class="layui-card-body">
 					<table class="layui-hide" id="tabledata" lay-filter="list"></table>
 				</div>
@@ -11,84 +10,43 @@
 	</div>
 	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
 </div>
+<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+	<button class="layui-btn layui-btn-sm" id="addTable" ><i class="layui-icon layui-icon-add-circle"></i>添加组</button> 
+    <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="getCheckData" data-url="{:URL('user/alldel',array('table'=>'group'))}"  title="删除选中"><i class="layui-icon layui-icon-delete"></i></button>
+  </div>
+</script>
 <script type="text/html" id="switchTpl"> <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="启用|禁用" data-id="{{d.id}}" data-url="{:URL('user/status',array('table'=>'group'))}" lay-filter="status" {{ d.status==1 ? 'checked' : '' }}> </script>
 <script type="text/html" id="barDemo">
 	<a class="layui-btn layui-btn-xs" lay-href="{:URL('user/auth')}?id={{d.id}}" data-title="权限分配">权限分配</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('user/delete',array('table'=>'group'))}" lay-event="del">删除</a>
-</script> {load href="__MANAGE__/admin.js"}
+</script>
 <script>
 	layui.use(['table', 'form', 'laydate'], function() {
-		var table = layui.table,
-			form = layui.form,
-			laydate = layui.laydate;
-		form.render();
+		var table = layui.table, form = layui.form, laydate = layui.laydate; form.render();
 		table.render({
 			elem: '#tabledata',
-			url: "{:URL('user/usergroup')}" //数据接口			
-			,page: false //开启分页
-				,
+			toolbar: '#toolbarDemo', 
+			url: "{:URL('user/usergroup')}",
+			page: false,
 			id: 'tablist',
 			cols: [
-				[ //表头
-					{
-						checkbox: true,
-						fixed: true,
-						fixed: 'left'
-					}, {
-						field: 'id',
-						title: 'ID',
-						width: 80,
-						sort: true
-					}, {
-						field: 'name',
-						title: '组名',
-						width: 120,
-						edit: 'text'
-					}, {
-						field: 'desc',
-						title: '描述',
-						edit: 'text'
-					}, {
-						field: 'status',
-						title: '状态',
-						width: 95,
-						templet: '#switchTpl',
-						unresize: true
-					}, {
-						fixed: 'right',
-						width: 178,
-						align: 'center',
-						toolbar: '#barDemo'
-					}
+				[ 
+					{ checkbox: true, fixed: true, fixed: 'left' }, 
+					{ field: 'id', title: 'ID', width: 80, sort: true }, 
+					{ field: 'name', title: '组名', width: 120, edit: 'text' }, 
+					{ field: 'desc', title: '描述', edit: 'text' }, 
+					{ field: 'status', title: '状态', width: 95, templet: '#switchTpl', unresize: true }, 
+					{ fixed: 'right', width: 178, align: 'center', toolbar: '#barDemo' }
 				]
 			]
 		});
 	     $("#addTable").click(function(){
-	     	$.ajax({
-	     		type:"post",
-	     		url:"{:URL('user/addgroup')}",
-	     		data:{status:1},
-	     		success:function(res){
-	     			 table.reload('tablist');
-	     		},error:function(){
-	     			layer.msg('网络错误');
-	     		}
-	     	});
+	     	$.ajax({ type:"post", url:"{:URL('user/addgroup')}", data:{status:1}, success:function(res){ table.reload('tablist'); },error:function(){ layer.msg('网络错误'); } });
 	     });		
 		  table.on('edit(list)', function(obj){
-		    var value = obj.value //得到修改后的值
-		    ,data = obj.data //得到所在行所有键值
-		    ,field = obj.field; //得到字段
-	     	$.ajax({
-	     		type:"post",
-	     		url:"{:URL('user/addgroup')}",
-	     		data:{id:data.id,name:field,val:value},
-	     		success:function(res){
-
-	     		},error:function(){
-	     			layer.msg('网络错误');
-	     		}
-	     	});
+		    var value = obj.value ,data = obj.data ,field = obj.field; 
+		    $.ajax({ type:"post", url:"{:URL('user/addgroup')}", data:{id:data.id,name:field,val:value}, success:function(res){ },error:function(){ layer.msg('网络错误'); } });
 		  });		
 		
 	});

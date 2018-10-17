@@ -2,14 +2,6 @@
 	<div class="layui-row">
 		<div class="layui-col-xs12">
 			<div class="layui-card">
-				<div id="demoTable" class="layui-card-header pt-10"> 
-					<button  class="layui-btn layui-btn-danger" data-type="getCheckData" data-url="{:URL('comment/alldel')}"  title="删除选中"><i class="layui-icon layui-icon-delete"></i></button>
-					<div class="layui-form pull-right">
-						<div class="layui-form-item">	
-							<div class="layui-inline"> <button class="layui-btn" data-type="add" data-title="添加话题" dataw="600px" datah="700px" data-url="{:URL('comment/addcommentcate')}" ><i class="layui-icon layui-icon-add-circle"></i>添加话题</button> </div>
-						</div>
-					</div>
-				</div>
 				<div class="layui-card-body">
 					<table class="layui-hide" id="tabledata" lay-filter="list" lay-size="lg"></table>
 				</div>
@@ -18,14 +10,18 @@
 	</div>
 	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
 </div>
-
+<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+	<button class="layui-btn layui-btn-sm" lay-event="addbtn" data-title="添加话题" dataw="600px" datah="700px" data-url="{:URL('comment/addcommentcate')}" ><i class="layui-icon layui-icon-add-circle"></i>添加话题</button> 
+    <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="getCheckData" data-url="{:URL('comment/alldelcate')}"  title="删除选中"><i class="layui-icon layui-icon-delete"></i></button>
+  </div>
+</script>
 <script type="text/html" id="switchTpl">
   <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="显示|不显示" data-id="{{d.id}}" data-url="{:URL('comment/status')}" lay-filter="status" {{ d.status == 1 ? 'checked' : '' }}>
 </script>
-<script type="text/html" id="barDemo">
-	
+<script type="text/html" id="barDemo">	
 	<a class="layui-btn layui-btn-xs" data-url="{:URL('comment/addcommentcate')}" data-title="编辑" lay-event="edit">编辑</a>
-	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('comment/delete')}" lay-event="del">删除</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('comment/deletecate')}" lay-event="del">删除</a>
 </script>
 {load href="__MANAGE__/admin.js"}
 <script>
@@ -34,7 +30,8 @@ layui.use(['table'], function() {
 		var table=layui.table;
 		table.render({
 			elem: '#tabledata',
-			url: "{:URL('comment/commentcatelist')}" //数据接口
+			toolbar: '#toolbarDemo', 
+			url: "{:URL('comment/commentcatelist')}" 
 			,page: false //开启分页
 			,id:'tablist'
 			,cols: [

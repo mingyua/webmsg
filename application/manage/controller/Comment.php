@@ -268,6 +268,18 @@ class Comment extends Controller
     public function alldel($data)
     {
     	$id=array_column($data,'id');
+       	$res=db('comment')->delete($id);
+       	if(false===$res){
+       		$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
+       	}else{
+       		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url('comment/index')];
+       	}
+    	
+       return $back;
+    }
+    public function alldelcate($data)
+    {
+    	$id=array_column($data,'id');
        	$res=db('comment_cate')->delete($id);
        	if(false===$res){
        		$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
@@ -285,6 +297,19 @@ class Comment extends Controller
      */
     public function delete($id)
     {
+
+       		$res=db('comment')->delete($id);
+       		if(false===$res){
+       			$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
+       		}else{
+       		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>''];
+       		}
+       
+       
+     return $back;   
+    }
+    public function deletecate($id)
+    {
        $pid=db('comment_cate')->where('pid',$id)->find();
        if($pid){
        		$back=['msg'=>'请先删除子栏目！','status'=>2,'icon'=>5,'url'=>''];
@@ -299,5 +324,4 @@ class Comment extends Controller
        
      return $back;   
     }
-
 }

@@ -149,22 +149,25 @@ class User extends Auth
     public function delete($id)
     {
        $table=input('table');
+	   if($table=='user'){$url='user/index';}else{$url='user/group';}
    		$res=db($table)->delete($id);
    		if(false===$res){
    			$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
    		}else{
-   		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url('user/index')];
+   		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url($url)];
    		}
        return $back;
     }
     public function alldel($data)
     {
     	$id=array_column($data,'id');
-       	$res=db('user')->delete($id);
+		$table=input('table');
+		if($table=='user'){$url='user/index';}else{$url='user/group';}
+       	$res=db($table)->delete($id);
        	if(false===$res){
        		$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
        	}else{
-       		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url('user/index')];
+       		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>url($url)];
        	}
     	
        return $back;

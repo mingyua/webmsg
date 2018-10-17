@@ -106,6 +106,15 @@ class Data extends Auth
       $this->assign('list',$data);
       return view();
     }
+    public function backuplist()
+    {
+
+      $data=$this->db->dataList();
+	  foreach($data as $k=>$v){
+	  	 $data[$k]['data_length']=unit($v['data_length']);
+	  }
+        $datalist=['code'=>0,'msg'=>'','count'=>'','data'=>$data];
+        echo json_encode($datalist);      }
    //备份文件列表
    public function importlist()
    {
@@ -183,10 +192,12 @@ class Data extends Auth
    //备份表
    public function export()
    {
-
        if($this->request->post()){
-           $input=input('post.');
-          //dump($input);die();
+		   	$input=$this->request->post();
+			$tables=[];
+			foreach($input as $k=>$v){
+				$tables[]=$k;
+			}          
            $fileinfo  =$this->db->getFile();
            //检查是否有正在执行的任务
            $lock = "{$fileinfo['filepath']}backup.lock";
@@ -204,10 +215,11 @@ class Data extends Auth
            //缓存备份文件信息
            session::set('backup_file', $fileinfo['file']);
            //缓存要备份的表
-           session::set('backup_tables', $input['tables']);
+           session::set('backup_tables',$tables);
            //创建备份文件
            if(false !== $this->db->Backup_Init()){
-               $this->success('初始化成功！','',['tab'=>['id' => 0, 'start' => 0]]);
+           		 $tab = array('id' => 0, 'start' => 0);
+           	    return ['code'=>1,'msg'=>'初始化成功！','data' => $tab];
            }else{
                $this->error('初始化失败，备份文件创建失败！');
            }
@@ -224,13 +236,14 @@ class Data extends Auth
                if(isset($tables[++$id])){
                    $tab = array('id' => $id, 'start' => 0);
                   // addlog();//写入日志
-                   $this->success('备份完成！', '', array('tab' => $tab));
+                  return ['code'=>1,'msg'=>'备份完成！','data' => $tab];
+                  // $this->success('备份完成！', '', array('tab' => $tab));
                } else { //备份完成，清空缓存
                    unlink(session::get('lock'));
                    Session::delete('backup_tables');
                    Session::delete('backup_file');
                   // addlog();//写入日志
-                   $this->success('备份完成！');
+                   return ['code'=>1,'msg'=>'备份完成！'];
                }
            }
        }else{
@@ -243,6 +256,11 @@ class Data extends Auth
    //修复表
    public function repair($tables= null)
    {
+		   	$input=$this->request->post();
+			$tables=[];
+			foreach($input as $k=>$v){
+				$tables[]=$k;
+			}          
 
        if($this->db->repair($tables)){
            
