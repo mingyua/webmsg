@@ -24,15 +24,13 @@ class Log extends Auth
      */
     public function index()
     {
-    	$mac= new GetMacAddr();
-    	$macc=$mac->GetMacAddr(PHP_OS);
+
+
 		$Ip = new IpLocation(); // 实例化类
-		$location = $Ip->getlocation('118.178.84.58');  
-		
+		$location = $Ip->getlocation('118.178.84.58');  		
 		$data['uid']='1';
 		$data['kinds']='1';
 		$data['tag']='1';
-		$data['mac']=$macc;
 		$data['ip']=$location['ip'];
 		$data['address']=$location['country'];
 		$data['network']=$location['area'];
@@ -53,8 +51,9 @@ class Log extends Auth
     	
     	
     	$count=Logs::field('*')->count();   
-        $list=Logs::field('*')->limit($fristlimit,$limit)->order('addtime DESC')->select();
+        $list=db('log')->alias('A')->join('user B','A.uid=B.id')->field('A.*,B.username')->limit($fristlimit,$limit)->order('addtime DESC')->select();
         $menulist=['code'=>0,'msg'=>'','count'=>$count,'data'=>$list];
+		//dump($menulist);
         echo json_encode($menulist);
         
     }

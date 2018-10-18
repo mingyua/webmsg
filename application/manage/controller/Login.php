@@ -36,14 +36,11 @@ class Login extends Controller
 				
 				if(isset($user)){
 					if($user['status']==1){
-				    	$mac= new GetMacAddr();
-				    	$macc=$mac->GetMacAddr(PHP_OS);
 						$Ip = new IpLocation(); // 实例化类
 						$location = $Ip->getlocation();  			
 						$data['uid']=$user['id'];
 						$data['kinds']='1';
 						$data['tag']=$user['username']."登录成功.";
-						$data['mac']=$macc;
 						$data['ip']=$location['ip'];
 						$data['address']=$location['country'];
 						$data['network']=$location['area'];	        
@@ -72,15 +69,12 @@ class Login extends Controller
 	    	if(session('htusername')){
 	    		$this->redirect('index/index');
 	    	}
-	    	$mac= new GetMacAddr();
-	    	$macc=$mac->GetMacAddr(PHP_OS);
 			$Ip = new IpLocation(); // 实例化类
 			$location = $Ip->getlocation();  
 			
 			$data['uid']='1';
 			$data['kinds']='1';
 			$data['tag']='1';
-			$data['mac']=$macc;
 			$data['ip']=$location['ip'];
 			$data['address']=$location['country'];
 			$data['network']=$location['area'];

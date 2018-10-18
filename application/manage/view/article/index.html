@@ -2,8 +2,8 @@
 	<div id="layui-row">
 		<div class="layui-col-xs12">
 			<div class="layui-card">
-				<div id="demoTable" class="layui-card-header pt-10"> 
-					<button  class="layui-btn layui-btn-danger" data-type="getCheckData" data-url="{:URL('article/alldel')}"  title="删除选中"><i class="layui-icon layui-icon-delete"></i></button>
+				<div id="demoTable" class="layui-card-header pt-10 disnone"> 
+
 					<div class="layui-form pull-right">
 						<div class="layui-form-item">							
 							<div class="layui-inline">								
@@ -23,8 +23,7 @@
 							</div>
 							<div class="layui-inline" style="width: 200px;"><input type="text" id="daterange" name="addtime" class="layui-input" placeholder="开始 到 结束" value="" /> </div>
 							<div class="layui-inline"><input type="text" name="keywords" id="keywords" class="layui-input" placeholder="请输入标题" value="" /> </div>
-							<div class="layui-inline"><button class="layui-btn" data-type="reload"><i class="layui-icon layui-icon-search"></i></button></div>
-							<div class="layui-inline"> <button class="layui-btn"  lay-href="{:URL('article/add')}" ><i class="layui-icon layui-icon-add-circle"></i>添加文章</button> </div>
+							<div class="layui-inline"><button class="layui-btn" id="reloadtable"><i class="layui-icon layui-icon-search"></i></button></div>
 						</div>
 					</div>
 				</div>
@@ -36,6 +35,13 @@
 	</div>
 	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
 </div>
+<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+	<button class="layui-btn layui-btn-sm"  lay-href="{:URL('article/add')}" ><i class="layui-icon layui-icon-add-circle"></i>添加文章</button> 
+    <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="getCheckData" data-url="{:URL('article/alldel')}"  title="删除选中"><i class="layui-icon layui-icon-delete"></i></button>
+  	<button class="tollbarright pull-right" lay-event="search"><i class="layui-icon layui-icon-search"></i></button>
+  </div>
+</script>
 <script type="text/html" id="switchTpl">
   <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="显示|不显示" data-id="{{d.id}}" data-url="{:URL('article/status')}" lay-filter="status" {{ d.status == 1 ? 'checked' : '' }}>
 </script>
@@ -51,6 +57,7 @@ layui.use(['table','form','laydate'], function() {
 		form.render();
 		table.render({
 			elem: '#tabledata',
+			toolbar: '#toolbarDemo',
 			url: "{:URL('article/articlelist')}" //数据接口
 			,where:{key:{cid:cid}}
 			,page: true //开启分页

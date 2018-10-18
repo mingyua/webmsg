@@ -13,9 +13,13 @@ class Log extends Model
 {
     
     protected $name = 'log';// 设置当前模型对应的数据表名称
-    protected $pk = '';// 设置主键
+    protected $pk = 'addtime';// 设置主键
     protected $createTime = 'addtime';
 	protected $updateTime = 'uptime';
+    public function user()
+    {
+        return $this->belongsTo('User','uid');
+    }    
 
 }
 ?>
