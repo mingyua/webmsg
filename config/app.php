@@ -21,7 +21,7 @@ return [
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => false,
+    'app_trace'              => true,
     // 是否支持多模块
     'app_multi_module'       => true,
     // 入口自动绑定模块
@@ -134,7 +134,7 @@ return [
     'dispatch_error_tmpl'    => Env::get('think_path') . 'tpl/dispatch_jump.tpl',
 
     // 异常页面的模板文件
-    'exception_tmpl'         => Env::get('think_path') . 'tpl/think_exception.tpl',
+    'exception_tmpl'         =>APP_PATH.'../error.tpl' ,//Env::get('think_path') . 'tpl/think_exception.tpl'
 
     // 错误显示信息,非调试模式有效
     'error_message'          => '页面错误！请稍后再试～',
