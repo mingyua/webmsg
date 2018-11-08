@@ -24,6 +24,7 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 .c-white,.c-white:hover{color:#FFFFFF;text-transform:uppercase;}
 .c-orange{color:orange}
 .c-red{color:#f00}
+.c-green{color:green}
 .boxshadow{box-shadow: 0 1px 2px #E8E8E8;background: #FFF;}
 .disnone{display: none;}
 

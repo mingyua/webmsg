@@ -1,5 +1,5 @@
 layui.define(['element', 'layer', 'form','upload','table'], function(e) {
-	var a = layui.layer, $ = layui.jquery, form = layui.form, table = layui.table, upload = layui.upload, element = layui.element, w = $(window).width(), mydata=3, diymsg='您无权访问此页面!', geturl="/manage/index/geturl";
+	var a = layui.layer,$ = layui.jquery, form = layui.form, table = layui.table, upload = layui.upload, element = layui.element, w = $(window).width(), mydata=3, diymsg='您无权访问此页面!', geturl="/manage/index/geturl";
 	var fun = {
 			access: function(str) { $.ajax({ type:"get", url:geturl, data:{data:str}, success:function(res){ if(res.status==1){ $('#lay-body').load(str, '', function(res, status) { if(status == 'success') { $('#refurl').val(str); } else { $('#lay-body').html("<h2 class='t-c'>出错了！</h2>"); } a.closeAll(); }); }else{ a.alert(res.msg,{icon:res.icon,skin:'layui-layer-diy'}); } } }); },
 			checkauth: function(url){ $.ajax({ async:false, type:"get", url:geturl, dataType:"json", data:{data:url}, success:function(res){ if(res.status!=1){ mydata=0; }else{ mydata=1; } } }); return mydata; },
@@ -38,7 +38,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 	table.on('tool(list)', function(obj){
 	    var data = obj.data;
 	    if(obj.event === 'detail'){ layer.msg('ID：'+ data.id + ' 的查看操作');
-	    }else if(obj.event === 'del'){ var ajaxurl=$(this).attr('data-url'),msg=$(this).attr('data-msg'); if(fun.checkauth(ajaxurl)==0) {a.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;} layer.confirm(msg,{title:'删除提醒',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'}, function(index){ fun.ajaxsend(ajaxurl,{id:data.id},obj); layer.closeAll(); });
+	    }else if(obj.event === 'del'){ var ajaxurl=$(this).attr('data-url'),msg=$(this).attr('data-msg'),id=$(this).attr('data-id') || data.id; if(fun.checkauth(ajaxurl)==0) {a.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;} layer.confirm(msg,{title:'删除提醒',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'}, function(index){ fun.ajaxsend(ajaxurl,{id:id},obj); layer.closeAll(); });
 	    }else if(obj.event === 'ajax'){ var ajaxurl=$(this).attr('data-url'),title=$(this).attr('data-title'); if(fun.checkauth(ajaxurl)==0) {a.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;} fun.ajaxsend(ajaxurl,data,''); layer.closeAll();
 	    }else if(obj.event === 'copy'){ layer.closeAll(); 
 	    }else if(obj.event === 'edit'){ var ajaxurl=$(this).attr('data-url')+"?id="+data.id,title=$(this).attr('data-title'); if(fun.checkauth(ajaxurl)==0) {a.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;} fun.popu(ajaxurl,title,'600px','700px');
@@ -65,11 +65,11 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 	});	
 //头工具栏事件
     table.on('toolbar(list)', function(obj){
-	    var checkStatus = table.checkStatus(obj.config.id),data = checkStatus.data,ajaxurl=$(this).attr('data-url');
+	    var checkStatus = table.checkStatus(obj.config.id),data = checkStatus.data,ajaxurl=$(this).attr('data-url'),nomsg=$(this).attr('data-type');
 	    switch(obj.event){
 	      case 'getCheckData':	           
-		    if(fun.checkauth(ajaxurl)==0) {layer.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;}	  
-		    if(data.length<=0){ layer.alert('至少选择一条数据！',{btn:'',title:'提示',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'}); }else{ layer.confirm('您确认要删除所有？',{title:'删除提醒',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'}, function(index){ fun.ajaxsend(ajaxurl,{data:data},''); layer.closeAll(); }); }
+		    if(fun.checkauth(ajaxurl)==0) {layer.alert(diymsg,{icon:0,skin:'layui-layer-diy'});return false;}
+		    if(nomsg=='nomsg'){fun.ajaxsend(ajaxurl,{data:data},'');layer.closeAll(); }else{if(data.length<=0){ layer.alert('至少选择一条数据！',{btn:'',title:'提示',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'}); }else{ layer.confirm('您确认要删除所有？',{title:'删除提醒',skin: 'layui-layer-diy',closeBtn:1,offset: '200px'}, function(index){ fun.ajaxsend(ajaxurl,{data:data},''); layer.closeAll(); }); }}
 	      break;
 	      case 'addbtn':
 				var url=$(this).attr('data-url'),AW=$(this).attr('dataw'),AH=$(this).attr('datah'),Atitle=$(this).attr('data-title');
@@ -134,5 +134,6 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 	$('#menuicon').click(function(elem) { var a = $(this), h = $(".lay-left").is(":hidden"), w = $(window).width(); if(h != false) { $('.lay-left').show(); $('.lay-right').css('width', (w - 200) + "px"); $('.lay-header').css('width', (w - 200) + "px"); a.find('i').removeClass('layui-icon-spread-left').addClass('layui-icon-shrink-right'); } else { $('.lay-left').hide(); $('.lay-right').css('width', '100%');$('.lay-header').css('width', w + "px"); a.find('i').removeClass('layui-icon-shrink-right').addClass('layui-icon-spread-left'); } }); $('#reload').click(function(res) { layer.load(3, {time: 3 * 1000}); var url=$('#refurl').val(); if(url.length>0){ fun.access(url); }else{ a.closeAll(); } });
 	$('#webinfo').click(function(){ $('.layui-layer-adminRight').toggle("fast"); }); 
 	$('body').on("click", '#reloadtable',function(){ var demoReload = $('#keywords'),cateid=$('#cateid'),daterange=$('#daterange'),st=$('#status'); table.reload('tablist', { page: { curr: 1 } ,where: { key:{ cid:cateid.val(), title: demoReload.val(), addtime:daterange.val(), status:st.val() } } }); });
+
 	e('index', fun);
 });

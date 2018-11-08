@@ -1,0 +1,83 @@
+<div class="layui-fluid">
+	<div class="layui-row">
+		<div class="layui-col-xs12">
+			<div class="layui-card">
+				<blockquote class="layui-elem-quote layui-quote-nm">添加路由时不允许纯数字,必须以字母开头!</blockquote>
+				<div class="layui-card-body">
+					<table class="layui-hide" id="tabledata" lay-filter="list" lay-size="sm"></table>
+				</div>
+			<p class="t-r layui-clear pb-25"><button id="tableReload" class="layui-btn"><i class="layui-icon layui-icon-add-1"></i></button></p>
+				
+			</div>
+		</div>
+		<div class="layui-clear" style="height: 100px;">&nbsp;</div>
+	</div>
+
+<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+
+    <button class="layui-btn layui-btn-sm" lay-event="getCheckData" data-type='nomsg' data-url="{:URL('urlbutty/save')}"  title="保存">保存</button>
+
+  </div>
+</script>
+	<script type="text/html" id="barDemo"> 
+		<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-id="'{{d.urlname}}'=>'{{d.route}}'" data-url="{:URL('urlbutty/delete')}" lay-event="del">删除</a>
+	</script>
+	<script>
+		layui.use(['table','table'], function() {
+			var table = layui.table;
+			table.render({
+				elem: '#tabledata',
+				toolbar: '#toolbarDemo',
+				url: "{:URL('urlbutty/urllist')}" //数据接口
+					,
+				page: false //开启分页
+					,
+				id: 'tablist',
+				  initSort: {
+				    field: 'urlname' //排序字段，对应 cols 设定的各字段名
+				    ,type: 'asc' //排序方式  asc: 升序、desc: 降序、null: 默认排序
+				  },
+				cols: [
+					[ //表头
+						{
+							checkbox: true,
+							fixed: true,
+							fixed: 'left',
+							LAY_CHECKED:true,
+							hide:true
+						}, {
+							field: 'urlname',
+							title: '路由',
+							edit: 'text',
+							sort:true
+						}, {
+							field: 'route',
+							title: 'url地址',
+							edit: 'text',
+
+						}, {
+							fixed: 'right',
+							width: 178,
+							align: 'center',
+							toolbar: '#barDemo'
+						}
+					]
+				]
+			});
+			
+			$('#tableReload').click(function(){
+				layer.prompt({title: '输入路由，并确认', formType: 3}, function(name, index){
+				  layer.close(index);
+				  layer.prompt({title: '输入URL地址，并确认', formType:3}, function(key, index){
+				  	layer.close(index);
+					    $.post("{:URL('urlbutty/addroute')}",{urlname:name,route:key},function(res){
+					    	layer.msg(res.msg,{icon:res.icon});
+					    })
+				  });
+				});			
+			});			
+		});
+		
+		
+	</script>

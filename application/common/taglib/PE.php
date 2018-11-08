@@ -11,13 +11,6 @@
 namespace app\common\taglib;
 use think\template\TagLib;
 use think\Db;
-/**
- * CX标签库解析类
- * @category   Think
- * @package  Think
- * @subpackage  Driver.Taglib
- * @author    liu21st <liu21st@gmail.com>
- */
 class PE extends TagLib{
 
     // 标签定义
@@ -26,9 +19,6 @@ class PE extends TagLib{
         '_list'        => ['attr' => 'table,where,sql,field,order,limit,id,empty,page'],
         '_getval'	   => ['attr'=>'name,table,where,sql,field,order,cache','close' => 0],
         '_nav'	   	   => ['attr'=>'name,table,where,sql,field,order,cache,id,empty'],
-        //'volist'     => ['attr' => 'name,id,offset,length,key,mod', 'alias' => 'iterate'],
-       // 'foreach'    => ['attr' => 'name,id,item,key,offset,length,mod', 'expression' => true],
-        //'if'         => ['attr' => 'condition', 'expression' => true],
     ];
 
     /**
@@ -79,7 +69,6 @@ class PE extends TagLib{
         $parseStr .= 'foreach($res as $k=>$'.$id.'): ?>';
         $parseStr .= $content;
         $parseStr .= '<?php endforeach; endif; ?>';
-		//$parseStr .='dump($res);';
         if (!empty($parseStr)) {
             return $parseStr;
         }

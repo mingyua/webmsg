@@ -30,8 +30,17 @@ class Comment extends Controller
         return view();
         //
     }
+    public function reply()
+    {
+		$this->assign('cid',input('cid'));
+    	
+        return view();
+        //
+    }
     public function cate()
     {
+    	
+
         return view();
         //
     }
@@ -195,10 +204,6 @@ class Comment extends Controller
 
     public function commentlist($key,$page,$limit)
     {
-    	
-		
-		
-		
     	$fristlimit=($page-1)*$limit;
     	$map[]=['pid','eq',0];
     	$arr=db('comment_cate')->where($map)->select();
@@ -223,15 +228,23 @@ class Comment extends Controller
     			$where[]=[$k,'eq',$v];
     		}
     	}   
-		
-
-		 	
     	$count=model('Comment')->alias('A')->where($where)->field('*')->count();
 		$list=model('Comment')->pagelist($where,'addtime desc',$fristlimit,$limit);
         $articlelist=['code'=>0,'msg'=>'','count'=>$count,'data'=>$list];
         echo json_encode($articlelist);        
 
     }
+    public function replylist($key,$page,$limit)
+    {
+    	$fristlimit=($page-1)*$limit;
+    	$where[]=['A.uid','neq',0];
+    	$count=model('CommentReply')->alias('A')->where($where)->field('*')->count();
+		$list=model('CommentReply')->pagelist($where,'addtime desc',$fristlimit,$limit);
+        $articlelist=['code'=>0,'msg'=>'','count'=>$count,'data'=>$list];
+        echo json_encode($articlelist);   
+        
+    }
+
     public function commentcatelist()
     {
     	
@@ -242,7 +255,16 @@ class Comment extends Controller
         echo json_encode($menulist);
         
     }
+    public function autolistuser()
+    {
+    	
 
+        $menu=model('user')->select();
+        $menulist=['code'=>0,'msg'=>'','count'=>count($menu),'data'=>$menu];
+        echo json_encode($menulist);
+        
+    }
+    
     /**
      * 显示编辑资源表单页.
      *
@@ -308,6 +330,44 @@ class Comment extends Controller
        
      return $back;   
     }
+    public function delreply($id)
+    {
+			$input=explode('-',$id);
+			$data[]=['comment_id','eq',$input[0]];
+			$data[]=['addtime','eq',$input[2]];
+			$data[]=['uid','eq',$input[1]];			
+       		$res=db('comment_reply')->where($data)->limit(1)->delete();
+       		if(false===$res){
+       			$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
+       		}else{
+       		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>''];
+       		}
+       
+       
+     return $back;   
+    }
+    public function alldelreply($id)
+    {
+    	
+		dump($id);die();
+			$input=explode('-',$id);
+			$data[]=['comment_id','eq',$input[0]];
+			$data[]=['addtime','eq',$input[2]];
+			$data[]=['uid','eq',$input[1]];			
+       		$res=db('comment_reply')->where($data)->limit(1)->delete();
+       		if(false===$res){
+       			$back=['msg'=>'操作失败！','status'=>2,'icon'=>5,'url'=>''];
+       		}else{
+       		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'url'=>''];
+       		}
+       
+       
+     return $back;   
+    }
+    
+	
+	
+	
     public function deletecate($id)
     {
        $pid=db('comment_cate')->where('pid',$id)->find();

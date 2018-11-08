@@ -192,15 +192,35 @@ class User extends Auth
     	$this->assign('info',$info);
     	return view();
     }
+	public function authlist($id){
+		$map[]=['groupid','eq',$id];
+		$auth_list=db('menu')->field('id,name,pid')->select();
+		$role_auth_list=db('auth')->where($map)->select();
+		$data = [
+		    'code' => 0,
+		    'msg'  => '获取成功',
+		    'data' => [
+		        'list' => $auth_list,
+		        'checkedId' => array_column($role_auth_list, 'menuid'),
+		    ],
+		];
+		echo json_encode($data);	
+	}
+	
     public function authedit($id){
     	db('auth')->where('groupid','eq',$id)->delete();
-    	$post=$this->request->post('data');
-    	
+    	$post=$this->request->post('authids');
+		$menu=db('menu')->field('id,url')->select();
+		$menulist=[];
+		foreach($menu as $k=>$v){
+			$menulist[$v['id']]=$v['url'];
+		}
+
     	$data=[];
     	foreach($post as $k=>$v){
     		$data[$k]['groupid']=$id;
-    		$data[$k]['menuid']=$v['id'];
-    		$data[$k]['menuurl']=$v['url'];    		
+    		$data[$k]['menuid']=$v;
+    		$data[$k]['menuurl']=$menulist[$v];    		
     	};
     	
     	$result=Db::name('auth')->insertAll($data);

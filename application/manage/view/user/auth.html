@@ -5,12 +5,26 @@
 			<div class="layui-card">
 				<div class="layui-card-header pt-10 t-c f-20"> 【{$info.name}】权限 </div>
 				<div class="layui-card-body layui-form">
-							
+				<div class="layui-form-item">
+					
+					<div class="layui-form-block">
+						<button type="button" class="layui-btn layui-btn-primary" onclick="checkAll('#LAY-auth-tree-index')">全选</button>
+						<button type="button" class="layui-btn layui-btn-primary" onclick="uncheckAll('#LAY-auth-tree-index')">全不选</button>
+						<button type="button" class="layui-btn layui-btn-primary" onclick="showAll('#LAY-auth-tree-index')">全部展开</button>
+						<button type="button" class="layui-btn layui-btn-primary" onclick="closeAll('#LAY-auth-tree-index')">全部隐藏</button>
+					</div>
+				</div>
+					 <div class="layui-form-item">
+
+					<div class="layui-input-block">
+						<div id="LAY-auth-tree-index"></div>
+					</div>
+				</div>
 					<ul id="demo"></ul>
 					
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<a id="sendbtn" class="layui-btn">立即提交</a>
+							<a id="sendbtn" type="submit" lay-submit lay-filter="sendbtn" class="layui-btn">立即提交</a>
 						</div>
 					</div>
 				</div>
@@ -22,39 +36,124 @@
 
 <script>
 //Demo
-layui.use(['tree', 'layer','index'], function(){
-  var indfun = layui.index,layer = layui.layer,$=layui.jquery; 
+layui.use(['jquery','authtree', 'layer', 'form'], function(){
+  var indfun = layui.index,jquery = layui.jquery,form = layui.form,layer = layui.layer,$=layui.jquery,authtree = layui.authtree; 
   
-  var tree=layui.tree({
-    elem: '#demo' //指定元素
-    ,target: '_blank' //是否新选项卡打开（比如节点返回href才有效）
-    ,check: 'checkbox'
-    ,click: function(item){ //点击节点回调
-      console.log(item);
-    }
-    ,nodes: {$menulist|raw}
-  });
-  //alert('23132');
-  $('#sendbtn').click(function () {
-  	$.ajax({
-  		type:"post",
-  		url:"{:URL('user/authedit',array('id'=>$info.id))}",
-  		data:{data:tree.getChecked(false)},
-  		success:function(res){
-			if(res.status==1){
-				layer.msg(res.msg,{icon:res.icon,time:2000},function(item){
-					if((res.url).length>0){
-						indfun.access(res.url);
-					}
-				});
+  $.ajax({
+		url: "{:URL('user/authlist',array('id'=>$info.id))}",
+		dataType: 'json',
+		success: function(res){           
+           var trees = authtree.listConvert(res.data.list, {
+			    primaryKey: 'id'
+			    ,startPid: 0
+			    ,parentKey: 'pid'
+			    ,nameKey: 'name'
+			    ,valueKey: 'id'
+			    ,checkedKey: res.data.checkedId
+			});
+			authtree.render('#LAY-auth-tree-index', trees, {
+				inputname: 'id[]', 
+				layfilter: 'lay-check-auth', 
+				autowidth: true,
+			});			
+        }
+    });
+ 	form.on('submit(sendbtn)', function(obj){
+		var authids = authtree.getChecked('#LAY-auth-tree-index');
+		
+		obj.field.authids = authids;
+		console.log(authids);
+		$.ajax({
+			url: "{:URL('user/authedit',array('id'=>$info.id))}",
+			type:"post",
+			data: obj.field,
+			success:function(res){
+				console.log(res);
+				if(res.status==1){
+					layer.msg(res.msg,{icon:res.icon,time:2000},function(item){
+						if((res.url).length>0){
+							indfun.access(res.url);
+						}
+					});
+				}
+				
+				
+			},error:function(msg){
+				layer.msg('网络错误');
 			}
-  			
-  			
-  		},error:function(msg){
-  			layer.msg('网络错误');
-  		}
-  	});
-  }); 
+		});
+		return false;
+
+	});
+ 
+//
+//var tree=layui.tree({
+//  elem: '#demo' //指定元素
+//  ,target: '_blank' //是否新选项卡打开（比如节点返回href才有效）
+//  ,check: 'checkbox'
+//  ,click: function(item){ //点击节点回调
+//    console.log(item);
+//  }
+//  ,nodes: {$menulist|raw}
+//});
+  //alert('23132');
+//$('#sendbtn').click(function () {
+//	$.ajax({
+//		type:"post",
+//		url:"{:URL('user/authedit',array('id'=>$info.id))}",
+//		data:{data:tree.getChecked(false)},
+//		success:function(res){
+//			if(res.status==1){
+//				layer.msg(res.msg,{icon:res.icon,time:2000},function(item){
+//					if((res.url).length>0){
+//						indfun.access(res.url);
+//					}
+//				});
+//			}
+//			
+//			
+//		},error:function(msg){
+//			layer.msg('网络错误');
+//		}
+//	});
+//}); 
  
 });
+
+// 全选样例
+function checkAll(dst){
+	layui.use(['jquery', 'layer', 'authtree'], function(){
+		var layer = layui.layer;
+		var authtree = layui.authtree;
+
+		authtree.checkAll(dst);
+	});
+}
+// 全不选样例
+function uncheckAll(dst){
+	layui.use(['jquery', 'layer', 'authtree'], function(){
+		var layer = layui.layer;
+		var authtree = layui.authtree;
+
+		authtree.uncheckAll(dst);
+	});
+}
+// 显示全部
+function showAll(dst){
+	layui.use(['jquery', 'layer', 'authtree'], function(){
+		var layer = layui.layer;
+		var authtree = layui.authtree;
+
+		authtree.showAll(dst);
+	});
+}
+// 隐藏全部
+function closeAll(dst){
+	layui.use(['jquery', 'layer', 'authtree'], function(){
+		var layer = layui.layer;
+		var authtree = layui.authtree;
+
+		authtree.closeAll(dst);
+	});
+}
 </script>
