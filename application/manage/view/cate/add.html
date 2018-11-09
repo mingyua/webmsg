@@ -93,6 +93,13 @@
 	</div>
 	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
 </div>
-
-  <script src="__JS__/jquery.min.js"></script>
- <script src="__MANAGE__/index.js" type="text/javascript" charset="utf-8"></script>
+{load href="__LAYUI__/layui.js"}
+{load href="__MANAGE__/index.js"}
+<script>
+	layui.use(['form'],function(){
+		var form = layui.form;
+			form.render();
+	});
+</script>
+ 
+ 

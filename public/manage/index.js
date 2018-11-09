@@ -1,9 +1,8 @@
 layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 	var a = layui.layer,$ = layui.jquery, form = layui.form, table = layui.table, upload = layui.upload, element = layui.element, w = $(window).width(), mydata=3, diymsg='您无权访问此页面!', geturl="/manage/index/geturl";
 	var fun = {
-			access: function(str) { $.ajax({ type:"get", url:geturl, data:{data:str}, success:function(res){ if(res.status==1){ $('#lay-body').load(str, '', function(res, status) { if(status == 'success') { $('#refurl').val(str); } else { $('#lay-body').html("<h2 class='t-c'>出错了！</h2>"); } a.closeAll(); }); }else{ a.alert(res.msg,{icon:res.icon,skin:'layui-layer-diy'}); } } }); },
+			access: function(str) { $.ajax({ type:"get", url:geturl, data:{data:str}, success:function(res){ if(res.status==1){ $('#adminbody').load(str, '', function(res, status) { if(status == 'success') { $('#refurl').val(str); } else { $('#adminbody').html("<h2 class='t-c'>出错了！</h2>"); } a.closeAll(); }); }else{ a.alert(res.msg,{icon:res.icon,skin:'layui-layer-diy'}); } } }); },
 			checkauth: function(url){ $.ajax({ async:false, type:"get", url:geturl, dataType:"json", data:{data:url}, success:function(res){ if(res.status!=1){ mydata=0; }else{ mydata=1; } } }); return mydata; },
-			screenw: function() { if(w < 640) { $('.lay-right').css('width', '100%'); $('.lay-left').css('display', 'none'); } else { $('.lay-header').css('width', (w - 200) + "px"); } },
 			popu: function(url,title,AW,AH){ layer.open({ title:title, type:2, closeBtn:1, offset: '50px', btn:'', shade: 0.1, area: [AW, AH], skin: 'layui-layer-diy', content: url, }) },
 			ajaxsend: function(url,data,obj){ $.ajax({ type:"post", url:url, data:data, beforeSend: function () { layer.load(3, {time: 10 * 1000}); }, success:function(res){ if(res.status==1){ layer.msg(res.msg,{icon:res.icon,time:2000},function(item){ if((res.url).length>0){ fun.access(res.url); } if(obj){ obj.del(); } }); }else{ layer.msg(res.msg,{icon:res.icon}); } },error:function(msg){ layer.msg('网络错误，请重试！',{icon:5}); } }); }, 
 			showmsg:function(tab, msg){
@@ -11,7 +10,7 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 				$("table tbody tr").eq(tab.id).find(".info").html(msg);
 			},
 			backup: function(tab,url,obj,status) {
-				//console.log(tab.id);
+
 				status &&　fun.showmsg(tab.id, "开始备份...(0%)");
 				$.get(url, tab, function(res) {
 					 
@@ -131,9 +130,10 @@ layui.define(['element', 'layer', 'form','upload','table'], function(e) {
 	    };
   	});	
 	$('body').on("click", "*[lay-href]",function(){ var e = $(this), i = e.attr("lay-href"),t = e.text(); if(i.length>1){ fun.access(i); } });
-	$('#menuicon').click(function(elem) { var a = $(this), h = $(".lay-left").is(":hidden"), w = $(window).width(); if(h != false) { $('.lay-left').show(); $('.lay-right').css('width', (w - 200) + "px"); $('.lay-header').css('width', (w - 200) + "px"); a.find('i').removeClass('layui-icon-spread-left').addClass('layui-icon-shrink-right'); } else { $('.lay-left').hide(); $('.lay-right').css('width', '100%');$('.lay-header').css('width', w + "px"); a.find('i').removeClass('layui-icon-shrink-right').addClass('layui-icon-spread-left'); } }); $('#reload').click(function(res) { layer.load(3, {time: 3 * 1000}); var url=$('#refurl').val(); if(url.length>0){ fun.access(url); }else{ a.closeAll(); } });
+	$('#reload').click(function(res) { layer.load(3, {time: 3 * 1000}); var url=$('#refurl').val(); if(url.length>0){ fun.access(url); }else{ a.closeAll(); } });
 	$('#webinfo').click(function(){ $('.layui-layer-adminRight').toggle("fast"); }); 
 	$('body').on("click", '#reloadtable',function(){ var demoReload = $('#keywords'),cateid=$('#cateid'),daterange=$('#daterange'),st=$('#status'); table.reload('tablist', { page: { curr: 1 } ,where: { key:{ cid:cateid.val(), title: demoReload.val(), addtime:daterange.val(), status:st.val() } } }); });
-
+	$('#menuicon').click(function(elem){ var a = $(this), iswidth= $(".adminleft").width(); if(iswidth=='200'){ $('.adminleft').animate({width:"0"}); }else{ $('.adminleft').animate({width:"200px"}); } console.log(iswidth); 
+	});
 	e('index', fun);
 });

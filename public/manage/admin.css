@@ -1,4 +1,4 @@
-html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
+html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;height: 100%;}
 .t-l{text-align: left;}
 .t-c{text-align: center;}
 .t-r{text-align: right;}
@@ -33,6 +33,21 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 
 .pull-left{float: left;}
 .pull-right{float: right;}
+
+.adminbox{display: -webkit-flex;display:flex;width: 100%;overflow: hidden;height: 100% !important;background: #E1E1E8;position: relative;z-index: 1000;}
+.adminbox .adminleft{width: 200px;position: relative;z-index: 999;}	
+.adminbox .adminleft ul li{cursor: pointer;}
+.adminbox .adminright{background: #F2F2F2;position: relative;z-index: 999;flex: 1;}
+.adminbox .adminright .adminheader{width: 100%; overflow: hidden;line-height:50px;background: #FFF;}
+.adminbox .adminright .adminheader ul{padding: 0 10px;width: auto;}
+.adminbox .adminright .adminheader ul li{width: auto;padding: 0 15px;float: left;}
+.adminbox .adminright .adminheader ul li:hover{background: #F2F2F2;}	
+.adminbox .adminright .adminbody{display: block;background: #FFF;margin: 15px;padding: 5px 0;height: auto;overflow-y: auto;}
+#adminbody{height: 100%;}
+#adminbody .layui-fluid{overflow-y: auto;height: 100%;}
+.laylogo{line-height: 51px;width:100%;background: #009F95;text-align: center;}
+
+/*
 .lay-main{width: 100%;height: 100%;padding: 0;margin: 0;}
 .lay-left{display:inline-block; width: 200px;height: 100% !important;position: fixed;left: 0;top: 0;background: #3A3D49;color: #FFF;}
 .lay-left .laylogo{line-height: 50px;background: #009F95;text-align: center;}
@@ -45,7 +60,7 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 #lay-body{display: block;width: 100%; margin:50px 0 15px 0;padding: 15px 0; position: relative;z-index: 1;overflow-x: hidden;height: calc(100% - 60px) !important;}
 .lay-body{display: block;width:100%;height: auto;background: #FFFFFF;box-shadow: 0 1px 2px #E8E8E8;}
 .lay-breadcrumb{position: relative; display: block;clear: both; height: 48px;background: #FFF;line-height: 48px;box-shadow: 0 2px 4px #E8E8E8;padding-left: 20px;top:50px}
-.lay-breadcrumb a,.lay-breadcrumb span{padding: 0 5px;color: #999;}
+.lay-breadcrumb a,.lay-breadcrumb span{padding: 0 5px;color: #999;}*/
 
 .layui-carousel > [carousel-item] > *{background: #FFF;}
 #layadmin-carousel .layui-carousel-ind{position: absolute;right: 10px;float: right;text-align: right;top: -40px;background: none;}
@@ -143,3 +158,37 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;}
 
 .tollbarright{border: 1px solid #ccc;background: none;padding: 3px 5px;position: relative;top: 3px;right: -10px;}
 .tollbarright:hover{border-color:#999;}
+
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-button:vertical {
+  display: none;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track:vertical {
+  background-color: black;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: #f5f5f5;
+}
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:vertical {
+  margin-right: 10px;
+  background-color: #a6a6a6;
+}
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:vertical:hover {
+  background-color: #aaa;
+}
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-corner:vertical {
+  background-color: #535353;
+}
+::-webkit-scrollbar-resizer,
+::-webkit-scrollbar-resizer:vertical {
+  background-color: #ff6e00;
+}

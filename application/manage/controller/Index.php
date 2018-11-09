@@ -13,6 +13,7 @@ namespace app\manage\controller;
 use think\Controller;
 use think\Request;
 use think\facade\Cache;
+use think\facade\App;
 class index extends Auth
 {
     /**
@@ -21,6 +22,14 @@ class index extends Auth
      * @return \think\Response
      */
     public function index()
+    {
+    	$map[] = ['status','=',1];
+        $menu=db('menu')->where($map)->cache('menu',1000)->order('sort ASC')->select();
+        $list=getchildren($menu,'0');
+        $this->assign('menulist',$list);  
+        return $this->fetch();
+    }
+    public function test()
     {
     	$map[] = ['status','=',1];
         $menu=db('menu')->where($map)->cache('menu',1000)->order('sort ASC')->select();
@@ -41,9 +50,10 @@ class index extends Auth
     			$qlist[1][]=$v;
     		} 
     		$i++;
-    	}
+    	}		
     	$this->assign('uinfo',$uinfo);  
     	$this->assign('qlist',$qlist);  
+    	$this->assign('THINKV',App::version());  
         return view();
     }
     public function clearCache()
