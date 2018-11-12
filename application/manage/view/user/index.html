@@ -20,7 +20,7 @@
 <script type="text/html" id="barDemo">
 	<a class="layui-btn layui-btn-xs" lay-href="{:URL('user/adduser')}?id={{d.id}}" data-title="编辑">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" data-msg="您确定要删除吗？" data-url="{:URL('user/delete',array('table'=>'user'))}" lay-event="del">删除</a>
-
+</script>
 <script>
 	layui.use(['table', 'form', 'laydate'], function() {
 	var table = layui.table, form = layui.form, laydate = layui.laydate; form.render();
