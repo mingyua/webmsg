@@ -1,0 +1,47 @@
+<div class="layui-fluid">
+	<div id="tempselect" class="layui-row">
+		<div class="layui-col-md12">
+			<div class="layui-card layui-form">
+				<div class="layui-row layui-col-space20">
+					{volist name="template" id="v"}
+					<div class="layui-col-sm6 layui-col-xs12">
+						<div class="layui-col-sm4"><div class="tempimg"><img src="{$v.img}" /></div></div>
+						<div class="layui-col-sm8">
+							<div class="tempcontent">
+								<h2>{$v.name}</h2>
+								<p>{$v.content}</p>
+								<div id="posb" class="layui-btn-group tempajax">
+									{if $v.check==''}<button class="layui-btn" data-id='{$v.name}' data-type='temp'>启用模板</button>{/if}
+								</div>
+							</div>
+						</div>
+					</div>
+					{/volist}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	layui.use(['form','layer'], function() {
+		var form = layui.form,layer = layui.layer;
+		$(function(){
+			$('.tempajax').on('click','button',function(){
+				var id=$(this).attr('data-id'),type=$(this).attr('data-type');
+				$.ajax({
+					type:"post",
+					url:"{:URL('template/tempcofig')}",
+					data:{id:id,type:type},
+					success:function(res){
+						if(res.status==1){
+							layer.msg(res.msg,{icon:res.status});
+						}else{
+							layer.msg(res.msg,{icon:res.status});
+						}
+						$('#reload').click();
+					}
+				});
+			});
+		});
+	});
+</script>

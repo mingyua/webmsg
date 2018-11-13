@@ -29,44 +29,18 @@
 		table.render({
 			elem: '#tabledata',
 			toolbar: '#toolbarDemo', 
-			url: "{:URL('hook/linklist')}" //数据接口
-				,
-			page: false //开启分页
-				,
+			url: "{:URL('hook/linklist')}" ,
+			page: false ,
 			id: 'tablist',
 			cols: [
-				[ //表头
-					{
-						checkbox: true,
-						fixed: true,
-						fixed: 'left'
-					}, {
-						field: 'id',
-						title: 'ID',
-						width: 80
-					}, {
-						title: '标志',
-						width: 178,
-						align: 'center',
-						toolbar: '#imgdata'
-					}, {
-						field: 'title',
-						title: '标题',
-					}, {
-						field: 'url',
-						title: '链接地址',
-					}, {
-						field: 'status',
-						title: '状态',
-						width: 95,
-						templet: '#switchTpl',
-						unresize: true
-					}, {
-						fixed: 'right',
-						width: 178,
-						align: 'center',
-						toolbar: '#barDemo'
-					}
+				[ 
+					{ checkbox: true, fixed: true, fixed: 'left' }, 
+					{ field: 'id', title: 'ID', width: 80 }, 
+					{ title: '标志', width: 178, align: 'center', toolbar: '#imgdata' }, 
+					{ field: 'title', title: '标题', }, 
+					{ field: 'url', title: '链接地址', }, 
+					{ field: 'status', title: '状态', width: 95, templet: '#switchTpl', unresize: true },
+					{ fixed: 'right', width: 178, align: 'center', toolbar: '#barDemo' }
 				]
 			]
 		});

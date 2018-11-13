@@ -1,45 +1,40 @@
-
-
 <div class="layui-fluid">
 	<div id="demoTable" class="layui-row">
 		<div class="layui-col-md12">
 			<div class="layui-card">
-				<div id="templist" class="layui-card-body layui-clear  layui-col-space10">
-					
+				<div class="layui-card-body">
+					<table class="layui-hide" id="tabledata" lay-filter="list"></table>
 				</div>
-				<div id="demo20" class="t-c"></div>
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/html" id="barDemo">
+	<a class="layui-btn layui-btn-xs" lay-href="{:URL('template/edit')}?tempid={{d.id}}" data-title="编辑">编辑</a>
+</script>
 
-<script type="text/javascript">
-layui.use(['laypage', 'layer'], function(){
-  var laypage = layui.laypage
-  ,layer = layui.layer;
-  
-  
-  var data = {$templist|raw};
-  
-  //调用分页
-  laypage.render({
-    elem: 'demo20'
-    ,count: data.length
-    ,limit:12
-    ,jump: function(obj){
-      //模拟渲染
-      document.getElementById('templist').innerHTML = function(){
-        var arr = []
-        ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-        layui.each(thisData, function(index, item){
-          arr.push('<div class="layui-col-lg3 layui-col-md4 layui-col-sm6 layui-col-xs12"><div class="tempbox"><img src="__ROOT__'+item.thumb+'"/><div class="btngroup"><div class="title">'+item.name+'</div><button class="layui-btn pull-right" lay-href="{:URL(\'template/edit\')}?tempid='+item.id+'"><i class="layui-icon layui-icon-edit"></i></button><button class="layui-btn layui-btn-danger pull-left"><i class="layui-icon layui-icon-delete"></i></button></div></div></div>');
-        });
-        return arr.join('');
-      }();
-    }
-  });
-  
-});	
+<script>
+	layui.use(['table', 'form'], function() {
+		var table = layui.table,
+			form = layui.form;
+		table.render({
+			elem: '#tabledata',
+			toolbar: '#toolbarDemo', 
+			url: "{:URL('template/templist')}" ,
+			page: false ,
+			id: 'tablist',
+			cols: [
+				[ 
+					{ checkbox: true, fixed: true, fixed: 'left' }, 
+					{ field: 'id', title: 'ID', width: 80 ,hide:true}, 
+					{ field: 'filename', title: '文件名'}, 
+					{ field: 'filesize', title: '文件大小',width: 178}, 
+					{ field: 'tempname', title: '模板名称',width: 178,align: 'center'}, 
+					{ fixed: 'right', width: 178, align: 'center', toolbar: '#barDemo' }
+				]
+			]
+		});
+	});
 </script>
 
 

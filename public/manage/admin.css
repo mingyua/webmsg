@@ -159,6 +159,10 @@ html,body{background: #F2F2F2;overflow: hidden;padding: 0;margin: 0;height: 100%
 .tollbarright{border: 1px solid #ccc;background: none;padding: 3px 5px;position: relative;top: 3px;right: -10px;}
 .tollbarright:hover{border-color:#999;}
 
+#tempselect .tempimg,#tempselect .tempcontent{height: 320px;overflow: hidden;padding:0 10px;background: #E8E8E8;margin-bottom: 20px;position: relative;}
+#tempselect .tempimg img{width: 100%;height:auto ;overflow: hidden;}
+#tempselect .tempcontent p{margin: 10px 0;text-indent: 2em;}
+#posb{position: absolute;bottom: 0;width:100%;text-align: center;}
 
 ::-webkit-scrollbar {
   width: 5px;

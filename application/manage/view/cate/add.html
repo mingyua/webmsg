@@ -63,7 +63,7 @@
 				    <div class="layui-input-block">
 				    	<select name="temp" lay-filter="buildquickurl">
 				    		{volist name="templist" id="v"}
-				    		<option value="{$v.id}" {eq name="$info.temp|default=1" value="$v.type"}selected{/eq}>{$v.name}</option>
+				    		<option value="{$v.type}" {eq name="$info.temp|default=1" value="$v.type"}selected{/eq}>{$v.name}</option>
 				    		{/volist}
 				    	</select>
 

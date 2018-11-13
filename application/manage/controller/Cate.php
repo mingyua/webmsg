@@ -59,7 +59,7 @@ class Cate extends Auth
     		}
     		 
     		//模板列表
-    		$templist=db('template')->select(); 
+    		$templist=[['type'=>1,'name'=>'单页'],['type'=>2,'name'=>'列表']]; 
     		    		
     		
 	        $menu=db('cate')->where('status',1)->select();
