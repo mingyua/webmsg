@@ -84,10 +84,10 @@ class Cate extends Auth
     {
     	
 
-        $menu=Cates::with('template')->select();
+        $menu=db('cate')->select();
         $list=menuTree($menu,'0');
         foreach($list as $k=>$v){
-        	$list[$k]['tempname']=$v['template']['name'];
+        	$list[$k]['tempname']=$v['temp']>1 ? '列表':'单页';
         }
         $menulist=['code'=>0,'msg'=>'','count'=>count($list),'data'=>$list];
         echo json_encode($menulist);

@@ -6,7 +6,7 @@
 -- Database : 
 -- 
 -- Part : #1
--- Date : 2018-10-17 17:26:09
+-- Date : 2018-11-14 14:35:44
 -- -----------------------------
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -36,8 +36,8 @@ CREATE TABLE `wb_article` (
 -- -----------------------------
 -- Records of `wb_article`
 -- -----------------------------
-INSERT INTO `wb_article` VALUES ('1', '1', '34234', '', '', '', '<p><br/></p><article><p><br/></p><section><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">长沙米尔网络科技有限公司始创于2010年，现拥有运营团队超500人，已在厦门、广州、重庆、南京、长沙等多个省市开设服务机构。</span></p><table class=\"tablesaw table-striped table-bordered table-hover tablesaw-sortable tablesaw-swipe\"><tbody><tr class=\"firstRow\"><td style=\"word-break: break-all;\" width=\"686\" valign=\"top\"><p style=\"line-height: 2em;\"><img src=\"/ueditor/php/upload/image/20180929/1538207835673835.jpg\" title=\"网站关键词\" alt=\"网站关键词\"/></p></td><td style=\"word-break: break-all;\" width=\"686\" valign=\"top\"><p style=\"line-height: 2em;\"><img src=\"/ueditor/php/upload/image/20180929/1538207835497725.jpg\" title=\"网站关键词\" alt=\"网站关键词\"/></p></td></tr></tbody></table><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">米尔是全国最具影响力的全网代运营服务商之一；现已获得：阿里妈妈AMP金牌淘拍档、淘宝/天猫/京东金牌服务商、电商托管影响力品牌、猪八戒服务众包平台官方TOP1服务商、天猫星级服务商、金麦最佳视觉奖、全国十强电商服务商等殊荣。</span></p><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">公司主营业务涵盖京东/淘宝/天猫/阿里巴巴/拼多多/亚马逊代运营、直通车推广、店铺信誉优化、爆款打造、店铺装修与客服外包等业务；还提供小程序开发、软件开发、小程序代运营、新媒体运营等增值服务。至今已服务商家逾1000家，其中包括公牛、梅花、才子、安雨乐、隆力奇、热风、蒙牛等众多实力品牌。</span></p><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">未来，米尔还将继续拓展更多服务机构，助力更多的电商企业迎战新零售时代！</span></p></section><p><br/></p></article><p><br/></p><p><br/></p>', '2', '1', '', '', '1532915137', '1538207867');
-INSERT INTO `wb_article` VALUES ('2', '6', '如果在地球五千光年外观望地球，会看到人类古代时吗？', './public/uploads/20180830/503aad5f10054f3cd179505108cb1641.png', '', '谢谢邀请，比如此刻，你感受到的太阳辐射，实际上是太阳在8分钟前发出的，所以在地球上的人们看到的太阳永远是8分钟之前的样子，因为太阳和地球在之间的距离约为1.5亿千米，光速每秒30万千米，走完这段路程需要8分钟多', '<p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们是一家专注用户体验设计开发与互联网品牌建设的设计公司，创立至今为200多位客户提供了创新与专业的设计方案。</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">设计服务范围包括：交互原型设计、产品视觉设计、网站设计与开发建设、移动及软件产品界面设计、图标设计、品牌及平面设计等。</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们的价值与宗旨是为用户和客户打造的设计，用设计提升产品和企业价值。</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们以网站建设与运营、中小企业网站推广、为主要经营项目的设计公司。&nbsp;</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们的优势客服由有运营经验和技术背景的人员担当，只有对你需求迅速的反馈和多年经验的建议 网站报价是对你需求真实的回应，不虚高，我也不能亏 6年来的客户维护售后服务，在网络上，没有任何的表扬或批评字眼，没有，才真实！</span></p><p><br/></p>', '0', '1', '', '', '1532915137', '1535622185');
+INSERT INTO `wb_article` VALUES ('1', '1', '34234', './public/uploads/20181108/6697c94dd0f79ac3e31c677272e8669d.jpg', '444', '555', '<p><br/></p><article><p><br/></p><section><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">长沙米尔网络科技有限公司始创于2010年，现拥有运营团队超500人，已在厦门、广州、重庆、南京、长沙等多个省市开设服务机构。</span></p><table class=\"tablesaw table-striped table-bordered table-hover tablesaw-sortable tablesaw-swipe\"><tbody><tr class=\"firstRow\"><td style=\"word-break: break-all;\" width=\"686\" valign=\"top\"><p style=\"line-height: 2em;\"><img src=\"/ueditor/php/upload/image/20180929/1538207835673835.jpg\" title=\"网站关键词\" alt=\"网站关键词\"/></p></td><td style=\"word-break: break-all;\" width=\"686\" valign=\"top\"><p style=\"line-height: 2em;\"><img src=\"/ueditor/php/upload/image/20180929/1538207835497725.jpg\" title=\"网站关键词\" alt=\"网站关键词\"/></p></td></tr></tbody></table><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">米尔是全国最具影响力的全网代运营服务商之一；现已获得：阿里妈妈AMP金牌淘拍档、淘宝/天猫/京东金牌服务商、电商托管影响力品牌、猪八戒服务众包平台官方TOP1服务商、天猫星级服务商、金麦最佳视觉奖、全国十强电商服务商等殊荣。</span></p><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">http://www.test.com公司主营业务涵盖京东/淘宝/天猫/阿里巴巴/拼多多/亚马逊代运营、直通车推广、店铺信誉优化、爆款打造、店铺装修与客服外包等业务；还提供小程序开发、软件开发、小程序代运营、新媒体运营等增值服务。至今已服务商家逾1000家，其中包括公牛、梅花、才子、安雨乐、隆力奇、热风、蒙牛等众多实力品牌。</span></p><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">未来，米尔还将继续拓展更多服务机构，助力更多的电商企业迎战新零售时代！</span></p></section><p><br/></p></article><p><br/></p><p><br/></p>', '2', '1', '', '', '1532915137', '1541642617');
+INSERT INTO `wb_article` VALUES ('2', '6', '如果在地球五千光年外观望地球，会看到人类古代时吗？', './public/uploads/20180830/503aad5f10054f3cd179505108cb1641.png', '', '谢谢邀请，比如此刻，你感受到的太阳辐射，实际上是太阳在8分钟前发出的，所以在地球上的人们看到的太阳永远是8分钟之前的样子，因为太阳和地球在之间的距离约为1.5亿千米，光速每秒30万千米，走完这段路程需要8分钟多', '<p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们是一家专注用户体验设计开发与互联网品牌建设的设计公司，创立至今为200多位客户提供了创新与专业的设计方案。</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">设计服务范围包括：交互原型设计、产品视觉设计、网站设计与开发建设、移动及软件产品界面设计、图标设计、品牌及平面设计等。</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们的价值与宗旨是为用户和客户打造的设计，用设计提升产品和企业价值。</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们以网站建设与运营、中小企业网站推广、为主要经营项目的设计公司。&nbsp;</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们的优势客服由有运营经验和技术背景的人员担当，只有对你需求迅速的反馈和多年经验的建议 网站报价是对你需求真实的回应，不虚高，我也不能亏 6年来的客户维护售后服务，在网络上，没有任何的表扬或批评字眼，没有，才真实！</span></p><p><br/></p>', '0', '1', '', '', '1532915137', '1541733793');
 INSERT INTO `wb_article` VALUES ('4', '5', '公司简介', './public/uploads/20180831/25418f0ff677cf5623392f33ba554f30.png', '', '3333333333', '<p style=\"line-height: 2em; text-indent: 2em; text-align: left;\">长沙米尔网络科技有限公司始创于2010年，现拥有运营团队超500人，已在厦门、广州、重庆、南京、长沙等多个省市开设服务机构。<br/>米尔是全国最具影响力的全网代运营服务商之一；现已获得：阿里妈妈AMP金牌淘拍档、淘宝/天猫/京东金牌服务商、电商托管影响力品牌、猪八戒服务众包平台官方TOP1服务商、天猫星级服务商、金麦最佳视觉奖、全国十强电商服务商等殊荣。</p><p style=\"line-height: 2em; text-indent: 2em; text-align: left;\">公司主营业务涵盖京东/淘宝/天猫/阿里巴巴/拼多多/亚马逊代运营、直通车推广、店铺信誉优化、爆款打造、店铺装修与客服外包等业务；还提供小程序开发、软件开发、小程序代运营、新媒体运营等增值服务。至今已服务商家逾1000家，其中包括公牛、梅花、才子、安雨乐、隆力奇、热风、蒙牛等众多实力品牌。</p><p style=\"line-height: 2em; text-indent: 2em; text-align: left;\">未来，米尔还将继续拓展更多服务机构，助力更多的电商企业迎战新零售时代！</p>', '0', '1', 'foo,bar,baz,roffle', '', '1533028083', '1538208382');
 INSERT INTO `wb_article` VALUES ('9', '8', '联系我们', './public/uploads/20180831/ed429bbef3a4e5e9a17c0b31bb5068af.png', '', '', '', '0', '1', '热门,置顶,推荐,公司资料,联系电话,公司地址', '', '1534324468', '1535698526');
 INSERT INTO `wb_article` VALUES ('52400', '1', '34234', '', '', '', '<p><br/></p><article><p><br/></p><section><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">长沙米尔网络科技有限公司始创于2010年，现拥有运营团队超500人，已在厦门、广州、重庆、南京、长沙等多个省市开设服务机构。</span></p><table class=\"tablesaw table-striped table-bordered table-hover tablesaw-sortable tablesaw-swipe\"><tbody><tr class=\"firstRow\"><td style=\"word-break: break-all;\" width=\"686\" valign=\"top\"><p style=\"line-height: 2em;\"><img src=\"/ueditor/php/upload/image/20180929/1538207835673835.jpg\" title=\"网站关键词\" alt=\"网站关键词\"/></p></td><td style=\"word-break: break-all;\" width=\"686\" valign=\"top\"><p style=\"line-height: 2em;\"><img src=\"/ueditor/php/upload/image/20180929/1538207835497725.jpg\" title=\"网站关键词\" alt=\"网站关键词\"/></p></td></tr></tbody></table><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">米尔是全国最具影响力的全网代运营服务商之一；现已获得：阿里妈妈AMP金牌淘拍档、淘宝/天猫/京东金牌服务商、电商托管影响力品牌、猪八戒服务众包平台官方TOP1服务商、天猫星级服务商、金麦最佳视觉奖、全国十强电商服务商等殊荣。</span></p><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">公司主营业务涵盖京东/淘宝/天猫/阿里巴巴/拼多多/亚马逊代运营、直通车推广、店铺信誉优化、爆款打造、店铺装修与客服外包等业务；还提供小程序开发、软件开发、小程序代运营、新媒体运营等增值服务。至今已服务商家逾1000家，其中包括公牛、梅花、才子、安雨乐、隆力奇、热风、蒙牛等众多实力品牌。</span></p><p style=\"line-height: 2em;\"><span style=\"font-family: 微软雅黑, MicrosoftYaHei; font-size: 14px;\">未来，米尔还将继续拓展更多服务机构，助力更多的电商企业迎战新零售时代！</span></p></section><p><br/></p></article><p><br/></p><p><br/></p>', '2', '1', '', '', '1532915137', '1538207867');
@@ -48,7 +48,7 @@ INSERT INTO `wb_article` VALUES ('52402', '5', '公司简介', './public/uploads
 INSERT INTO `wb_article` VALUES ('52405', '6', '如果在地球五千光年外观望地球，会看到人类古代时吗？', './public/uploads/20180830/503aad5f10054f3cd179505108cb1641.png', '', '谢谢邀请，比如此刻，你感受到的太阳辐射，实际上是太阳在8分钟前发出的，所以在地球上的人们看到的太阳永远是8分钟之前的样子，因为太阳和地球在之间的距离约为1.5亿千米，光速每秒30万千米，走完这段路程需要8分钟多', '<p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们是一家专注用户体验设计开发与互联网品牌建设的设计公司，创立至今为200多位客户提供了创新与专业的设计方案。</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">设计服务范围包括：交互原型设计、产品视觉设计、网站设计与开发建设、移动及软件产品界面设计、图标设计、品牌及平面设计等。</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们的价值与宗旨是为用户和客户打造的设计，用设计提升产品和企业价值。</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们以网站建设与运营、中小企业网站推广、为主要经营项目的设计公司。&nbsp;</span></p><p style=\"line-height: 2em;\"><span style=\"font-size: 14px;\">我们的优势客服由有运营经验和技术背景的人员担当，只有对你需求迅速的反馈和多年经验的建议 网站报价是对你需求真实的回应，不虚高，我也不能亏 6年来的客户维护售后服务，在网络上，没有任何的表扬或批评字眼，没有，才真实！</span></p><p><br/></p>', '0', '1', '', '', '1532915137', '1535622185');
 INSERT INTO `wb_article` VALUES ('52406', '5', '公司简介', './public/uploads/20180831/25418f0ff677cf5623392f33ba554f30.png', '', '3333333333', '<p style=\"line-height: 2em; text-indent: 2em; text-align: left;\">长沙米尔网络科技有限公司始创于2010年，现拥有运营团队超500人，已在厦门、广州、重庆、南京、长沙等多个省市开设服务机构。<br/>米尔是全国最具影响力的全网代运营服务商之一；现已获得：阿里妈妈AMP金牌淘拍档、淘宝/天猫/京东金牌服务商、电商托管影响力品牌、猪八戒服务众包平台官方TOP1服务商、天猫星级服务商、金麦最佳视觉奖、全国十强电商服务商等殊荣。</p><p style=\"line-height: 2em; text-indent: 2em; text-align: left;\">公司主营业务涵盖京东/淘宝/天猫/阿里巴巴/拼多多/亚马逊代运营、直通车推广、店铺信誉优化、爆款打造、店铺装修与客服外包等业务；还提供小程序开发、软件开发、小程序代运营、新媒体运营等增值服务。至今已服务商家逾1000家，其中包括公牛、梅花、才子、安雨乐、隆力奇、热风、蒙牛等众多实力品牌。</p><p style=\"line-height: 2em; text-indent: 2em; text-align: left;\">未来，米尔还将继续拓展更多服务机构，助力更多的电商企业迎战新零售时代！</p>', '0', '1', 'foo,bar,baz,roffle', '', '1533028083', '1538208382');
 INSERT INTO `wb_article` VALUES ('52407', '8', '联系我们', './public/uploads/20180831/ed429bbef3a4e5e9a17c0b31bb5068af.png', '', '', '', '0', '1', '热门,置顶,推荐,公司资料,联系电话,公司地址', '', '1534324468', '1535698526');
-INSERT INTO `wb_article` VALUES ('52408', '14', '测试', '', '', '', '', '', '1', '', '', '1539679512', '');
+INSERT INTO `wb_article` VALUES ('52408', '14', '测试', '', '', '', '', '0', '1', '', '', '1539679512', '0');
 
 -- -----------------------------
 -- Table structure for `wb_auth`
@@ -77,9 +77,6 @@ INSERT INTO `wb_auth` VALUES ('2', '46', 'cate/status');
 INSERT INTO `wb_auth` VALUES ('2', '21', 'cate/index');
 INSERT INTO `wb_auth` VALUES ('2', '16', '');
 INSERT INTO `wb_auth` VALUES ('2', '1', 'index/center');
-INSERT INTO `wb_auth` VALUES ('3', '74', 'template/index');
-INSERT INTO `wb_auth` VALUES ('3', '73', '');
-INSERT INTO `wb_auth` VALUES ('3', '1', 'index/center');
 INSERT INTO `wb_auth` VALUES ('1', '36', '');
 INSERT INTO `wb_auth` VALUES ('1', '68', 'hook/addlink');
 INSERT INTO `wb_auth` VALUES ('1', '66', 'hook/link');
@@ -143,6 +140,8 @@ INSERT INTO `wb_auth` VALUES ('1', '42', 'article/status');
 INSERT INTO `wb_auth` VALUES ('1', '73', '');
 INSERT INTO `wb_auth` VALUES ('1', '74', 'template/index');
 INSERT INTO `wb_auth` VALUES ('1', '81', 'template/edit');
+INSERT INTO `wb_auth` VALUES ('3', '80', 'user/repwd');
+INSERT INTO `wb_auth` VALUES ('3', '1', 'index/center');
 
 -- -----------------------------
 -- Table structure for `wb_cate`
@@ -158,7 +157,7 @@ CREATE TABLE `wb_cate` (
   `thumb` varchar(1000) DEFAULT NULL COMMENT '栏目图片',
   `status` int(11) DEFAULT NULL COMMENT '状态：1显示 ;0不显示',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
-  `temp` int(11) DEFAULT '0' COMMENT '模板id',
+  `temp` int(11) DEFAULT '0' COMMENT '模板类型：1单页;2列表',
   `childrenid` varchar(255) DEFAULT NULL COMMENT '子分类',
   `other` varchar(255) DEFAULT NULL COMMENT '扩展字段',
   `addtime` int(11) DEFAULT NULL COMMENT '添加时间',
@@ -168,18 +167,18 @@ CREATE TABLE `wb_cate` (
 -- -----------------------------
 -- Records of `wb_cate`
 -- -----------------------------
-INSERT INTO `wb_cate` VALUES ('1', '0', '关于我们', 'ABOUT US', 'about', 'layui-icon-survey', '', '1', '1', '2', '1,5,7,8', '1', '1538271335');
-INSERT INTO `wb_cate` VALUES ('5', '1', '公司简介', 'COMPANY', 'about', 'layui-icon-home', '', '1', '1', '1', '5', '1', '1538271335');
-INSERT INTO `wb_cate` VALUES ('6', '0', '新闻动态', '', 'news', 'layui-icon-list', '', '1', '2', '2', '6,9,10,12,13,14,15', '1', '1538271335');
-INSERT INTO `wb_cate` VALUES ('7', '1', '公司环境', '4', 'team', 'layui-icon-picture', '', '1', '3', '2', '7', '1', '1538271335');
-INSERT INTO `wb_cate` VALUES ('8', '1', '联系我们', 'contact', 'about', '', '', '1', '3', '1', '8', '', '1538271335');
-INSERT INTO `wb_cate` VALUES ('9', '6', '公司新闻', 'company', 'news', '', '', '1', '1', '2', '9', '', '1538271335');
-INSERT INTO `wb_cate` VALUES ('10', '6', '科技新闻', '', 'news', '', '', '1', '0', '2', '10', '', '1538271335');
-INSERT INTO `wb_cate` VALUES ('11', '0', '产品中心', 'product', 'product', '', '', '1', '4', '2', '11', '', '1538271335');
-INSERT INTO `wb_cate` VALUES ('12', '6', '54654', '', 'news', '', '', '1', '2', '2', '12', '', '1538271335');
-INSERT INTO `wb_cate` VALUES ('13', '6', '54654', '', 'news', '', '', '1', '0', '2', '13', '', '1538271335');
-INSERT INTO `wb_cate` VALUES ('14', '6', '测试', 'test', '33', '', '', '1', '0', '1', '14', '', '1538271335');
-INSERT INTO `wb_cate` VALUES ('15', '6', '4444', '44', '4', '4', '', '1', '4', '1', '15', '', '1538271335');
+INSERT INTO `wb_cate` VALUES ('1', '0', '关于我们', 'ABOUT US', 'about', 'layui-icon-survey', '', '1', '1', '1', '1,5,7,8', '1', '1541733754');
+INSERT INTO `wb_cate` VALUES ('5', '1', '公司简介', 'COMPANY', 'about', 'layui-icon-home', '', '1', '1', '1', '5', '1', '1541733754');
+INSERT INTO `wb_cate` VALUES ('6', '0', '新闻动态', '', 'news', 'layui-icon-list', '', '1', '2', '2', '6,9,10,12,13,14,15', '1', '1541733754');
+INSERT INTO `wb_cate` VALUES ('7', '1', '公司环境', '4', 'team', 'layui-icon-picture', '', '1', '3', '2', '7', '1', '1541733754');
+INSERT INTO `wb_cate` VALUES ('8', '1', '联系我们', 'contact', 'about', '', '', '1', '3', '1', '8', '', '1541733754');
+INSERT INTO `wb_cate` VALUES ('9', '6', '公司新闻', 'company', 'news', '', '', '1', '1', '2', '9', '', '1541733754');
+INSERT INTO `wb_cate` VALUES ('10', '6', '科技新闻', '', 'news', '', '', '1', '0', '2', '10', '', '1541733754');
+INSERT INTO `wb_cate` VALUES ('11', '0', '产品中心', 'product', 'product', '', '', '1', '4', '2', '11', '', '1541733754');
+INSERT INTO `wb_cate` VALUES ('12', '6', '54654', '', 'news', '', '', '1', '2', '2', '12', '', '1541733754');
+INSERT INTO `wb_cate` VALUES ('13', '6', '54654', '', 'news', '', '', '1', '0', '2', '13', '', '1541733754');
+INSERT INTO `wb_cate` VALUES ('14', '6', '测试', 'test', '33', '', '', '1', '0', '1', '14', '', '1541733754');
+INSERT INTO `wb_cate` VALUES ('15', '6', '4444', '44', '4', '4', '', '1', '4', '1', '15', '', '1541733754');
 
 -- -----------------------------
 -- Table structure for `wb_comment`
@@ -196,21 +195,16 @@ CREATE TABLE `wb_comment` (
   `addtime` int(11) DEFAULT NULL,
   `uptime` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- -----------------------------
 -- Records of `wb_comment`
 -- -----------------------------
 INSERT INTO `wb_comment` VALUES ('1', '3', '2', '宝宝的小手肿了', '不知道怎么地就肿了', '127.0.0.1', '1', '1538979780', '1538288834');
-INSERT INTO `wb_comment` VALUES ('2', '3', '2', '小孩子不喜欢吃饭怎么办?', '', '', '1', '1538288834', '1538288834');
-INSERT INTO `wb_comment` VALUES ('4', '3', '2', '我是第三个', '用郎千金,每天擦三次,再三天就好了', '', '1', '1538288834', '1538288834');
-INSERT INTO `wb_comment` VALUES ('5', '4', '2', '我是第4个', '3333333333333', '', '1', '1538979780', '1538979780');
-INSERT INTO `wb_comment` VALUES ('6', '4', '2', '我是第5个', '444444444444444444', '', '1', '1539312584', '1539312584');
-INSERT INTO `wb_comment` VALUES ('7', '4', '2', '我是第6个', '添加留言测试', '', '1', '1539312611', '1539312611');
-INSERT INTO `wb_comment` VALUES ('8', '1', '2', '我是第7个', '添加测试回复', '', '1', '1539312656', '1539312656');
-INSERT INTO `wb_comment` VALUES ('10', '1', '2', '我是第9个', '4444444444444444444444', '', '1', '1539313225', '1539313225');
-INSERT INTO `wb_comment` VALUES ('12', '1', '2', '我是第11个', '我只是来看一下是不是这个样子的哦,没有其它事我就先走了\n', '', '1', '1539336321', '1539336321');
-INSERT INTO `wb_comment` VALUES ('13', '1', '2', '电脑CPU风扇清理后无法开机', '电脑CPU风扇清理后显示屏不显示,网口指示灯不亮', '', '1', '1539567297', '1539567297');
+INSERT INTO `wb_comment` VALUES ('14', '3', '2', '', '', '', '1', '', '');
+INSERT INTO `wb_comment` VALUES ('15', '3', '2', '', '', '', '1', '', '');
+INSERT INTO `wb_comment` VALUES ('16', '3', '2', '', '', '', '1', '', '');
+INSERT INTO `wb_comment` VALUES ('17', '3', '2', '', '', '', '1', '', '');
 
 -- -----------------------------
 -- Table structure for `wb_comment_cate`
@@ -249,21 +243,20 @@ CREATE TABLE `wb_comment_reply` (
   `content` varchar(1000) DEFAULT NULL,
   `thumb` varchar(1000) DEFAULT NULL,
   `ip` varchar(255) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL COMMENT '0:待审核;1:通过,2未通过',
   `addtime` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- -----------------------------
 -- Records of `wb_comment_reply`
 -- -----------------------------
-INSERT INTO `wb_comment_reply` VALUES ('1', '1', '3', 'mingyu', '555555555555555555555', '', '', '1', '1539652054');
-INSERT INTO `wb_comment_reply` VALUES ('1', '1', '3', 'mingyu', '77777777777777777777777777777', '', '', '1', '1539652173');
+INSERT INTO `wb_comment_reply` VALUES ('1', '1', '3', 'mingyu', '77777777777777777777777777777', '', '', '0', '1539652173');
 INSERT INTO `wb_comment_reply` VALUES ('1', '1', '3', 'mingyu', '85645634534', '', '', '1', '1539652188');
 INSERT INTO `wb_comment_reply` VALUES ('1', '1', '3', 'mingyu', '45345etdgxdscvs', '', '', '1', '1539652192');
 INSERT INTO `wb_comment_reply` VALUES ('1', '1', '3', 'mingyu', 'sdfasasdasdasdczxcz', '', '', '1', '1539652195');
 INSERT INTO `wb_comment_reply` VALUES ('1', '1', '3', 'mingyu', 'asdasdfwegrtgtr', '', '', '1', '1539652199');
 INSERT INTO `wb_comment_reply` VALUES ('1', '1', '3', 'mingyu', 'ewrqsdasdasdasd', '', '', '1', '1539652203');
-INSERT INTO `wb_comment_reply` VALUES ('1', '4', '3', 'mingyu', '看到我没有?', '', '', '1', '1539656532');
+INSERT INTO `wb_comment_reply` VALUES ('1', '4', '3', 'mingyu', '看到我没有?', '', '', '2', '1539656532');
 INSERT INTO `wb_comment_reply` VALUES ('13', '4', '1', 'admin', '一样的,不知道是哪里出错了,弄了好几天了还是这样', '', '', '1', '1539660595');
 
 -- -----------------------------
@@ -295,6 +288,8 @@ INSERT INTO `wb_comment_zan` VALUES ('1', '4', '1', '', '1539660790', '153965205
 INSERT INTO `wb_comment_zan` VALUES ('13', '1', '4', '', '1539671200', '1539660595');
 INSERT INTO `wb_comment_zan` VALUES ('1', '1', '3', '', '1539671328', '1538979780');
 INSERT INTO `wb_comment_zan` VALUES ('13', '4', '1', '', '1539679324', '1539567297');
+INSERT INTO `wb_comment_zan` VALUES ('7', '1', '1', '', '1539834748', '1539834740');
+INSERT INTO `wb_comment_zan` VALUES ('7', '1', '4', '', '1539834749', '1539312611');
 
 -- -----------------------------
 -- Table structure for `wb_config`
@@ -311,7 +306,7 @@ CREATE TABLE `wb_config` (
   `width` varchar(255) DEFAULT NULL,
   `sort` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- -----------------------------
 -- Records of `wb_config`
@@ -322,10 +317,11 @@ INSERT INTO `wb_config` VALUES ('3', '首页标题', 'title', '我的标题', ''
 INSERT INTO `wb_config` VALUES ('4', 'META关键词', 'keywords', '我是关键词', '多个关键词用英文状态 , 号分割', 'textarea', '关键词控制在200个字符', '60%', '4');
 INSERT INTO `wb_config` VALUES ('5', 'META描述', 'description', '我是描述22', '', 'textarea', '', '60%', '5');
 INSERT INTO `wb_config` VALUES ('6', 'META验证', 'yuanz', '我是验证信息', '', 'text', '', '60%', '6');
-INSERT INTO `wb_config` VALUES ('7', '版权信息', 'foot', 'Copyright © 2002-2018 响应式互联网APP企业织梦模板 版权所有', '', 'textarea', '', '60%', '7');
+INSERT INTO `wb_config` VALUES ('7', '版权信息', 'foot', 'Copyright © 2018-2020 mingyu 版权所有', '', 'textarea', '', '60%', '7');
 INSERT INTO `wb_config` VALUES ('8', '网站LOGO', 'logo', './public/uploads/20180824\\7f938757ac7d23df3397cf2e00ddfa16.png', '', 'file', '高度为100px,尽量不要留空白', '200px', '8');
 INSERT INTO `wb_config` VALUES ('20', '手机号码', 'phone', '18798075208', '请输入手机号码', 'text', '手机号码为11位', '60%', '3');
 INSERT INTO `wb_config` VALUES ('22', 'ICP备案号', 'icpcode', '', '', 'text', '', '60%', '9');
+INSERT INTO `wb_config` VALUES ('23', '微信二维码', 'wxcode', './public/uploads/20181108\\ddb2f2b4f58b875bd80bbe20e9367029.jpg', '', 'file', '', '200px', '10');
 
 -- -----------------------------
 -- Table structure for `wb_group`
@@ -371,7 +367,7 @@ CREATE TABLE `wb_hook` (
 -- -----------------------------
 -- Records of `wb_hook`
 -- -----------------------------
-INSERT INTO `wb_hook` VALUES ('6', '23423', '2', '234', '23423', '234', '1,34234', '', '0', '1', '1534743162', '1534743162');
+INSERT INTO `wb_hook` VALUES ('6', '友情链接1', '2', '234', '23423', '234', '1,34234', './public/uploads/20181114\\b03bed55d5fe477888b8f0c79619e0cf.jpg', '0', '1', '1534743162', '1542176840');
 INSERT INTO `wb_hook` VALUES ('11', '', '1', '', '', '', '', './public/uploads/1.jpg', '1', '1', '0', '0');
 INSERT INTO `wb_hook` VALUES ('12', '', '1', '', '', '', '', './public/uploads/2.jpg', '2', '1', '0', '0');
 INSERT INTO `wb_hook` VALUES ('13', '', '1', '', '', '', '', './public/uploads/3.jpg', '3', '1', '0', '0');
@@ -492,6 +488,21 @@ INSERT INTO `wb_log` VALUES ('4', 'mingyua登录成功.', '1', '127.0.0.1', '14-
 INSERT INTO `wb_log` VALUES ('4', 'mingyua登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1539654186', '1539654186');
 INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1539660713', '1539660713');
 INSERT INTO `wb_log` VALUES ('4', 'mingyua登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1539679307', '1539679307');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '14-DD-A9-EA-77-0F', '本机地址', '', '1539825232', '1539825232');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1539914004', '1539914004');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1539938366', '1539938366');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1540174515', '1540174515');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1540449807', '1540449807');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1540450828', '1540450828');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1540976426', '1540976426');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1541556966', '1541556966');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1541640271', '1541640271');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1541731318', '1541731318');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1541755019', '1541755019');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1541757386', '1541757386');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1541988733', '1541988733');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1542071620', '1542071620');
+INSERT INTO `wb_log` VALUES ('1', 'admin登录成功.', '1', '127.0.0.1', '', '本机地址', '', '1542163527', '1542163527');
 
 -- -----------------------------
 -- Table structure for `wb_menu`
@@ -507,13 +518,13 @@ CREATE TABLE `wb_menu` (
   `status` int(11) DEFAULT NULL COMMENT '状态：1显示;0不显示',
   `sort` int(11) DEFAULT NULL COMMENT '排序 正序',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
 
 -- -----------------------------
 -- Records of `wb_menu`
 -- -----------------------------
 INSERT INTO `wb_menu` VALUES ('1', '0', '控制台', 'index/center', 'layui-icon-console', '1,80', '1', '1');
-INSERT INTO `wb_menu` VALUES ('16', '0', '设置', '', 'layui-icon-set', '16,17,18,21,43,44,45,46,53,54,55,56', '1', '3');
+INSERT INTO `wb_menu` VALUES ('16', '0', '设置', '', 'layui-icon-set', '16,17,18,21,43,44,45,46,53,54,55,56,88', '1', '3');
 INSERT INTO `wb_menu` VALUES ('17', '16', '系统设置', 'set/index', '', '17', '1', '2');
 INSERT INTO `wb_menu` VALUES ('18', '16', '菜单设置', 'menu/index', '', '18,53,54,55,56', '1', '2');
 INSERT INTO `wb_menu` VALUES ('19', '0', '日记管理', '', 'layui-icon-form', '19,20,63', '1', '7');
@@ -564,9 +575,9 @@ INSERT INTO `wb_menu` VALUES ('71', '64', '企业管理', 'shop/index', '', '71,
 INSERT INTO `wb_menu` VALUES ('72', '71', '删除企业', 'shop/alldel', '', '72', '0', '0');
 INSERT INTO `wb_menu` VALUES ('73', '0', '模板管理', '', 'layui-icon-template', '73,74,81', '1', '11');
 INSERT INTO `wb_menu` VALUES ('74', '73', '模板列表', 'template/index', '', '74,81', '1', '0');
-INSERT INTO `wb_menu` VALUES ('75', '0', '问答模型', '', 'layui-icon-dialogue', '75,76,77,78,79,82,83,84,85', '1', '6');
-INSERT INTO `wb_menu` VALUES ('76', '75', '问答列表', 'comment/index', '', '76,79,82,83', '1', '1');
-INSERT INTO `wb_menu` VALUES ('77', '75', '话题列表', 'comment/cate', '', '77,78,84,85', '1', '2');
+INSERT INTO `wb_menu` VALUES ('75', '0', '社区系统', '', 'layui-icon-dialogue', '75,76,77,78,79,82,83,84,85,86,87', '1', '6');
+INSERT INTO `wb_menu` VALUES ('76', '75', '帖子列表', 'comment/index', '', '76,79,82,83,86', '1', '1');
+INSERT INTO `wb_menu` VALUES ('77', '75', '帖子分类', 'comment/cate', '', '77,78,84,85', '1', '3');
 INSERT INTO `wb_menu` VALUES ('78', '77', '添加/修改话题', 'comment/addcommentcate', '', '78', '1', '0');
 INSERT INTO `wb_menu` VALUES ('79', '76', '查看', 'comment/view', '', '79', '1', '1');
 INSERT INTO `wb_menu` VALUES ('80', '1', '密码修改', 'user/repwd', '', '80', '0', '0');
@@ -575,7 +586,30 @@ INSERT INTO `wb_menu` VALUES ('82', '76', '添加/修改问答', 'comment/addcom
 INSERT INTO `wb_menu` VALUES ('83', '76', '删除问题', 'comment/delete', '', '83', '0', '0');
 INSERT INTO `wb_menu` VALUES ('84', '77', '删除话题分类', 'comment/deletecate', '', '84', '0', '0');
 INSERT INTO `wb_menu` VALUES ('85', '77', '全部删除', 'comment/alldelcate', '', '85', '0', '0');
-INSERT INTO `wb_menu` VALUES ('86', '76', '全部删除', 'comment/alldel', '', '', '0', '0');
+INSERT INTO `wb_menu` VALUES ('86', '76', '全部删除', 'comment/alldel', '', '86', '0', '0');
+INSERT INTO `wb_menu` VALUES ('87', '75', '回帖列表', 'comment/reply', '', '87', '1', '2');
+INSERT INTO `wb_menu` VALUES ('88', '16', '路由美化', 'urlbutty/index', '', '88', '1', '4');
+INSERT INTO `wb_menu` VALUES ('89', '73', '模板设置', 'template/set', '', '', '1', '2');
+
+-- -----------------------------
+-- Table structure for `wb_order`
+-- -----------------------------
+DROP TABLE IF EXISTS `wb_order`;
+CREATE TABLE `wb_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `desc` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL COMMENT '0:未处理,1:已派单,2:服务中,3:结束',
+  `servicetime` int(11) DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  `shop` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `addtime` int(11) DEFAULT NULL,
+  `endtime` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- -----------------------------
 -- Table structure for `wb_shoper`
@@ -777,6 +811,7 @@ INSERT INTO `wb_thumb` VALUES ('5', './public/uploads/20180830/c3c39f99a966f3fe4
 INSERT INTO `wb_thumb` VALUES ('6', './public/uploads/20180830/5bcbbaabf77f2dc2d3c79c437b84e423.png', '0');
 INSERT INTO `wb_thumb` VALUES ('2', './public/uploads/20180830/503aad5f10054f3cd179505108cb1641.png', '0');
 INSERT INTO `wb_thumb` VALUES ('8', './public/uploads/20180831/ed429bbef3a4e5e9a17c0b31bb5068af.png', '0');
+INSERT INTO `wb_thumb` VALUES ('1', './public/uploads/20181108/6697c94dd0f79ac3e31c677272e8669d.jpg', '0');
 
 -- -----------------------------
 -- Table structure for `wb_user`
@@ -799,6 +834,6 @@ CREATE TABLE `wb_user` (
 -- -----------------------------
 -- Records of `wb_user`
 -- -----------------------------
-INSERT INTO `wb_user` VALUES ('1', '1', '1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', './public/uploads/avatar/1534823171.gif', '18798075208', '1', '1533519038', '1539738416');
+INSERT INTO `wb_user` VALUES ('1', '1', '1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', './public/uploads/avatar/1534823171.gif', '18798075208', '1', '1533519038', '1542163527');
 INSERT INTO `wb_user` VALUES ('3', '1', '2', 'mingyu', 'e10adc3949ba59abbe56e057f20f883e', './public/uploads/avatar/1534823334.gif', '18798075208', '1', '1534152368', '1534755300');
 INSERT INTO `wb_user` VALUES ('4', '1', '1', 'mingyua', 'e10adc3949ba59abbe56e057f20f883e', './public/uploads/avatar/8.jpg', '18798075208', '1', '1534152368', '1539679307');
