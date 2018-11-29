@@ -1,0 +1,77 @@
+<div class="layui-fluid">
+	<div id="layui-row">
+		<div class="layui-col-xs12">
+			<div class="layui-card">
+				<div id="demoTable" class="layui-card-header pt-10 disnone"> 
+
+					<div class="layui-form pull-right">
+							<div class="layui-inline"><input type="text" name="keywords" id="keywords" class="layui-input" placeholder="请输入标题" value="" /> </div>
+							<div class="layui-inline"><button class="layui-btn" id="reloadtable"><i class="layui-icon layui-icon-search"></i></button></div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-card-body">
+					<table class="layui-hide" id="tabledata" lay-filter="list"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
+</div>
+<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+	<button class="layui-btn layui-btn-sm"  lay-href="{:URL('wxchat/wxadd')}" ><i class="layui-icon layui-icon-add-circle"></i>添加文章</button> 
+    <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="getCheckData" data-url="{:URL('wxchat/alldel')}"  title="删除选中"><i class="layui-icon layui-icon-delete"></i></button>
+  	<button class="tollbarright pull-right" lay-event="search"><i class="layui-icon layui-icon-search"></i></button>
+  </div>
+</script>
+<script type="text/html" id="barDemo">
+	<a class="layui-btn layui-btn-xs" lay-href="{:URL('wxchat/wxadd')}?id={{d.id}}" data-title="编辑" >编辑</a>
+</script>
+<script>
+	
+layui.use(['table','form','laydate'], function() {
+		var table=layui.table,form=layui.form,laydate=layui.laydate;
+		form.render();
+		table.render({
+			elem: '#tabledata',
+			toolbar: '#toolbarDemo',
+			url: "{:URL('wxchat/wxalist')}" //数据接口
+
+			,page: true //开启分页
+			,id:'tablist'
+			,cols: [
+				[ //表头
+					{
+						checkbox: true,
+						fixed: true,
+						fixed: 'left'
+					}, {
+						field: 'id',
+						title: 'ID',
+						width: 80,
+						sort: true
+					},{
+						field: 'title',
+						title: '文章标题'
+					},{
+						field: 'addtime',
+						title: '添加时间',
+						width: 200
+					},{
+						fixed: 'right',
+						width: 178,
+						align: 'center',
+						toolbar: '#barDemo'
+					}
+				]
+			]
+		});
+		
+laydate.render({
+    elem: '#daterange'
+    ,range: true
+});		
+		
+});
+</script>

@@ -1,0 +1,81 @@
+<div class="layui-fluid  layui-form">
+	<input type="hidden" name="itemid" id="itemid" value="" />
+	<input type="hidden" name="menuid" id="menuid" value="" />
+	<div class="layui-row">
+		<div id="wxmenu" class="layui-col-xs12 bd-bd">
+			<div class="layui-col-xs4 bd-r t-c">
+				<div class="wxmenu-box pull-right">
+					<h2 class="t-c">微信菜单</h2>
+						<div class="wxmenulist">
+						</div>
+
+					<div class="content">
+						<ul id="menunav"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-xs8 bg-eee">
+				<div class="wxmenu-content">
+					<div class="notype">
+					<h2><span class="title">首页</span><span class="del">删除菜单</span></h2>
+					<div class="box">
+						  <div class="layui-form-item">
+						    <label class="layui-form-label">菜单名称:</label>
+						    <div class="layui-input-inline">
+						      <input id="menuname" type="text" name="name" lay-verify="required|name" placeholder="菜单名称" autocomplete="off" class="layui-input">
+						    </div>
+						    <div class="layui-form-mid layui-word-aux">字数不超过5个汉字或16个字符</div>
+						     <label class="layui-form-label">排序:</label>
+						    <div class="layui-input-inline">
+						      <input id="sort" type="text" name="sort" lay-verify="number" autocomplete="off" class="layui-input" value="1">
+						    </div>
+						    <div class="layui-form-mid layui-word-aux">升序排列,由下往上,从左到右</div>
+						  </div>
+						    <div class="menunavbox">
+							  <div class="layui-form-item">
+							    <label class="layui-form-label">菜单内容</label>
+							    <div class="layui-input-block">
+							      <input id="menutype1" type="radio" name="type" value="click" title="发送消息" lay-filter="radiotype"  >
+							      <input id="menutype2" type="radio" name="type" value="view" title="跳转网页" lay-filter="radiotype" checked="">
+							    </div>
+							  </div>
+							  
+							  <div id="urlbox" class="changebox bd-bd pd-15 ">
+							  		<p class="mb-20">粉丝点击该菜单会跳转到以下链接: </p>
+									<div class="layui-form-item">
+									    <label class="layui-form-label">页面地址:</label>
+									    <div class="layui-input-block">
+									      <input  id="menuurl" type="text" name="url" lay-verify="diyurl" placeholder="页面地址:必须以http://开头" autocomplete="off" class="layui-input">
+									    </div>	
+
+									</div>						  	
+							  </div>
+							  <div  id="tuwenbox" class="changebox bd-bd pb-10 disnone">
+									<h3 class="">图文消息 <input id="unid" type="hidden" name="unid" value="" /></h3>
+							  		<div id="tableSelect" class="article bd-bd">
+							  			<a><i class="layui-icon layui-icon-add-1 f-30"></i></a>
+							  		</div>
+							  </div>
+								
+							</div>
+					</div>
+				</div>
+				</div>
+				
+			</div>
+			<div class="posb">
+					<div class="layui-btn mb-10" lay-submit lay-filter="submit"  data-url="{:URL('wxchat/edit')}">保存</div>
+					<div id="wxmenucreate" class="layui-btn mb-10">生成菜单</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="layui-clear" style="height: 100px;">&nbsp;</div>
+</div>
+<script>
+	var wxmenudata={$wxmenudata|raw};
+	
+</script>
+{load href="__MANAGE__/wxmenu.js"}
+
+
