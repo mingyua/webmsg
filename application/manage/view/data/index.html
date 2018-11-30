@@ -10,7 +10,7 @@
 								<div class="layui-inline">
 									<select id="table" name="table">
 										<option value="">选择表</option>
-										<option value="commodity">商品表</option>
+										<option value="gongzhi">商品表</option>
 										<option value="article">文章表</option>
 									</select>
 								</div>
@@ -37,36 +37,19 @@
 		var $ = layui.jquery,
 			element = layui.element,
 			form = layui.form,
-			upload = layui.upload,
-			suc = "{$success}",
-			page = "{$page|default='0'}",
-			datatab = "{$table|default=''}",
-			st = "{$status|default='0'}",
-			percent = "{$percent|default='0'}";
-		element.progress('demo', percent);
+			upload = layui.upload;
+
 		form.render();
-		if(suc == 'ok') {
-			$('.layui-progress').hide();
-			$('.successmsg').removeClass('layui-hide');
-		}
-		if(st == 1) {
-			$('#lay-body').load('/manage/data/index/page/' + (Number(page) + 1) + "/table/" + datatab);
-		} else if(st == 2) {
-			$('#lay-body').load('/manage/data/index/status/ok');
-		} else {
-			$('.layui-progress-text').html('0%');
-		}
 		upload.render({
 			elem: '.demoMore',
 			before: function() {
 				layer.load(0);
 			},
 			done: function(res, index, upload) {
-				var item = this.item,
-					tables = $('#table').val();
+				var item = this.item,tables = $('#table').val();
 				layer.closeAll();
 				if(tables) {
-					$('#lay-body').load("/manage/data/index/page/1/table/" + tables, function(res, status) {
+					$('#adminbody').load("{:URL('data/progress')}", function(res, status) {
 						if(status == 'success') {} else {
 							$('#lay-body').html("<h2 class='t-c'>请上传正确的数据表！</h2>");
 						}

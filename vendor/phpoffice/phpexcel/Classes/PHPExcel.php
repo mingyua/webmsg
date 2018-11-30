@@ -1135,34 +1135,29 @@ class PHPExcel
     public function getID() {
         return $this->_uniqueID;
     }
-	public function read($filename,$encode,$file_type,$page,$size){
-            if(strtolower ( $file_type )=='xls')//判断excel表类型为2003还是2007
-            {
-            	require(PHPEXCEL_ROOT.'PHPExcel/Reader/Excel5.php');	
-                
-                $objReader = PHPExcel_IOFactory::createReader('Excel5');
-                $objReader = PHPExcel_IOFactory::createReader('Excel5');
-
-            }elseif(strtolower ( $file_type )=='xlsx')
-            {
-            	require(PHPEXCEL_ROOT . 'PHPExcel/Reader/Excel2007.php');	
-               
-                $objReader = PHPExcel_IOFactory::createReader('Excel2007');
-            }
+	public function read($filename,$encode,$file_type){
+        	require(PHPEXCEL_ROOT.'PHPExcel/Reader/Excel5.php');	
+        	require(PHPEXCEL_ROOT . 'PHPExcel/Reader/Excel2007.php');	
+	
+			if(strtolower ( $file_type ) =='xlsx' ){
+				 $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+			}else{
+				 $objReader = PHPExcel_IOFactory::createReader('Excel5');
+			}
+		
             $objReader->setReadDataOnly(true);
             $objPHPExcel = $objReader->load($filename);
             $objWorksheet = $objPHPExcel->getActiveSheet();
             $highestRow = $objWorksheet->getHighestRow();
-            $start=($page-1)*$size +1;
-            $limit=$page*$size;
+			$row=
             $highestColumn = $objWorksheet->getHighestColumn();
             $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
             $excelData = array();
-            for ($row = $start; $row <= $limit; $row++) {
-                for ($col = 0; $col < $highestColumnIndex; $col++) {
-                    $excelData['data'][$row][] =(string)$objWorksheet->getCellByColumnAndRow($col, $row)->getValue();
-                    }
-            }
+		   for ($row = 2; $row <= $highestRow; $row++) {  
+                for ($col = 0; $col < $highestColumnIndex; $col++) {  
+                    $excelData[$row][] =(string)$objWorksheet->getCellByColumnAndRow($col, $row)->getValue();  
+                    }  
+            }              
             $excelData['count']=$highestRow;
             return $excelData;
     }    

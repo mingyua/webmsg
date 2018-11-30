@@ -11,11 +11,14 @@ namespace app\manage\controller;
 use think\Controller;
 use think\Db;
 use think\facade\Session;
+use PHPExcel_IOFactory;
+use PHPExcel;
 class Upload extends Controller
 {
 	//单个文件上传
     public function index()
     {
+    	$sqlname='./public/excel/'.time().".sql";
 		$file = request()->file('file');
 	    // return ['msg'=>json_encode($file),'status'=>2];
 	       $path='./public/uploads';   
@@ -23,8 +26,14 @@ class Upload extends Controller
 	    if($file){
 	        $info = $file->move($path);
 	        if($info){
-	        	Session::set('files',$path."/".$info->getSaveName());
-	        	return ['msg'=>'上传成功！','status'=>1,'data'=>$path."/".$info->getSaveName()];
+	        	
+				$excel = new \PHPExcel(); 	
+			    $res=$excel->read($path."/".$info->getSaveName(),"UTF-8",'xls');//传参,
+				file_put_contents($sqlname, json_encode($res));
+				
+				
+	        	session('sqlname',$sqlname);
+	        	return ['msg'=>'上传成功！','status'=>1,'data'=>input()];
 	        }else{
 	            // 上传失败获取错误信息
 	            return ['msg'=>$file->getError(),'status'=>2];

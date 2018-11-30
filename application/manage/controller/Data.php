@@ -38,61 +38,16 @@ class Data extends Auth
      */
     public function index()
     {    	
-    	$page=input('page');//当前页码
-    	$table=input('table');//当前页码
-    	$pagesize='100';//每页显示条数
-		if(isset($page)){
-	       	$files=Session::get('files');
-			$excel = new \PHPExcel(); 
-			//dump($res=$excel->read($files,"UTF-8",'xls','31',$pagesize));die(); 
-		    $res=$excel->read($files,"UTF-8",'xls',$page,$pagesize);//传参,
-			$totalpage=ceil($res['count']/$pagesize);//总页数		
-			$percent=ceil(($page/$totalpage)*100) ."%";
-	        $this->assign('count',$totalpage);
-	        $this->assign('percent',$percent);
-	        $this->assign('page',$page);	
-	        $this->assign('table',$table);	
-	        if($page==1){
-	        	$data=array_splice($res['data'],1);
-	        	$header=$res['data'][0];
-	        	Session::set('header',$header);
-	        	$newdata=[];
-	        	foreach($data as $k=>$v){
-	        		foreach($v as $a=>$b){
-	        			$newdata[$k][$header[$a]]=$b;
-	        		}
-	        		
-	        	}	      	         	
-	        }else{
-	        	$header=Session::get('header');
-	        	$data= $res['data'];
-	        	$newdata=[];
-	        	
-	        	foreach($data as $k=>$v){
-		        		foreach($v as $a=>$b){
-		        			if(strlen($v[1])>0){		        			
-		        			$newdata[$k][$header[$a]]=$b;
-		        			}		        			
-		        		}
-	        	}
-	        	
-	        }	        
-	       $result=Db::name($table)->insertAll($newdata, true);	
-	       if(false===$result){
-	       		$this->assign('status',0);
-	       }else{
-				if($page<$totalpage){
-			        $this->assign('status',1);
-				}else if($page==$totalpage){
-					$this->assign('status',2);
-				}
-	       	
-	       }					
-	       
-			
-		}
+
+		$pathsql=session('sqlname');
+		dump($pathsql);		
 		
-			$this->assign('success',input('status'));
+		$field=['个人编号','身份证号码','医保卡号','姓名','养老','失业','医疗'	,'工伤'	,'生育'	,'大额'	,'合计'	,'医保卡',	'公积金'	,'费用报销'];
+		
+		$content=file_get_contents($pathsql);
+		dump(json_decode($content,true));
+		
+		
 	        return view();
 			
 		
@@ -320,12 +275,12 @@ class Data extends Auth
    	public function progress($start=0,$excnum=800){
    		if($start==0){
    			$this->assign('start',1);
-			return $this->fetch();
+			return view();
    			die();
    		}
    		$endLine=$start+$excnum;
 		$data=readBigFileLines('./sql.sql',$start,$start+$excnum-1);
-		dump(preg_replace('/[（）？]/isu', '', $data['content']));die();
+		//dump(preg_replace('/[（）？]/isu', '', $data['content']));die();
 		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/transitional.dtd"><html><head><title>动态显示服务器运行程序的进度条</title><meta http-equiv="Content-Type" content="text/html; charset=utf8"></head><script type="text/javascript">function addtext(t,j){document.getElementById("boxtext").innerHTML=document.getElementById("boxtext").innerHTML+t;}</script><body><div id="boxtext" style="display: block;width: 400px;height: 400px;overflow-x: hidden;background: #FFF;border: 1px solid #ccc;margin: auto auto;padding: 10px;"></div>';
 		$i=0;
 		foreach($data['content'] as $v){						
@@ -347,7 +302,7 @@ class Data extends Auth
 		
         EshowMsg(1,'<center style="display:block;width:100%;color:green;font-size:24px;line-height:40px">(@_@)<br> 恭喜您！数据导入完成</center>');
    		
-   		return $this->fetch();
+   		return view();
 	}
    
 }
