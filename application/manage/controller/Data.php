@@ -38,14 +38,43 @@ class Data extends Auth
      */
     public function index()
     {    	
+		
+		$zd=Db::query("select column_name,column_comment,data_type from information_schema.columns where table_name='wb_gongzhi'");
+		$field=[];
+		foreach($zd as $k=>$v){
+			$field[]=$v['column_name'];
+		}
 
+		$f='ID,username,sf_code,money,jiaban_money,jixiao_money,butie_money,jineng_money,yinfa_money,shifa_money,yanglao,shiye,yiliao,gongjijing,geshui,kaoqing,sendtime';
+		
 		$pathsql=session('sqlname');
-		dump($pathsql);		
-		
-		$field=['个人编号','身份证号码','医保卡号','姓名','养老','失业','医疗'	,'工伤'	,'生育'	,'大额'	,'合计'	,'医保卡',	'公积金'	,'费用报销'];
-		
+		//
+
 		$content=file_get_contents($pathsql);
-		dump(json_decode($content,true));
+		$data=json_decode($content,true);
+		unset($data['count']);
+		$new=[];
+		$i=0;
+		foreach($data as $k=> $v){
+			$j=0;				
+			foreach($v as $a){
+				if(empty($a)){
+					$new[$i][$j]='null';
+				}else{
+					$new[$i][$j]=$a;	
+				}
+				$j++;
+			}
+			$i++;
+		}
+		//$newval=[];
+		foreach($new as $k=>$v){
+			$newval="'".str_replace(',',"','",implode(',',$v))."'";
+			//echo "insert ignore into wb_gongzhi (".$f.")values(".$newval.")";
+		}
+		//dump($newval);
+		//echo "insert ignore into wb_gongzhi (".$f.")values(".implode(',',$v).")";
+		
 		
 		
 	        return view();
