@@ -38,44 +38,21 @@ class Data extends Auth
      */
     public function index()
     {    	
-		
-		$zd=Db::query("select column_name,column_comment,data_type from information_schema.columns where table_name='wb_gongzhi'");
-		$field=[];
-		foreach($zd as $k=>$v){
-			$field[]=$v['column_name'];
-		}
-
-		$f='ID,username,sf_code,money,jiaban_money,jixiao_money,butie_money,jineng_money,yinfa_money,shifa_money,yanglao,shiye,yiliao,gongjijing,geshui,kaoqing,sendtime';
-		
-		$pathsql=session('sqlname');
-		//
-
-		$content=file_get_contents($pathsql);
-		$data=json_decode($content,true);
-		unset($data['count']);
-		$new=[];
-		$i=0;
-		foreach($data as $k=> $v){
-			$j=0;				
-			foreach($v as $a){
-				if(empty($a)){
-					$new[$i][$j]='null';
-				}else{
-					$new[$i][$j]=$a;	
-				}
-				$j++;
+		$table=input('table');
+		if(isset($table)){
+			if($table=='gongzhi'){
+				$field='ID,username,sf_code,money,jiaban_money,jixiao_money,butie_money,jineng_money,yinfa_money,shifa_money,yanglao,shiye,yiliao,gongjijing,geshui,kaoqing,sendtime';						
+			}else if($table='shebao'){
+				$field='id,sf_code,yb_code,name,yanglao,shiye,yiliao,gongshang,shengyu,daer,total,remark,gongjijin,baoxiao,sendtime';									
+			}else{
+				$field='';
 			}
-			$i++;
+			$sta=excelToArrfile($field,$table);	
+			if($sta=='ok'){
+				 return redirect(URL('data/progress',array('start'=>1,'table'=>$table)));
+			}
 		}
-		//$newval=[];
-		foreach($new as $k=>$v){
-			$newval="'".str_replace(',',"','",implode(',',$v))."'";
-			//echo "insert ignore into wb_gongzhi (".$f.")values(".$newval.")";
-		}
-		//dump($newval);
-		//echo "insert ignore into wb_gongzhi (".$f.")values(".implode(',',$v).")";
-		
-		
+
 		
 	        return view();
 			
@@ -301,35 +278,38 @@ class Data extends Auth
 	 * @var   $excnum  每次执行多少条
 	 * 
 	 */
-   	public function progress($start=0,$excnum=800){
+   	public function progress($start=0,$excnum=800,$table){
    		if($start==0){
    			$this->assign('start',1);
+   			$this->assign('table',$table);
 			return view();
    			die();
    		}
    		$endLine=$start+$excnum;
-		$data=readBigFileLines('./sql.sql',$start,$start+$excnum-1);
+		$data=readBigFileLines("./public/excel/".$table.".sql",$start,$start+$excnum-1);
 		//dump(preg_replace('/[（）？]/isu', '', $data['content']));die();
 		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/transitional.dtd"><html><head><title>动态显示服务器运行程序的进度条</title><meta http-equiv="Content-Type" content="text/html; charset=utf8"></head><script type="text/javascript">function addtext(t,j){document.getElementById("boxtext").innerHTML=document.getElementById("boxtext").innerHTML+t;}</script><body><div id="boxtext" style="display: block;width: 400px;height: 400px;overflow-x: hidden;background: #FFF;border: 1px solid #ccc;margin: auto auto;padding: 10px;"></div>';
 		$i=0;
 		foreach($data['content'] as $v){						
 			$i++;$yu=$start++;
-			if(true==Db::execute('insert into '.$v)){
+			if(true==Db::execute($v)){
 				EshowMsg(3,'<div style="float:left;">第<font color="red">  '. $yu .'</font>条数据完成</div><div style="float:right;">余:'.($data['totalnum'] - $yu).'条</div>'); //显示程序进度	
 				usleep(rand(10000, 12000));	
 			}else{
-				EshowMsg($start++,'中断...');
+				EshowMsg($start++,'第<font color="red">  '. $i .'</font>条,跳过重复数据...');
 			}			
 		}
 		if($i=$excnum and ($data['totalnum']-$start)>0){
 			EshowMsg(1,'正在跳转到下一个页面...');
 			sleep(1);
-			$jump=URL('data/progress',array('start'=>$endLine));
+			$jump=URL('data/progress',array('start'=>$endLine,'table'=>$table));
 			echo "<script>window.location.href='".$jump."';</script>";
 					
 		}
-		
+		unlink("./public/excel/".$table.".sql");
         EshowMsg(1,'<center style="display:block;width:100%;color:green;font-size:24px;line-height:40px">(@_@)<br> 恭喜您！数据导入完成</center>');
+		
+		
    		
    		return view();
 	}

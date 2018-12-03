@@ -18,6 +18,8 @@ class Upload extends Controller
 	//单个文件上传
     public function index()
     {
+    	
+		
     	$sqlname='./public/excel/'.time().".sql";
 		$file = request()->file('file');
 	    // return ['msg'=>json_encode($file),'status'=>2];
@@ -26,12 +28,9 @@ class Upload extends Controller
 	    if($file){
 	        $info = $file->move($path);
 	        if($info){
-	        	
 				$excel = new \PHPExcel(); 	
-			    $res=$excel->read($path."/".$info->getSaveName(),"UTF-8",'xls');//传参,
+			    $res=$excel->read($path."/".$info->getSaveName(),"UTF-8",substr(strrchr($info->getSaveName(), '.'), 1));//传参,
 				file_put_contents($sqlname, json_encode($res));
-				
-				
 	        	session('sqlname',$sqlname);
 	        	return ['msg'=>'上传成功！','status'=>1,'data'=>input()];
 	        }else{

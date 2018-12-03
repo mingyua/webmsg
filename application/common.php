@@ -395,6 +395,36 @@ function EshowMsg($type=1,$msg='数据导入完成!',$jump=0){
   // 将不在缓冲中的或者说是被释放出来的数据发送到浏览器
     flush();
 	
+}
+
+
+//
+function excelToArrfile($field,$table){
+		$pathsql=session('sqlname');
+		$content=file_get_contents($pathsql);
+		$data=json_decode($content,true);
+		unset($data['count']);
+		$new=[];
+		$i=0;
+		foreach($data as $k=> $v){
+			$j=0;				
+			foreach($v as $a){
+				if(empty($a)){
+					$new[$i][$j]=0;
+				}else{
+					$new[$i][$j]=$a;	
+				}
+				$j++;
+			}
+			$i++;
+		}
+		foreach($new as $k=>$v){
+			$newval="'".str_replace(',',"','",implode(',',$v))."'";
+			file_put_contents('./public/excel/'.$table.'.sql', "insert ignore into wb_".$table." (".$field.",status,addtime)values(".$newval.",'1',".time().");".PHP_EOL,FILE_APPEND);
+		}
+		unlink($pathsql);
+		session('sqlname',null);
+		return 'ok';
 }	
 	
 //加密函数
