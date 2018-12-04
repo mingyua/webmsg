@@ -144,7 +144,7 @@ class Wxchat extends Controller
 		$where[]=['id','neq',0];
 		$where[]=['title','like','%'.$title.'%'];
 		$count=db('wxarticle')->where($where)->count('id');
-       $list=db('wxarticle')->where($where)->field('id,title,description,thumb')->order('id DESC')->limit($fristlimit,$limit)->select();
+       $list=db('wxarticle')->where($where)->field('id,title,desc,thumb')->order('id DESC')->limit($fristlimit,$limit)->select();
 	   $data=['code'=>0,'msg'=>'','count'=>$count,'data'=>$list];
 	   return $data;
     }
