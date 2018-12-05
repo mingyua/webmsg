@@ -233,6 +233,16 @@ layui.use(['table','form','laydate','tableSelect'], function() {
 			}, function(){});		
 		
 	});
+	$('#wxmenudel').click(function(){
+			layer.confirm('如非必须,请勿频繁删除菜单,您确认要执行此操作吗？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+				ajaxmenu('wxmenu','menu_delete');
+			}, function(){});		
+		
+	});
+
+
 
  form.verify({
     name: function(value){

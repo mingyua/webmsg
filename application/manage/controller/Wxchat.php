@@ -4,9 +4,15 @@ namespace app\manage\controller;
 
 use think\Controller;
 use think\Request;
-
+use wxpay\Wechat; 
 class Wxchat extends Controller
 {
+	public function initialize(){
+		
+		$this->weixin = new Wechat("wxe3fec0b1bc8130e3", "f9fadff1fad55f570686bf2d66c86e51");
+		
+	
+	}
     /**
      * 显示资源列表
      *
@@ -14,6 +20,7 @@ class Wxchat extends Controller
      */
     public function index()
     {
+    	
 
 		$wxmenu=db('wxmenu')->select();
 			$arr=catechannel($wxmenu,0,1);
@@ -240,51 +247,92 @@ class Wxchat extends Controller
 	
 	//微信菜单生成
 	public function createMenu(){
-		
-		$wxmenu=db('wxmenu')->select();
-			$arr=catechannel($wxmenu,0,1);
-			$Tree=[];
-			foreach($arr as $k=>$v){
-				
-				$Tree[$k]=array_filter($v);
-				if($v['children']){
-					foreach($v['children'] as $kk=>$vv){
-						$Tree[$k]['sub_button'][$kk]=array_filter($vv);
-						unset($Tree[$k]['children']);
-					}
+		$newlist=db('wxmenu')->order('sort asc')->select();
+		$arr=catechannel($newlist,0,1);
+		$newlist=[];
+		foreach($arr as $k=>$v){
+			$newlist[$k]['name']=$v['name'];			
+			if(isset($v['type'])){
+				$newlist[$k]['type']=$v['type'];
+				if($v['type']=='click'){					
+					$newlist[$k]['key']=$v['key'];
+				}else if($v['type']=='view'){
+					$newlist[$k]['url']=$v['url'];
+				}
+			}else{
+				$i=0;
+				$arrsort=array_sort($v['children'], 'sort');
+				foreach($arrsort as $kk=>$vv){
+					$newlist[$k]['sub_button'][$i]['name']=$vv['name'];
+					$newlist[$k]['sub_button'][$i]['type']=$vv['type'];
+				if($vv['type']=='click'){
 					
-				}else{
-					$Tree[$k]['sub_button']=[];
-				}
-				
-			}	
-		$wxlist=array_sort($Tree, 'sort');
-		foreach($wxlist as $k=>$v){
-			unset($wxlist[$k]['id']);
-			unset($wxlist[$k]['pid']);
-			unset($wxlist[$k]['sort']);
-			unset($wxlist[$k]['addtime']);
-			unset($wxlist[$k]['level']);
-			unset($wxlist[$k]['unid']);
-			if($v['sub_button']){
-				foreach($v['sub_button'] as $kk=>$vv){
-					unset($wxlist[$k]['sub_button'][$kk]['id']);
-					unset($wxlist[$k]['sub_button'][$kk]['pid']);
-					unset($wxlist[$k]['sub_button'][$kk]['sort']);
-					unset($wxlist[$k]['sub_button'][$kk]['addtime']);
-					unset($wxlist[$k]['sub_button'][$kk]['level']);
-					unset($wxlist[$k]['sub_button'][$kk]['unid']);
+					$newlist[$k]['sub_button'][$i]['key']=$vv['key'];
+				}else if($vv['type']=='view'){
 
+					$newlist[$k]['sub_button'][$i]['url']=$vv['url'];
+				}
+					$i++;
 				}
 				
-			}			
-		}	
-				
-		$data=['menu'=>array('button'=>$wxlist)]; 
-		
-		$back=['msg'=>'操作成功！','status'=>1,'icon'=>6,'data'=>json_encode($data)];
+			}
+		}			
+		$data=array('button'=>$newlist); 			
+		$menu=$this->weixin->menu_create(json_encode($data,JSON_UNESCAPED_UNICODE));
+		if($menu['errmsg']=='ok'){
+			$back=['msg'=>'操作成功！','status'=>1,'icon'=>6];
+		}else{
+			$back=['msg'=>$menu['errmsg'],'status'=>0,'icon'=>5];
+		}
 		return $back;
 	}
+	
+	//
+	public function menu_delete()
+	{
+		$menus=$this->weixin->menu_delete();
+		if($menus['errmsg']=='ok'){
+			$back=['msg'=>'操作成功！','status'=>1,'icon'=>6];
+		}else{
+			$back=['msg'=>$menus['errmsg'],'status'=>0,'icon'=>5];
+		}
+		
+		return $back;
+
+	}
+	/*发送客服消息 必须最近有消息来往否则不成功
+	 * $openid 不能为空
+	 * $msg 不能为空 
+	 */	
+	public function wxsendmsg($openid,$msg)
+	{
+		$sendmsg=$this->weixin->send_custom_message($openid, "text", $msg);		
+		$info=$this->weixin->get_user_info($openid);
+		if($sendmsg['errmsg']=='ok'){
+			$back=['msg'=>'操作成功！','status'=>1,'icon'=>6];
+		}else{
+			$back=['msg'=>$sendmsg['errmsg'],'status'=>0,'icon'=>5];
+		}
+		return $back;
+		//dump($sendmsg);
+
+	}
+	/* 获取关注用户列表
+	 * 
+	 */
+	public function wxgetlist(){
+		$cc=$this->weixin->get_user_list();
+		dump($cc);
+	}
+	/* 获取用户信息
+	 * 
+	 */
+	public function wxgetinfo($openid){
+		$info=$this->weixin->get_user_info($openid);
+		
+		return $info;
+	}
+	
 	
 	//微信接口
 	public function wxset()
