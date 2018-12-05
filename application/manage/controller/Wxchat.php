@@ -9,7 +9,7 @@ class Wxchat extends Controller
 {
 	public function initialize(){
 		
-		$this->weixin = new Wechat("wxe3fec0b1bc8130e3", "f9fadff1fad55f570686bf2d66c86e51");
+		$this->weixin = new Wechat('token',"appid", "appscrept");
 		
 	
 	}
